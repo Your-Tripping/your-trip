@@ -3,24 +3,21 @@ import styled, { css } from "styled-components";
 
 export const Button = styled.button<{ buttonType: string; children: ReactNode }>`
   color: ${({ theme }) => theme.colors.grey.grey1};
-  border-radius: 8px;
+  border-radius: 3px;
   transition: all .3s;
   ${({ buttonType }) => {
     switch (buttonType) {
       case "primary":
         return css`
-          background-color: ${({ theme }) => theme.colors.grey.grey2};
-          padding: 0.5rem 2rem;
-          color: ${({ theme }) => theme.colors.brand.primary};
-          &:hover {
-            background-color: ${({ theme }) => theme.colors.brand.primary};
-            color: ${({ theme }) => theme.colors.grey.grey1};
-          }
+          background-color: ${({ theme }) => theme.colors.brand.primary};
+          font-size: 14px;
+          padding: .3rem;
+          color: ${({ theme }) => theme.colors.grey.grey1};
         `;
       case "secondary":
         return css`
-          background-color: ${({ theme }) => theme.colors.grey.grey1};
-          width: 100%;
+          background-color: ${({ theme }) => theme.colors.brand.tertiary};
+          padding: .3rem;
           color: ${({ theme }) => theme.colors.brand.primary};
           &:hover {
             background-color: ${({ theme }) => theme.colors.brand.primary};
@@ -31,15 +28,23 @@ export const Button = styled.button<{ buttonType: string; children: ReactNode }>
         return css`
             background-color: ${({ theme }) => theme.colors.brand.primary};
             color: ${({ theme }) => theme.colors.grey.grey1};
+            width: 100%;
+            padding: .6rem;
             &:hover {
-                background-color: ${({ theme }) => theme.colors.brand.tertiary};
-                color: ${({ theme }) => theme.colors.grey.grey1};
+                background-color: ${({ theme }) => theme.colors.brand.secondary};
+                color: ${({ theme }) => theme.colors.brand.primary};
           }
         `;
-      case "custom":
+      case "outline":
         return css` 
-         background-color: transparent;
-         padding: 0;
+         border: 1px solid ${({ theme }) => theme.colors.brand.primary};
+            color: ${({ theme }) => theme.colors.brand.primary};
+            width: 100%;
+            padding: .6rem;
+            &:hover{
+                background-color: ${({ theme }) => theme.colors.brand.primary};
+                color: ${({ theme }) => theme.colors.grey.grey1};
+            }
          `
     }
   }}
