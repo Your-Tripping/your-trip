@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { ThemeProvider } from "styled-components";
 import { Button } from "./components/Button/button.style";
 import { Input } from "./components/Input/input.style";
-import { GlobalStyles } from "./styles/globla";
+import { GlobalStyles } from "./styles/global";
 import theme from "./styles/theme";
 
 const root = ReactDOM.createRoot(
