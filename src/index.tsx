@@ -13,6 +13,7 @@ root.render(
     <GlobalStyles />
     <ThemeProvider theme={theme}>
       <UserProvider>
+        <Dashboard />
       </UserProvider>
     </ThemeProvider>
   </React.StrictMode>
