@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import UserProvider from "./contexts/UserContext";
 import { GlobalStyles } from "./styles/global";
 import theme from "./styles/theme";
-
+import LandingPage from "./pages/Home";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -12,11 +12,9 @@ root.render(
   <React.StrictMode>
     <GlobalStyles />
     <ThemeProvider theme={theme}>
-    <UserProvider>
-      
-
-      
-    </UserProvider>
+      <UserProvider>
+        <LandingPage />
+      </UserProvider>
     </ThemeProvider>
   </React.StrictMode>
 );
