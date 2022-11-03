@@ -14,11 +14,6 @@ root.render(
     <GlobalStyles />
     <ThemeProvider theme={theme}>
       <div>
-        <Input placeholder="ehdnckjasmnk" />
-        <Button buttonType="primary">Enviar</Button>
-        <Button buttonType="secondary">Seguir</Button>
-        <Button buttonType="tertiary">aidwnjjx</Button>
-        <Button buttonType="outline">cbhsyziks</Button>
       </div>
     </ThemeProvider>
   </React.StrictMode>
