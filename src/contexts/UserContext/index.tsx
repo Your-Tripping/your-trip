@@ -36,7 +36,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         "Authorization"
       ] = `Bearer ${data.accessToken}`;
       setUser(data);
-      toast.success("Login concluído!");
+      toast.success("Login concluído!!");
     } catch (error) {
       toast.error("Ops! Algo está errado!");
       console.log(error);
