@@ -45,7 +45,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const singUp = async (body: iUserRegister) => {
     try {
-      const data = await register(body);
+      await register(body);
       toast.success("Cadastro concluído, faça login para continuar!");
     } catch (error) {
       toast.error("Ops! Algo deu errado!");
