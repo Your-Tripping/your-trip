@@ -20,13 +20,15 @@ interface iUserContext {
   singUp: (body: iUserRegister) => void;
   editProfile: (body: iUserRegister) => void;
   followUsers: (id: string) => void;
+  showModal: string | null;
+  setShowModal: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
-
+  const [showModal, setShowModal] = useState<string | null>(null)
   const singIn = async (body: iUserLogin) => {
     try {
       const data = await login(body);
@@ -44,6 +46,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const singUp = async (body: iUserRegister) => {
+    console.log(body)
     try {
       const data = await register(body);
       toast.success("Cadastro concluído, faça login para continuar!");
@@ -75,10 +78,9 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       console.log(error);
     }
   };
-
   return (
     <UserContext.Provider
-      value={{ user, setUser, singIn, singUp, editProfile, followUsers }}
+      value={{ user, setUser, singIn, singUp, editProfile, followUsers, showModal, setShowModal }}
     >
       {children}
     </UserContext.Provider>

@@ -6,9 +6,10 @@ import { iUserLogin } from "../../services/login";
 
 import * as S from "./singInForm.style";
 import { Button } from "../Button/button.style";
+import { Error } from "../ErrorMessage/formError.style";
 
 const SingInForm = () => {
-  const { singIn } = useUserContext();
+  const { singIn, setShowModal } = useUserContext();
 
   const {
     handleSubmit,
@@ -23,11 +24,13 @@ const SingInForm = () => {
   return (
     <>
       <S.Form onSubmit={handleSubmit(singIn)}>
+        <Error>{errors.email?.message}</Error>
         <S.InputEmail
           placeholder="Digite seu e-mail"
           type="email"
           {...register("email")}
         />
+        <Error>{errors.password?.message}</Error>
         <S.InputPassword
           placeholder="Digite sua senha"
           type="password"
@@ -45,7 +48,13 @@ const SingInForm = () => {
           </S.OpenModal>
         </S.ForgotPassword>
         <S.DiviserTwo />
-        <S.SingUpButton buttonType="outline" type="submit">
+        <S.SingUpButton
+          buttonType="outline"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowModal("singUp");
+          }}
+        >
           Quero me cadastrar
         </S.SingUpButton>
       </S.Form>

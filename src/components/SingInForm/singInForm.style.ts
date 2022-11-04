@@ -7,8 +7,7 @@ import { Button } from "../Button/button.style";
 export const Form = styled.form`
     width: 280px;
     height: 250px;
-    z-index: 1;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
     @media (min-width: 920px) {
         width: 320px;
     }
@@ -27,18 +26,15 @@ export const InputPassword = styled(Input)`
 `
 export const H2 = styled(Text)`
     text-align: center;
-    z-index: 1;
     margin-bottom: 30px;
     margin-top: 30px;
     width: 250px;
 `
 export const Forgot = styled(Text)`
-    z-index: 1;
     margin-top: 20px;
 `
 export const SingUpButton = styled(Button)`
     width: 100%;
-    z-index: 1;
     font-weight: 600;
 `
 export const OpenModal = styled(Button)`
@@ -49,7 +45,6 @@ export const OpenModal = styled(Button)`
     width: 100px;
     margin-top: 3px;
     height: 50px;
-    z-index: 1;
 `
 export const ForgotPassword = styled.div`
     width: 100%;
@@ -61,6 +56,5 @@ export const DiviserTwo = styled.div`
     width: 100%;
     height: 1px;
     background: ${({theme}) => theme.colors.grey.grey3};
-    z-index: 1;
     margin-bottom: 30px;
 `

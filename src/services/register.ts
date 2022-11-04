@@ -6,6 +6,7 @@ export interface iUserRegister {
   imageUrl: string;
   bio: string;
   password: string;
+  passwordConfirmation: string;
 }
 
 export const register = async (body: iUserRegister) => {
