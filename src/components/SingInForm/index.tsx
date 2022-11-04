@@ -1,11 +1,15 @@
 import { useForm } from "react-hook-form";
-import * as S from "./singInForm.style";
+import { useUserContext } from "../../contexts/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "../Button/button.style";
-import { loginSchema } from "../../validations/login";
+import { loginSchema } from "../../validation/login";
 import { iUserLogin } from "../../services/login";
 
+import * as S from "./singInForm.style";
+import { Button } from "../Button/button.style";
+
 const SingInForm = () => {
+  const { singIn } = useUserContext();
+
   const {
     handleSubmit,
     register,
@@ -14,11 +18,21 @@ const SingInForm = () => {
     resolver: yupResolver(loginSchema),
   });
 
+  console.log(errors);
+
   return (
     <>
-      <S.Form>
-        <S.InputEmail placeholder="Digite seu e-mail" type="email" />
-        <S.InputPassword placeholder="Digite sua senha" type="password" />
+      <S.Form onSubmit={handleSubmit(singIn)}>
+        <S.InputEmail
+          placeholder="Digite seu e-mail"
+          type="email"
+          {...register("email")}
+        />
+        <S.InputPassword
+          placeholder="Digite sua senha"
+          type="password"
+          {...register("password")}
+        />
         <Button buttonType="tertiary" type="submit">
           Entrar
         </Button>
