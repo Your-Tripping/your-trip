@@ -5,6 +5,7 @@ import { Dashboard } from "./pages/Dashboard";
 import UserProvider from "./contexts/UserContext";
 import { GlobalStyles } from "./styles/global";
 import theme from "./styles/theme";
+import LandingPage from "./pages/Home";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -13,7 +14,7 @@ root.render(
     <GlobalStyles />
     <ThemeProvider theme={theme}>
       <UserProvider>
-        <Dashboard />
+        <LandingPage/>
       </UserProvider>
     </ThemeProvider>
   </React.StrictMode>
