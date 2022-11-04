@@ -6,7 +6,6 @@ export const Main = styled.main`
     background: ${({theme}) => theme.colors.brand.tertiary};
     display: flex;
     justify-content: center;
-    height: 100vh;
     align-items: center;
     flex-direction: column;
 `
@@ -17,6 +16,7 @@ export const BackgroundImg = styled.img`
 export const Logo = styled.img`
     width: 250px;
     z-index: 1;
+    margin-top: 100px;
 `
 export const Diviser = styled.div`
     width: 280px;
@@ -49,6 +49,7 @@ export const InputEmail = styled(Input)`
     width: 280px;
     z-index: 1;
     margin-bottom: 25px;
+    padding-top: 13px;
     ::placeholder {
         font-size: ${({theme}) => theme.typography.sizes.size2};
     }
@@ -78,6 +79,13 @@ export const SubmitBtn = styled(Button)`
     height: 50px;
     width: 280px;
     z-index: 1;
+    
+`
+export const BtnRegister = styled(SubmitBtn)`
+    margin-bottom: 30px;
+    @media (min-height: 800px){
+        margin-bottom: 288px;
+    }
 `
 export const OpenModal = styled(Button)`
     background: none;
@@ -88,5 +96,6 @@ export const OpenModal = styled(Button)`
     margin-top: 3px;
     height: 50px;
     z-index: 1;
+    
 `
 

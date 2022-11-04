@@ -17,12 +17,8 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-<<<<<<< HEAD
-  "include": ["src"]
-=======
   "include": [
     "src"
   ],
   "typeRoots": ["./src/@types", "./node_modules/@types"]
->>>>>>> 272e61aff2097393b4b282320f6107c3b5f89e62
 }
