@@ -13,6 +13,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Poppins', sans-serif;
     text-decoration: none;
 }
+
 button{
   cursor: pointer;
 }

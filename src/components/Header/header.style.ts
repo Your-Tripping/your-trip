@@ -2,9 +2,10 @@ import styled from "styled-components";
 
 export const HeaderDashboard = styled.header`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 15px 108px;
   align-items: center;
+  height: 15%;
   box-shadow: 0px 4px 30px -10px rgba(0, 0, 0, 0.25);
 `;
 

@@ -1,4 +1,9 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
@@ -10,9 +15,10 @@ export interface iUser {
     name: string;
     imageUrl: string;
     bio: string;
-    id: string ;
+    id: string;
   };
 }
+
 interface iUserContext {
   user: iUser | null;
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
@@ -65,12 +71,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const followUsers = (id: string) => {
-
     try {
       api.post("/followers", {
         username: user?.user.name,
-        userId: id
-      })
+        userId: id,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -78,7 +83,14 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, singIn, singUp, editProfile, followUsers }}
+      value={{
+        user,
+        setUser,
+        singIn,
+        singUp,
+        editProfile,
+        followUsers,
+      }}
     >
       {children}
     </UserContext.Provider>
