@@ -18,7 +18,7 @@ root.render(
     <ThemeProvider theme={theme}>
       <UserProvider>
         <LandingPage/>
-      </UserProvider> 
+      </UserProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

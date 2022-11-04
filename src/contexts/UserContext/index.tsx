@@ -10,7 +10,7 @@ export interface iUser {
     name: string;
     imageUrl: string;
     bio: string;
-    id: string ;
+    id: string;
   };
 }
 interface iUserContext {
@@ -20,14 +20,15 @@ interface iUserContext {
   singUp: (body: iUserRegister) => void;
   editProfile: (body: iUserRegister) => void;
   followUsers: (id: string) => void;
-  modal: boolean;
-  setModal: React.Dispatch<React.SetStateAction<true | false>>
+  showModal: string | null;
+  setShowModal: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
+  const [showModal, setShowModal] = useState<string | null>(null);
   const singIn = async (body: iUserLogin) => {
     try {
       const data = await login(body);
@@ -45,7 +46,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const singUp = async (body: iUserRegister) => {
-    console.log(body)
+    console.log(body);
     try {
       const data = await register(body);
       toast.success("Cadastro concluído, faça login para continuar!");
@@ -67,20 +68,27 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const followUsers = (id: string) => {
-
     try {
       api.post("/followers", {
         username: user?.user.name,
-        userId: id
-      })
+        userId: id,
+      });
     } catch (error) {
       console.log(error);
     }
   };
-  const [modal, setModal] = useState(false)
   return (
     <UserContext.Provider
-      value={{ user, setUser, singIn, singUp, editProfile, followUsers, modal, setModal }}
+      value={{
+        user,
+        setUser,
+        singIn,
+        singUp,
+        editProfile,
+        followUsers,
+        showModal,
+        setShowModal,
+      }}
     >
       {children}
     </UserContext.Provider>

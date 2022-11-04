@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-
+import Map from "../assets/img/Map.svg"
 export const GlobalStyles = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Stick+No+Bills:wght@400;600;700&display=swap');;
 
@@ -15,5 +15,11 @@ export const GlobalStyles = createGlobalStyle`
 }
 button{
   cursor: pointer;
+}
+body{
+    background-image: url(${Map});
+    background-position: center;
+    width: 100%;
+    height: auto;
 }
 `;
