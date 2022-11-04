@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ThemeProvider } from "styled-components";
-import { Dashboard } from "./pages/Dashboard";
 import UserProvider from "./contexts/UserContext";
 import { GlobalStyles } from "./styles/global";
 import theme from "./styles/theme";
+import { RoutePages } from "./routes";
+import { BrowserRouter } from "react-router-dom";
 import LandingPage from "./pages/Home";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +18,9 @@ root.render(
     <ToastContainer/>
     <ThemeProvider theme={theme}>
       <UserProvider>
-        <LandingPage/>
+        <BrowserRouter>
+          <RoutePages />
+        </BrowserRouter>
       </UserProvider>
     </ThemeProvider>
   </React.StrictMode>
