@@ -4,6 +4,7 @@ import {
   useContext,
   useState,
 } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
@@ -35,6 +36,9 @@ const UserContext = createContext<iUserContext>({} as iUserContext);
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
   const [showModal, setShowModal] = useState<string | null>(null);
+
+  const navigate = useNavigate()
+
   const singIn = async (body: iUserLogin) => {
     try {
       const data = await login(body);
@@ -45,6 +49,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       ] = `Bearer ${data.accessToken}`;
       setUser(data);
       toast.success("Login concluído!");
+      navigate("/dashboard")
     } catch (error) {
       toast.error("Ops! Algo está errado!");
       console.log(error);
@@ -56,6 +61,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     try {
       const data = await register(body);
       toast.success("Cadastro concluído, faça login para continuar!");
+      setShowModal(null)
     } catch (error) {
       toast.error("Ops! Algo deu errado!");
       console.error(error);
