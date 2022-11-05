@@ -29,6 +29,8 @@ export const CreatePost = styled.div`
   background-color: ${({ theme }) => theme.colors.grey.grey1};
   height: 60px;
   padding: 18px 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 
   h2 {
     color: ${({ theme }) => theme.colors.brand.secondary};
@@ -49,7 +51,6 @@ export const StyledLink = styled(Link)`
   p {
     color: ${({ theme }) => theme.colors.brand.primary};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
-
   }
 `;
 
@@ -64,6 +65,8 @@ export const Post = styled.div`
   }
 
   ul {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
     background-color: ${({ theme }) => theme.colors.grey.grey1};
     height: 330px; //tamanho temporário, só deixei para indiciar o local.
   }
@@ -76,6 +79,8 @@ export const Suggestion = styled.aside`
   width: 441px;
   height: 351px;
   padding: 30px 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
 
   h2 {
     color: ${({ theme }) => theme.colors.grey.grey4};

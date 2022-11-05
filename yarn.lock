@@ -2074,10 +2074,10 @@
   dependencies:
     "react-icons" "*"
 
-"@types/react@*", "@types/react@^18.0.24":
-  "integrity" "sha512-wRJWT6ouziGUy+9uX0aW4YOJxAY0bG6/AOk5AW5QSvZqI7dk6VBIbXvcVgIw/W5Jrl24f77df98GEKTJGOLx7Q=="
-  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.0.24.tgz"
-  "version" "18.0.24"
+"@types/react@*", "@types/react@^18.0.25":
+  "integrity" "sha512-xD6c0KDT4m7n9uD4ZHi02lzskaiqcBxf4zi+tXZY98a04wvc0hi/TcCPC2FOESZi51Nd7tlUeOJY8RofL799/g=="
+  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.0.25.tgz"
+  "version" "18.0.25"
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"

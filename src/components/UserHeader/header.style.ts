@@ -50,3 +50,10 @@ export const UserInfo = styled.div`
     height: 59px;
   }
 `;
+
+export const EditProfile = styled.button`
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.typography.sizes.size1};
+  background-color: #fff;
+  color: ${({ theme }) => theme.colors.brand.secondary};
+`;
