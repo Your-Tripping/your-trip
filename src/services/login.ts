@@ -1,4 +1,3 @@
-import { AxiosRequestConfig } from "axios";
 import { iUser } from "../contexts/UserContext";
 import { api } from "./api";
 
