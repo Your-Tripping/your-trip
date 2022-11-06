@@ -1,5 +1,6 @@
 import { BsSearch } from "react-icons/bs";
 import { ReactComponent as YourTrip } from "../../assets/img/YourTrip.svg";
+import  user from "../../assets/img/user.svg";
 import { FormSearch, HeaderDashboard, UserInfo } from "./header.style";
 
 export const Header = () => {
@@ -19,7 +20,7 @@ export const Header = () => {
       </FormSearch>
       <UserInfo>
         <p>Olá, {"Carlos"}!</p>
-        <img src="" alt="imagem" />
+        <img src={user} alt="imagem" />
       </UserInfo>
     </HeaderDashboard>
   );
