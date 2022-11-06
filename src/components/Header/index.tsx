@@ -1,13 +1,13 @@
 import { BsSearch } from "react-icons/bs";
 import { ReactComponent as YourTrip } from "../../assets/img/YourTrip.svg";
 import  user from "../../assets/img/user.svg";
-import { FormSearch, HeaderDashboard, UserInfo } from "./header.style";
+import * as S from "./header.style";
 
 export const Header = () => {
   return (
-    <HeaderDashboard>
+    <S.HeaderDashboard>
       <YourTrip />
-      <FormSearch>
+      <S.FormSearch>
         <input
           type="search"
           name="searchTrip"
@@ -17,11 +17,11 @@ export const Header = () => {
         <button type="submit">
           <BsSearch />
         </button>
-      </FormSearch>
-      <UserInfo>
+      </S.FormSearch>
+      <S.UserInfo>
         <p>Olá, {"Carlos"}!</p>
         <img src={user} alt="imagem" />
-      </UserInfo>
-    </HeaderDashboard>
+      </S.UserInfo>
+    </S.HeaderDashboard>
   );
 };
