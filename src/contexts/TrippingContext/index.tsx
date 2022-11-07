@@ -19,10 +19,10 @@ interface iPost {
 }
 
 interface iTrippingContext{
-    posts: []iPost;
+    posts: iPost[];
 }
 
-export const TrippingContext = createContext();
+export const TrippingContext = createContext<iTrippingContext>({} as iTrippingContext);
 
 const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [posts, setPosts] = useState([] as Array<iPost>);
