@@ -2,12 +2,18 @@ import styled from "styled-components";
 
 export const HeaderDashboard = styled.header`
   display: flex;
+  background-color: ${({ theme }) => theme.colors.grey.grey1};
   justify-content: space-between;
   padding: 15px 108px;
   align-items: center;
+<<<<<<< HEAD
   height: 15%;
   background: #ffffff;
   box-shadow: 0px 4px 30px -10px rgba(0, 0, 0, 0.25);
+=======
+  height: 70px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+>>>>>>> 16d1b0df950a226187aaca75221dc2a49be84cf3
 `;
 
 export const FormSearch = styled.form`
@@ -46,7 +52,8 @@ export const UserInfo = styled.div`
   }
 
   img {
-    width: 59px;
-    height: 59px;
+    width: 45px;
+    height: 44px;
+    border-radius: 50%;
   }
 `;

@@ -1,8 +1,11 @@
 import { BsSearch } from "react-icons/bs";
 import { ReactComponent as YourTrip } from "../../assets/img/YourTrip.svg";
 import * as S from "./header.style";
+import { useUserContext } from "../../contexts/UserContext";
 
 export const Header = () => {
+  const { user } = useUserContext();
+
   return (
     <S.HeaderDashboard>
       <YourTrip />
@@ -18,8 +21,8 @@ export const Header = () => {
         </button>
       </S.FormSearch>
       <S.UserInfo>
-        <p>Olá, {"Carlos"}!</p>
-        <img src="" alt="imagem" />
+        <p>Olá, {user?.user.name}!</p>
+        <img src={user?.user.imageUrl} alt="Imagem" />
       </S.UserInfo>
     </S.HeaderDashboard>
   );
