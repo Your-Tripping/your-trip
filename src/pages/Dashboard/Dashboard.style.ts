@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-
 export const BodyDashboard = styled.div`
   height: 100vh;
 `;
@@ -60,12 +59,6 @@ export const Post = styled.div`
   }
 
   ul {
-<<<<<<< HEAD
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    background-color: ${({ theme }) => theme.colors.grey.grey1};
-    height: 330px; //tamanho temporário, só deixei para indiciar o local.
-=======
     width: 100%;
     height: 100%;
 
@@ -74,7 +67,6 @@ export const Post = styled.div`
     gap: 20px;
 
     margin-bottom: 30px;
->>>>>>> 16d1b0df950a226187aaca75221dc2a49be84cf3
   }
 `;
 
@@ -98,9 +90,8 @@ export const RandomBtn = styled.button`
   color: ${({ theme }) => theme.colors.grey.grey1};
   border-radius: 5px;
   padding: 10px 5px;
-  margin-top: 20px
-`
+  margin-top: 20px;
+`;
 export const Container = styled.div`
-  disply: flex;
-  
-`
+  display: flex;
+`;
