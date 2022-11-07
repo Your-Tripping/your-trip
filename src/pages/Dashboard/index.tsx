@@ -5,8 +5,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
-  const { isPlaces, loadUser } = useUserContext();
-
+  const { isPlaces, loadUser, randomPost, showRandom, setShowRandom} = useUserContext();
   useEffect(() => {
     loadUser();
   }, []);
@@ -21,14 +20,21 @@ export const Dashboard = () => {
             <S.StyledLink to={"/addTripping"}><p>Criar</p></S.StyledLink>
           </S.CreatePost>
           <S.Post>
-            <h2>Principais viagens:</h2>
-            <ul>{isPlaces.map((post, index) => <Trip key={index} post={post} />)}</ul>
+            <h2>{showRandom? false :"Principais viagens:"}</h2>
+            <ul>{showRandom? false :  isPlaces.map((post, index) => <Trip key={index} post={post} />)}</ul>
+            <h2>{showRandom? "Viagem aleatória:" : false}</h2>
+            <ul>{showRandom? [randomPost].map((post:any, index:any) => <Trip key={index} post={post} />) : false}</ul>
           </S.Post>
         </section>
-        <S.Suggestion>
-          <h2>Pessoas que talvez você conheça:</h2>
-          <ul>{/* sugestões aqui */}</ul>
-        </S.Suggestion>
+        <S.Container>
+          <S.Suggestion>
+            <h2>Pessoas que talvez você conheça:</h2>
+            <ul>{/* sugestões aqui */}</ul>
+          </S.Suggestion>
+            <div>
+              <S.RandomBtn onClick={()=>{setShowRandom(true)}}>Viagem aleatória</S.RandomBtn>
+            </div>
+        </S.Container>
       </S.MainDashboard>
     </S.BodyDashboard>
   );
