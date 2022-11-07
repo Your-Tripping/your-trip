@@ -1,12 +1,11 @@
 import * as S from "./NotFoundPages.styles";
-import {BsFillEmojiFrownFill } from "react-icons/bs"
+import { BsFillEmojiFrownFill } from "react-icons/bs";
 
-
-function NotFoundPage() {
+export const NotFoundPage = () => {
   return (
     <S.Container>
       <div>
-       <BsFillEmojiFrownFill/>
+        <BsFillEmojiFrownFill />
         <h2>Que pena! Página não encontrada.</h2>
         <S.StyleLink to={"/"}>
           <p>Volte para a página principal</p>
@@ -14,6 +13,4 @@ function NotFoundPage() {
       </div>
     </S.Container>
   );
-}
-
-export default NotFoundPage;
+};
