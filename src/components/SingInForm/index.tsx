@@ -4,9 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../validation/login";
 import { iUserLogin } from "../../services/login";
 
-import * as S from "./singInForm.style";
 import { Button } from "../Button/button.style";
 import { Error } from "../ErrorMessage/formError.style";
+
+import * as S from "./singInForm.style";
 
 const SingInForm = () => {
   const { singIn, setShowModal } = useUserContext();

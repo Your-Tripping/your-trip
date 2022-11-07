@@ -11,7 +11,6 @@ export const Dashboard = () => {
             <h2>Posts</h2>
             <S.StyledLink to={"/addTripping"}><p>Criar</p></S.StyledLink>
           </S.CreatePost>
-
           <S.Post>
             <h2>Principais viagens:</h2>
             <ul>{/* post aqui */}</ul>
