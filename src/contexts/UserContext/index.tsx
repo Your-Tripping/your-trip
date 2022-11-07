@@ -16,12 +16,16 @@ import { boolean } from "yup";
 import { TrippingContext } from "../TrippingContext";
 
 export interface iUser {
+  imageUrl: string | undefined;
+  name: ReactNode;
   accessToken: string;
   user: {
     name: string;
     imageUrl: string;
     bio: string;
     id: string;
+    email: string;
+    password: string;
   };
 }
 
@@ -48,7 +52,7 @@ export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [usersList, setUsersList] = useState([] as iUser[]);
+  const [usersList, setUsersList] = useState<iUser[]>([] as iUser[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isPlaces, setIsPlaces] = useState<iPosts[]>([] as iPosts[]);
@@ -64,12 +68,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
       cachePosts();
-      // const { data: profileData } = await api.get("/posts");
-      // setIsPlaces(profileData);
+      const { data: profileData } = await api.get("/posts");
+      setIsPlaces(profileData);
       const { data: usersData } = await api.get("/users");
       setUsersList(usersData);
       setUser(data);
-      toast.success("Login concluído!");
       setIsAuthenticated(true);
     } catch (error) {
       toast.error("Ops! Algo está errado!");
@@ -145,14 +148,10 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const loadUser = async () => {
-    const token: string | null = localStorage.getItem("@user: token");
-
     if (token) {
       try {
         api.defaults.headers.authorization = `Bearer ${token}`;
-
-        const { data } = await api.get("/posts");
-
+        const { data } = await api.get<iPosts[]>("/posts");
         setIsPlaces(data);
       } catch (err) {
         console.error(err);
