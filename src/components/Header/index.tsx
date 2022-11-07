@@ -1,12 +1,11 @@
 import { BsSearch } from "react-icons/bs";
 import { ReactComponent as YourTrip } from "../../assets/img/YourTrip.svg";
-import userIcon from "../../assets/img/user.svg";
 import * as S from "./header.style";
 import { useUserContext } from "../../contexts/UserContext";
 
 export const Header = () => {
   const { user } = useUserContext();
-  console.log(user?.user.imageUrl);
+
   return (
     <S.HeaderDashboard>
       <YourTrip />
