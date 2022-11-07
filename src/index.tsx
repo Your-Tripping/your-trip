@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import LandingPage from "./pages/Home";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TrippingProvider from "./contexts/TrippingContext";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -19,7 +20,9 @@ root.render(
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <UserProvider>
-          <RoutePages />
+          <TrippingProvider>
+            <RoutePages />
+          </TrippingProvider>
         </UserProvider>
       </BrowserRouter>
     </ThemeProvider>
