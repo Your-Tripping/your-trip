@@ -8,20 +8,21 @@ import { RoutePages } from "./routes";
 import { BrowserRouter } from "react-router-dom";
 import LandingPage from "./pages/Home";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoutes from "./routes/ProtectedRoutes";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <GlobalStyles />
-    <ToastContainer/>
+    <ToastContainer />
     <ThemeProvider theme={theme}>
-      <UserProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <UserProvider>
           <RoutePages />
-        </BrowserRouter>
-      </UserProvider>
+        </UserProvider>
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
 );
