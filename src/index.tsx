@@ -6,9 +6,9 @@ import { GlobalStyles } from "./styles/global";
 import theme from "./styles/theme";
 import { RoutePages } from "./routes";
 import { BrowserRouter } from "react-router-dom";
-import LandingPage from "./pages/Home";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
