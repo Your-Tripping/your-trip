@@ -9,7 +9,7 @@ import {
 } from "./header.style";
 
 export const UserHeader = () => {
-  const { user } = useUserContext();
+  const { user, setShowModal } = useUserContext();
 
   return (
     <HeaderDashboard>
@@ -28,7 +28,14 @@ export const UserHeader = () => {
       <UserInfo>
         <p>Olá, {user?.user.name}!</p>
         <img src="" alt={user?.user.imageUrl} />
-        <EditProfile>Editar perfil</EditProfile>
+        <EditProfile
+          onClick={(e) => {
+            e.preventDefault();
+            setShowModal("editProfile");
+          }}
+        >
+          Editar perfil
+        </EditProfile>
       </UserInfo>
     </HeaderDashboard>
   );
