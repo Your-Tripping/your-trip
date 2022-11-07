@@ -1,7 +1,17 @@
+import { useEffect } from "react";
 import { Header } from "../../components/Header";
+import CardsLeft from "../../components/TrippingCard";
+import { useUserContext } from "../../contexts/UserContext";
+import { api } from "../../services/api";
 import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
+  const { isPlaces, loadUser } = useUserContext();
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
   return (
     <S.BodyDashboard>
       <Header />
