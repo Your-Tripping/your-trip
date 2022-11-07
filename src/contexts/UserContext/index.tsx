@@ -13,6 +13,7 @@ import { iUserRegister, register } from "../../services/register";
 import { iPosts } from "../../components/TrippingCard/trippingCard.style";
 import { profile } from "console";
 import { boolean } from "yup";
+import { TrippingContext } from "../TrippingContext";
 
 export interface iUser {
   accessToken: string;
@@ -55,14 +56,16 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
 
+  const { cachePosts } = useContext(TrippingContext);
+
   const singIn = async (body: iUserLogin) => {
     try {
       const data = await login(body);
-      toast.success("Login concluído!");
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
-      const { data: profileData } = await api.get("/posts");
-      setIsPlaces(profileData);
+      cachePosts();
+      // const { data: profileData } = await api.get("/posts");
+      // setIsPlaces(profileData);
       const { data: usersData } = await api.get("/users");
       setUsersList(usersData);
       setUser(data);
@@ -157,7 +160,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
   const [randomPost, setRandom] = useState([] as any);
-  const [showRandom, setShowRandom] = useState(false)
+  const [showRandom, setShowRandom] = useState(false);
   useEffect(() => {
     setRandom(isPlaces[Math.floor(Math.random() * isPlaces.length)]);
   }, [token]);
