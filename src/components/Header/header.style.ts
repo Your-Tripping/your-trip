@@ -48,5 +48,6 @@ export const UserInfo = styled.div`
   img {
     width: 45px;
     height: 44px;
+    border-radius: 50%;
   }
 `;
