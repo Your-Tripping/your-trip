@@ -20,8 +20,6 @@ const SingInForm = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  console.log(errors);
-
   return (
     <>
       <S.Form onSubmit={handleSubmit(singIn)}>
