@@ -64,7 +64,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       const { data: usersData } = await api.get("/users");
       setUsersList(usersData);
       setUser(data);
-      toast.success("Login concluído!");
       setIsAuthenticated(true);
       navigate("/dashboard");
     } catch (error) {
