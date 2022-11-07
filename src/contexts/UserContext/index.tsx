@@ -34,6 +34,7 @@ interface iUserContext {
   followUsers: (id: string) => void;
   showModal: string | null;
   setShowModal: React.Dispatch<React.SetStateAction<string | null>>;
+  loading: boolean;
   isPlaces: iPosts[];
   setIsPlaces: React.Dispatch<React.SetStateAction<iPosts[]>>;
   loadUser: () => void;
@@ -48,6 +49,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
   const [usersList, setUsersList] = useState([] as iUser[]);
   const [showModal, setShowModal] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [isPlaces, setIsPlaces] = useState<iPosts[]>([] as iPosts[]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
@@ -66,7 +68,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       setUser(data);
       toast.success("Login concluído!");
       setIsAuthenticated(true);
-      navigate("/dashboard");
     } catch (error) {
       toast.error("Ops! Algo está errado!");
       console.log(error);
@@ -99,15 +100,23 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         try {
           api.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await api.get(`/users/${id}`);
-          setUser(data);
+            setUser({
+              ...user,
+              accessToken: data.password,
+              user: {
+                name: data.name,
+                imageUrl: data.imageUrl,
+                bio: data.bio,
+                id: data.id,
+              },
+            });
         } catch (error) {
           console.error(error);
           window.localStorage.clear();
-          navigate("/");
         }
       }
+      setLoading(false);
     };
-
     autoLogin();
   }, []);
 
@@ -165,6 +174,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         followUsers,
         showModal,
         setShowModal,
+        loading,
         isPlaces,
         setIsPlaces,
         loadUser,
