@@ -11,6 +11,8 @@ import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
 import { iPosts } from "../../components/TrippingCard/trippingCard.style";
+import { profile } from "console";
+import { boolean } from "yup";
 
 export interface iUser {
   accessToken: string;
@@ -35,6 +37,9 @@ interface iUserContext {
   isPlaces: iPosts[];
   setIsPlaces: React.Dispatch<React.SetStateAction<iPosts[]>>;
   loadUser: () => void;
+  randomPost: any;
+  showRandom: boolean;
+  setShowRandom: React.Dispatch<React.SetStateAction<true | false>>;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
@@ -142,6 +147,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       }
     }
   };
+  const [randomPost, setRandom] = useState([] as any);
+  const [showRandom, setShowRandom] = useState(false)
+  useEffect(() => {
+    setRandom(isPlaces[Math.floor(Math.random() * isPlaces.length)]);
+  }, [token]);
 
   return (
     <UserContext.Provider
@@ -158,6 +168,9 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         isPlaces,
         setIsPlaces,
         loadUser,
+        randomPost,
+        showRandom,
+        setShowRandom,
       }}
     >
       {children}
