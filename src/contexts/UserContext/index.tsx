@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
+import { iPosts } from "../../components/TrippingCard/trippingCard.style";
 
 export interface iUser {
   accessToken: string;
@@ -30,17 +31,21 @@ interface iUserContext {
   followUsers: (id: string) => void;
   showModal: string | null;
   setShowModal: React.Dispatch<React.SetStateAction<string | null>>;
+  isPlaces: iPosts[];
+  setIsPlaces: React.Dispatch<React.SetStateAction<iPosts[]>>;
+  loadUser: () => void;
 }
 
-const UserContext = createContext<iUserContext>({} as iUserContext);
+export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
   const [showModal, setShowModal] = useState<string | null>(null);
-
+  const [isPlaces, setIsPlaces] = useState<iPosts[]>([] as iPosts[]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
+  
   const singIn = async (body: iUserLogin) => {
     try {
       const data = await login(body);
@@ -50,6 +55,10 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       api.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${data.accessToken}`;
+
+      const { data: profileData } = await api.get("/posts");
+      setIsPlaces(profileData);
+
       setUser(data);
       toast.success("Login concluído!");
       setIsAuthenticated(true);
@@ -61,11 +70,10 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const singUp = async (body: iUserRegister) => {
-    console.log(body);
     try {
       const data = await register(body);
       toast.success("Cadastro concluído, faça login para continuar!");
-      setShowModal(null)
+      setShowModal(null);
     } catch (error) {
       toast.error("Ops! Algo deu errado!");
       console.error(error);
@@ -104,7 +112,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     try {
       const { data } = await api.patch(`/users/${userId}`, body);
       toast.success("Perfil Atualizado!");
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -120,6 +128,23 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       console.log(error);
     }
   };
+
+  const loadUser = async () => {
+    const token: string | null = localStorage.getItem("@user: token");
+
+    if (token) {
+      try {
+        api.defaults.headers.authorization = `Bearer ${token}`;
+
+        const { data } = await api.get("/posts");
+
+        setIsPlaces(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -131,6 +156,9 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         followUsers,
         showModal,
         setShowModal,
+        isPlaces,
+        setIsPlaces,
+        loadUser,
       }}
     >
       {children}

@@ -44,7 +44,6 @@ export const StyledLink = styled(Link)`
   p {
     color: ${({ theme }) => theme.colors.brand.primary};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
-
   }
 `;
 
@@ -59,8 +58,14 @@ export const Post = styled.div`
   }
 
   ul {
-    background-color: ${({ theme }) => theme.colors.grey.grey1};
-    height: 330px; //tamanho temporário, só deixei para indiciar o local.
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    margin-bottom: 30px;
   }
 `;
 
