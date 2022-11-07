@@ -6,7 +6,6 @@ import { GlobalStyles } from "./styles/global";
 import theme from "./styles/theme";
 import { RoutePages } from "./routes";
 import { BrowserRouter } from "react-router-dom";
-import LandingPage from "./pages/Home";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TrippingProvider from "./contexts/TrippingContext";
@@ -19,11 +18,11 @@ root.render(
     <ToastContainer />
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <UserProvider>
-          <TrippingProvider>
+        <TrippingProvider>
+          <UserProvider>
             <RoutePages />
-          </TrippingProvider>
-        </UserProvider>
+          </UserProvider>
+        </TrippingProvider>
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>

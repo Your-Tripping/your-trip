@@ -1,17 +1,12 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import bg from "../../assets/img/Map.svg";
+
 
 export const BodyDashboard = styled.div`
   height: 100vh;
 `;
 
 export const MainDashboard = styled.main`
-  background-image: url(${bg});
-  background-repeat: no-repeat;
-  background-position: initial;
-  background-size: cover;
-  background-color: ${({ theme }) => theme.colors.brand.tertiary};
   height: 85%;
   display: flex;
   padding: 15px 108px;
@@ -49,7 +44,6 @@ export const StyledLink = styled(Link)`
   p {
     color: ${({ theme }) => theme.colors.brand.primary};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
-
   }
 `;
 
@@ -64,8 +58,14 @@ export const Post = styled.div`
   }
 
   ul {
-    background-color: ${({ theme }) => theme.colors.grey.grey1};
-    height: 330px; //tamanho temporário, só deixei para indiciar o local.
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    margin-bottom: 30px;
   }
 `;
 
@@ -82,3 +82,14 @@ export const Suggestion = styled.aside`
     font-size: ${({ theme }) => theme.typography.sizes.size3};
   }
 `;
+export const RandomBtn = styled.button`
+  background-color: ${({ theme }) => theme.colors.brand.primary};
+  color: ${({ theme }) => theme.colors.grey.grey1};
+  border-radius: 5px;
+  padding: 10px 5px;
+  margin-top: 20px
+`
+export const Container = styled.div`
+  disply: flex;
+  
+`

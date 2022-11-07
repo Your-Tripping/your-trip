@@ -1,33 +1,41 @@
+import { useEffect } from "react";
 import { Header } from "../../components/Header";
-import {
-  BodyDashboard,
-  MainDashboard,
-  CreatePost,
-  Post,
-  Suggestion,
-  StyledLink,
-} from "./Dashboard.style";
+import Trip from "../../components/TrippingCard";
+import { useUserContext } from "../../contexts/UserContext";
+import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
+  const { isPlaces, loadUser, randomPost, showRandom, setShowRandom} = useUserContext();
+  useEffect(() => {
+    loadUser();
+  }, []);
+
   return (
-    <BodyDashboard>
+    <S.BodyDashboard>
       <Header />
-      <MainDashboard>
+      <S.MainDashboard>
         <section>
-          <CreatePost>
+          <S.CreatePost>
             <h2>Posts</h2>
-            <StyledLink to={"/addTripping"}><p>Criar</p></StyledLink>
-          </CreatePost>
-          <Post>
-            <h2>Principais viagens:</h2>
-            <ul>{/* post aqui */}</ul>
-          </Post>
+            <S.StyledLink to={"/addTripping"}><p>Criar</p></S.StyledLink>
+          </S.CreatePost>
+          <S.Post>
+            <h2>{showRandom? false :"Principais viagens:"}</h2>
+            <ul>{showRandom? false :  isPlaces.map((post, index) => <Trip key={index} post={post} />)}</ul>
+            <h2>{showRandom? "Viagem aleatória:" : false}</h2>
+            <ul>{showRandom? [randomPost].map((post:any, index:any) => <Trip key={index} post={post} />) : false}</ul>
+          </S.Post>
         </section>
-        <Suggestion>
-          <h2>Pessoas que talvez você conheça:</h2>
-          <ul>{/* sugestões aqui */}</ul>
-        </Suggestion>
-      </MainDashboard>
-    </BodyDashboard>
+        <S.Container>
+          <S.Suggestion>
+            <h2>Pessoas que talvez você conheça:</h2>
+            <ul>{/* sugestões aqui */}</ul>
+          </S.Suggestion>
+            <div>
+              <S.RandomBtn onClick={()=>{setShowRandom(true)}}>Viagem aleatória</S.RandomBtn>
+            </div>
+        </S.Container>
+      </S.MainDashboard>
+    </S.BodyDashboard>
   );
 };
