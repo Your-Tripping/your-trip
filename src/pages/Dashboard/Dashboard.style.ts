@@ -82,3 +82,14 @@ export const Suggestion = styled.aside`
     font-size: ${({ theme }) => theme.typography.sizes.size3};
   }
 `;
+export const RandomBtn = styled.button`
+  background-color: ${({ theme }) => theme.colors.brand.primary};
+  color: ${({ theme }) => theme.colors.grey.grey1};
+  border-radius: 5px;
+  padding: 10px 5px;
+  margin-top: 20px
+`
+export const Container = styled.div`
+  disply: flex;
+  
+`
