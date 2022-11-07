@@ -30,6 +30,7 @@ interface iUserContext {
   followUsers: (id: string) => void;
   showModal: string | null;
   setShowModal: React.Dispatch<React.SetStateAction<string | null>>;
+  loading: boolean;
 }
 
 const UserContext = createContext<iUserContext>({} as iUserContext);
@@ -37,7 +38,7 @@ const UserContext = createContext<iUserContext>({} as iUserContext);
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
   const [showModal, setShowModal] = useState<string | null>(null);
-
+  const [loading, setLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
@@ -53,7 +54,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       setUser(data);
       toast.success("Login concluído!");
       setIsAuthenticated(true);
-      navigate("/dashboard")
     } catch (error) {
       toast.error("Ops! Algo está errado!");
       console.log(error);
@@ -65,7 +65,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     try {
       const data = await register(body);
       toast.success("Cadastro concluído, faça login para continuar!");
-      setShowModal(null)
+      setShowModal(null);
     } catch (error) {
       toast.error("Ops! Algo deu errado!");
       console.error(error);
@@ -73,10 +73,10 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-  const authenticated = () => {
+    const authenticated = () => {
       const token = window.localStorage.getItem("@user: token");
       token && isAuthenticated && navigate(`/dashboard`);
-    }
+    };
     authenticated();
   }, [isAuthenticated]);
 
@@ -86,15 +86,25 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       if (token) {
         try {
           api.defaults.headers.authorization = `Bearer ${token}`;
-          const { data } = await api.get(`/users:${id}`);
-          setUser(data);
+          const { data } = await api.get(`/users/${id}`);
+            setUser({
+              ...user,
+              accessToken: data.password,
+              user: {
+                name: data.name,
+                imageUrl: data.imageUrl,
+                bio: data.bio,
+                id: data.id,
+              },
+            });
+          
         } catch (error) {
           console.error(error);
           window.localStorage.clear();
-          navigate("/");
         }
       }
-    }
+      setLoading(false);
+    };
 
     autoLogin();
   }, []);
@@ -131,6 +141,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         followUsers,
         showModal,
         setShowModal,
+        loading,
       }}
     >
       {children}

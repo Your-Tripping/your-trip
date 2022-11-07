@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { AddTrippingModal } from "../components/AddTrippingModal";
 import { Dashboard } from "../pages/Dashboard";
 import LandingPage from "../pages/Home";
-import ProtectedRoutes from "./ProtectedRoutes";
+import {ProtectedRoutes} from "./ProtectedRoutes";
 
 export const RoutePages = () => {
   return (
