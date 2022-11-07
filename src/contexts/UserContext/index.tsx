@@ -11,6 +11,8 @@ import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
 import { iPosts } from "../../components/TrippingCard/trippingCard.style";
+import { profile } from "console";
+import { boolean } from "yup";
 
 export interface iUser {
   accessToken: string;
@@ -24,6 +26,7 @@ export interface iUser {
 
 interface iUserContext {
   user: iUser | null;
+  usersList: iUser[];
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   singIn: (body: iUserLogin) => void;
   singUp: (body: iUserRegister) => void;
@@ -35,32 +38,33 @@ interface iUserContext {
   isPlaces: iPosts[];
   setIsPlaces: React.Dispatch<React.SetStateAction<iPosts[]>>;
   loadUser: () => void;
+  randomPost: any;
+  showRandom: boolean;
+  setShowRandom: React.Dispatch<React.SetStateAction<true | false>>;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
+  const [usersList, setUsersList] = useState([] as iUser[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isPlaces, setIsPlaces] = useState<iPosts[]>([] as iPosts[]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
-  
+
   const singIn = async (body: iUserLogin) => {
     try {
       const data = await login(body);
       toast.success("Login concluído!");
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
-      api.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${data.accessToken}`;
-
       const { data: profileData } = await api.get("/posts");
       setIsPlaces(profileData);
-
+      const { data: usersData } = await api.get("/users");
+      setUsersList(usersData);
       setUser(data);
       toast.success("Login concluído!");
       setIsAuthenticated(true);
@@ -106,7 +110,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
                 id: data.id,
               },
             });
-          
         } catch (error) {
           console.error(error);
           window.localStorage.clear();
@@ -114,7 +117,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       }
       setLoading(false);
     };
-
     autoLogin();
   }, []);
 
@@ -123,7 +125,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     try {
       const { data } = await api.patch(`/users/${userId}`, body);
       toast.success("Perfil Atualizado!");
-      // console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -155,11 +156,17 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       }
     }
   };
+  const [randomPost, setRandom] = useState([] as any);
+  const [showRandom, setShowRandom] = useState(false)
+  useEffect(() => {
+    setRandom(isPlaces[Math.floor(Math.random() * isPlaces.length)]);
+  }, [token]);
 
   return (
     <UserContext.Provider
       value={{
         user,
+        usersList,
         setUser,
         singIn,
         singUp,
@@ -171,6 +178,9 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         isPlaces,
         setIsPlaces,
         loadUser,
+        randomPost,
+        showRandom,
+        setShowRandom,
       }}
     >
       {children}
