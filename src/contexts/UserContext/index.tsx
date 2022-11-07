@@ -37,12 +37,14 @@ const UserContext = createContext<iUserContext>({} as iUserContext);
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
   const [showModal, setShowModal] = useState<string | null>(null);
+
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
   const singIn = async (body: iUserLogin) => {
     try {
       const data = await login(body);
+      toast.success("Login concluído!");
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
       api.defaults.headers.common[
@@ -51,6 +53,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       setUser(data);
       toast.success("Login concluído!");
       setIsAuthenticated(true);
+      navigate("/dashboard")
     } catch (error) {
       toast.error("Ops! Algo está errado!");
       console.log(error);
@@ -62,6 +65,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     try {
       const data = await register(body);
       toast.success("Cadastro concluído, faça login para continuar!");
+      setShowModal(null)
     } catch (error) {
       toast.error("Ops! Algo deu errado!");
       console.error(error);
