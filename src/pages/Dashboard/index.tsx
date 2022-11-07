@@ -1,14 +1,17 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import Trip from "../../components/TrippingCard";
 import { useUserContext } from "../../contexts/UserContext";
 import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
-  const { isPlaces, loadUser, randomPost, showRandom, setShowRandom} = useUserContext();
+  const { isPlaces, loadUser, randomPost, showRandom, setShowRandom, setShowModal} = useUserContext();
   useEffect(() => {
     loadUser();
   }, []);
+
+  const navigate = useNavigate()
 
   return (
     <S.BodyDashboard>
@@ -17,7 +20,7 @@ export const Dashboard = () => {
         <section>
           <S.CreatePost>
             <h2>Posts</h2>
-            <S.StyledLink to={"/addTripping"}><p>Criar</p></S.StyledLink>
+            <S.StyledLink onClick={() => {navigate("/addTripping"); setShowModal("addtrip")} }><p>Criar</p></S.StyledLink>
           </S.CreatePost>
           <S.Post>
             <h2>{showRandom? false :"Principais viagens:"}</h2>

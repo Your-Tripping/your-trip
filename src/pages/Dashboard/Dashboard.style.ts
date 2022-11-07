@@ -31,7 +31,7 @@ export const CreatePost = styled.div`
   }
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,6 +90,6 @@ export const RandomBtn = styled.button`
   margin-top: 20px
 `
 export const Container = styled.div`
-  disply: flex;
+  display: flex;
   
 `

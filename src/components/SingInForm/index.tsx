@@ -7,7 +7,7 @@ import { iUserLogin } from "../../services/login";
 
 import { Button } from "../Button/button.style";
 import { Error } from "../ErrorMessage/formError.style";
-
+import { Form } from "../Forn/form.style";
 import * as S from "./singInForm.style";
 
 const SingInForm = () => {
@@ -28,8 +28,7 @@ const SingInForm = () => {
   });
 
   return (
-    <>
-      <S.Form onSubmit={handleSubmit(singIn)}>
+      <Form onSubmit={handleSubmit(singIn)}>
         <Error>{errors.email?.message}</Error>
         <S.InputEmail
           placeholder="Digite seu e-mail"
@@ -70,8 +69,7 @@ const SingInForm = () => {
         >
           Quero me cadastrar
         </S.SingUpButton>
-      </S.Form>
-    </>
+      </Form>
   );
 };
 

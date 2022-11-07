@@ -61,12 +61,14 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       toast.success("Login concluído!");
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
+      api.defaults.headers.authorization = `Bearer ${data.accessToken}`
       const { data: profileData } = await api.get("/posts");
       setIsPlaces(profileData);
       const { data: usersData } = await api.get("/users");
       setUsersList(usersData);
       setUser(data);
       setIsAuthenticated(true);
+      navigate("/dashboard")
     } catch (error) {
       toast.error("Ops! Algo está errado!");
       console.log(error);

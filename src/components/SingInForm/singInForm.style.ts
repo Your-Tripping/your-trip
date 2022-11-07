@@ -4,14 +4,7 @@ import { Input } from "../Input/input.style";
 import { Text } from "../Text";
 import { Button } from "../Button/button.style";
 
-export const Form = styled.form`
-  width: 280px;
-  height: 250px;
-  margin-bottom: 100px;
-  @media (min-width: 920px) {
-    width: 320px;
-  }
-`;
+
 export const InputEmail = styled(Input)`
   margin-bottom: 25px;
   ::placeholder {
