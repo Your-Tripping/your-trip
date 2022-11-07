@@ -13,16 +13,15 @@ import { Input } from "../Input/input.style";
 import { useState } from "react";
 
 const CardsLeft = ({ postPlaces }: any) => {
-  const [atual, setAtual] = useState(0);
+  const [placeIndex, setPlaceIndex] = useState(0);
   const [isLikes, setIsLikes] = useState(true);
 
-  function next() {
-    atual !== postPlaces.places.length - 1 && setAtual(atual + 1);
-  }
+  const next = () => {
+    placeIndex !== postPlaces.places.length - 1 &&
+      setPlaceIndex(placeIndex + 1);
+  };
 
-  function prev() {
-    atual > 0 && setAtual(atual - 1);
-  }
+  const prev = () => placeIndex > 0 && setPlaceIndex(placeIndex - 1);
 
   return (
     <S.LiCard>
@@ -43,20 +42,22 @@ const CardsLeft = ({ postPlaces }: any) => {
         <div>
           <AiOutlineCaretLeft
             style={{
-              color: atual !== 0 ? "#079BAB" : "#CEEBEE",
+              color: placeIndex !== 0 ? "#079BAB" : "#CEEBEE",
             }}
             onClick={prev}
           />
           <AiOutlineCaretRight
             style={{
               color:
-                atual !== postPlaces.places.length - 1 ? "#079BAB" : "#CEEBEE",
+                placeIndex !== postPlaces.places.length - 1
+                  ? "#079BAB"
+                  : "#CEEBEE",
             }}
             onClick={next}
           />
           <img
-            src={postPlaces.places[atual].image}
-            alt={postPlaces.places[atual].name}
+            src={postPlaces.places[placeIndex].image}
+            alt={postPlaces.places[placeIndex].name}
           />
           <div>
             <GrMap />
@@ -64,8 +65,8 @@ const CardsLeft = ({ postPlaces }: any) => {
           </div>
         </div>
 
-        <h3>{postPlaces.places[atual].name}</h3>
-        <p>{postPlaces.places[atual].description}</p>
+        <h3>{postPlaces.places[placeIndex].name}</h3>
+        <p>{postPlaces.places[placeIndex].description}</p>
       </S.SectionSlideshow>
 
       <S.SectionLinks>

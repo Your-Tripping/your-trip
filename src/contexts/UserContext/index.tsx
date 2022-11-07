@@ -27,6 +27,7 @@ interface iUserContext {
   setShowModal: React.Dispatch<React.SetStateAction<string | null>>;
   isPlaces: iPosts[];
   setIsPlaces: React.Dispatch<React.SetStateAction<iPosts[]>>;
+  loadUser: () => void;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
@@ -93,6 +94,22 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const loadUser = async () => {
+    const token: string | null = localStorage.getItem("@user: token");
+
+    if (token) {
+      try {
+        api.defaults.headers.authorization = `Bearer ${token}`;
+
+        const { data } = await api.get("/posts");
+
+        setIsPlaces(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -106,6 +123,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         setShowModal,
         isPlaces,
         setIsPlaces,
+        loadUser,
       }}
     >
       {children}

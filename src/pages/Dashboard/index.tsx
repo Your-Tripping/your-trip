@@ -13,24 +13,9 @@ import {
 } from "./Dashboard.style";
 
 export const Dashboard = () => {
-  const { user, isPlaces, setIsPlaces } = useUserContext();
+  const { isPlaces, loadUser } = useUserContext();
 
   useEffect(() => {
-    async function loadUser() {
-      const token: string | null = localStorage.getItem("@user: token");
-
-      if (token) {
-        try {
-          api.defaults.headers.authorization = `Bearer ${token}`;
-
-          const { data } = await api.get("/posts");
-
-          setIsPlaces(data);
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    }
     loadUser();
   }, []);
 
