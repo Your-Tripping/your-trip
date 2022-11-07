@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import * as S from "./trippingCard.style";
 import {
   AiOutlineCaretLeft,
@@ -10,14 +12,13 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import { IoEllipsisHorizontalOutline } from "react-icons/io5";
 import { GrMap } from "react-icons/gr";
 import { Input } from "../Input/input.style";
-import { useState } from "react";
 
-const CardsLeft = ({ postPlaces }: any) => {
+const Trip = ({ post }: {post: S.iPosts}) => {
   const [placeIndex, setPlaceIndex] = useState(0);
   const [isLikes, setIsLikes] = useState(true);
 
   const next = () => {
-    placeIndex !== postPlaces.places.length - 1 &&
+    placeIndex !== post.places.length - 1 &&
       setPlaceIndex(placeIndex + 1);
   };
 
@@ -27,8 +28,8 @@ const CardsLeft = ({ postPlaces }: any) => {
     <S.LiCard>
       <S.SectionProfile className="Profile">
         <div>
-          <img src={postPlaces.profileUrl} alt={postPlaces.username} />
-          <h2>{postPlaces.username}</h2>
+          <img src={post.profileUrl} alt={post.username} />
+          <h2>{post.username}</h2>
         </div>
         <div>
           <button>Seguir</button>
@@ -37,7 +38,7 @@ const CardsLeft = ({ postPlaces }: any) => {
       </S.SectionProfile>
       <S.SectionSlideshow>
         <h2>
-          {postPlaces.title} - {postPlaces.location}
+          {post.title} - {post.location}
         </h2>
         <div>
           <AiOutlineCaretLeft
@@ -49,24 +50,24 @@ const CardsLeft = ({ postPlaces }: any) => {
           <AiOutlineCaretRight
             style={{
               color:
-                placeIndex !== postPlaces.places.length - 1
+                placeIndex !== post.places.length - 1
                   ? "#079BAB"
                   : "#CEEBEE",
             }}
             onClick={next}
           />
           <img
-            src={postPlaces.places[placeIndex].image}
-            alt={postPlaces.places[placeIndex].name}
+            src={post.places[placeIndex].image}
+            alt={post.places[placeIndex].name}
           />
           <div>
             <GrMap />
-            <p>{postPlaces.country}</p>
+            <p>{post.country}</p>
           </div>
         </div>
 
-        <h3>{postPlaces.places[placeIndex].name}</h3>
-        <p>{postPlaces.places[placeIndex].description}</p>
+        <h3>{post.places[placeIndex].name}</h3>
+        <p>{post.places[placeIndex].description}</p>
       </S.SectionSlideshow>
 
       <S.SectionLinks>
@@ -101,4 +102,4 @@ const CardsLeft = ({ postPlaces }: any) => {
   );
 };
 
-export default CardsLeft;
+export default Trip;

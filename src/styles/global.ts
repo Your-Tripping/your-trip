@@ -23,6 +23,6 @@ body{
     width: 100%;
     height: auto;
     background-repeat: no-repeat;
-    background-position: initial;
+    background-size: cover;
 }
 `;

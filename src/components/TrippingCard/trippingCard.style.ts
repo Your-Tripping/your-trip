@@ -202,7 +202,7 @@ export interface iPosts {
   userId: number;
   username: string;
   country: string;
-  imageUrl: string;
+  profileUrl: string;
   title: string;
   location: string;
   places: Iplaces[];

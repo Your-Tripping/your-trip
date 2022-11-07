@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { Header } from "../../components/Header";
-import CardsLeft from "../../components/TrippingCard";
+import Trip from "../../components/TrippingCard";
 import { useUserContext } from "../../contexts/UserContext";
-import { api } from "../../services/api";
 import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
@@ -23,7 +22,7 @@ export const Dashboard = () => {
           </S.CreatePost>
           <S.Post>
             <h2>Principais viagens:</h2>
-            <ul>{/* post aqui */}</ul>
+            <ul>{isPlaces.map((post, index) => <Trip key={index} post={post} />)}</ul>
           </S.Post>
         </section>
         <S.Suggestion>
