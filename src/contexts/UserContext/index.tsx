@@ -18,6 +18,7 @@ export interface iUser {
 
 interface iUserContext {
   user: iUser | null;
+  usersList: iUser[];
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   singIn: (body: iUserLogin) => void;
   singUp: (body: iUserRegister) => void;
@@ -34,6 +35,7 @@ export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
+  const [usersList, setUsersList] = useState([] as iUser[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [isPlaces, setIsPlaces] = useState<iPosts[]>([] as iPosts[]);
 
@@ -51,7 +53,8 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
       const { data: profileData } = await api.get("/posts");
       setIsPlaces(profileData);
-
+      const { data: usersData } = await api.get("/users");
+      setUsersList(usersData);
       setUser(data);
       navigate("/dashboard");
     } catch (error) {
@@ -114,6 +117,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     <UserContext.Provider
       value={{
         user,
+        usersList,
         setUser,
         singIn,
         singUp,
