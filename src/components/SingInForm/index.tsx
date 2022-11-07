@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useUserContext } from "../../contexts/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,6 +12,12 @@ import * as S from "./singInForm.style";
 
 const SingInForm = () => {
   const { singIn, setShowModal } = useUserContext();
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const togglePassword = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   const {
     handleSubmit,
@@ -30,11 +37,18 @@ const SingInForm = () => {
           {...register("email")}
         />
         <Error>{errors.password?.message}</Error>
-        <S.InputPassword
-          placeholder="Digite sua senha"
-          type="password"
-          {...register("password")}
-        />
+        <S.PasswordWrapper>
+          <S.InputPassword
+            placeholder="Digite sua senha"
+            type={isPasswordVisible ? "text" : "password"}
+            {...register("password")}
+          />
+          {!isPasswordVisible ? (
+            <S.VisibleIcon onClick={() => togglePassword()} />
+          ) : (
+            <S.InvisibleIcon onClick={() => togglePassword()} />
+          )}
+        </S.PasswordWrapper>
         <Button buttonType="tertiary" type="submit">
           Entrar
         </Button>
