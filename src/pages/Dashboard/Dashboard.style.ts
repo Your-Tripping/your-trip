@@ -1,17 +1,12 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import bg from "../../assets/img/Map.svg";
+
 
 export const BodyDashboard = styled.div`
   height: 100vh;
 `;
 
 export const MainDashboard = styled.main`
-  background-image: url(${bg});
-  background-repeat: no-repeat;
-  background-position: initial;
-  background-size: cover;
-  background-color: ${({ theme }) => theme.colors.brand.tertiary};
   height: 85%;
   display: flex;
   padding: 15px 108px;

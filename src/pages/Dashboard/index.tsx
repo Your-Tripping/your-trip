@@ -3,14 +3,7 @@ import { Header } from "../../components/Header";
 import CardsLeft from "../../components/TrippingCard";
 import { useUserContext } from "../../contexts/UserContext";
 import { api } from "../../services/api";
-import {
-  BodyDashboard,
-  MainDashboard,
-  CreatePost,
-  Post,
-  Suggestion,
-  StyledLink,
-} from "./Dashboard.style";
+import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
   const { isPlaces, loadUser } = useUserContext();
@@ -20,30 +13,24 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <BodyDashboard>
+    <S.BodyDashboard>
       <Header />
-      <MainDashboard>
+      <S.MainDashboard>
         <section>
-          <CreatePost>
+          <S.CreatePost>
             <h2>Posts</h2>
-            <StyledLink to={"/addTripping"}>
-              <p>Criar</p>
-            </StyledLink>
-          </CreatePost>
-          <Post>
+            <S.StyledLink to={"/addTripping"}><p>Criar</p></S.StyledLink>
+          </S.CreatePost>
+          <S.Post>
             <h2>Principais viagens:</h2>
-            <ul>
-              {isPlaces.map((postPlaces, index) => (
-                <CardsLeft key={index} postPlaces={postPlaces} />
-              ))}
-            </ul>
-          </Post>
+            <ul>{/* post aqui */}</ul>
+          </S.Post>
         </section>
-        <Suggestion>
+        <S.Suggestion>
           <h2>Pessoas que talvez você conheça:</h2>
           <ul>{/* sugestões aqui */}</ul>
-        </Suggestion>
-      </MainDashboard>
-    </BodyDashboard>
+        </S.Suggestion>
+      </S.MainDashboard>
+    </S.BodyDashboard>
   );
 };
