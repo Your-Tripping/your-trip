@@ -24,5 +24,7 @@ body{
     height: auto;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: left bottom;
+    background-attachment: fixed;
 }
 `;

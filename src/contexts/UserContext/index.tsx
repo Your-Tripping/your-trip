@@ -15,12 +15,16 @@ import { profile } from "console";
 import { boolean } from "yup";
 
 export interface iUser {
+  imageUrl: string | undefined;
+  name: ReactNode;
   accessToken: string;
   user: {
     name: string;
     imageUrl: string;
     bio: string;
     id: string;
+    email: string;
+    password: string;
   };
 }
 
@@ -46,7 +50,7 @@ export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [usersList, setUsersList] = useState([] as iUser[]);
+  const [usersList, setUsersList] = useState<iUser[]>([] as iUser[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [isPlaces, setIsPlaces] = useState<iPosts[]>([] as iPosts[]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -55,16 +59,15 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const singIn = async (body: iUserLogin) => {
     try {
-      const data = await login(body);
       toast.success("Login concluído!");
+      const data = await login(body);
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
-      const { data: profileData } = await api.get("/posts");
-      setIsPlaces(profileData);
+
       const { data: usersData } = await api.get("/users");
+      console.log(usersData);
       setUsersList(usersData);
       setUser(data);
-      toast.success("Login concluído!");
       setIsAuthenticated(true);
       navigate("/dashboard");
     } catch (error) {
@@ -133,14 +136,10 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const loadUser = async () => {
-    const token: string | null = localStorage.getItem("@user: token");
-
     if (token) {
       try {
         api.defaults.headers.authorization = `Bearer ${token}`;
-
-        const { data } = await api.get("/posts");
-
+        const { data } = await api.get<iPosts[]>("/posts");
         setIsPlaces(data);
       } catch (err) {
         console.error(err);
@@ -148,7 +147,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
   const [randomPost, setRandom] = useState([] as any);
-  const [showRandom, setShowRandom] = useState(false)
+  const [showRandom, setShowRandom] = useState(false);
   useEffect(() => {
     setRandom(isPlaces[Math.floor(Math.random() * isPlaces.length)]);
   }, [token]);

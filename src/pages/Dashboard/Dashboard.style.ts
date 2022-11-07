@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-
 export const BodyDashboard = styled.div`
   height: 100vh;
 `;
@@ -14,6 +13,14 @@ export const MainDashboard = styled.main`
 
   section {
     width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    section {
+      order: 1;
+    }
   }
 `;
 
@@ -81,15 +88,24 @@ export const Suggestion = styled.aside`
     color: ${({ theme }) => theme.colors.grey.grey4};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
   }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      flex-direction: row;
+    }
+  }
 `;
 export const RandomBtn = styled.button`
   background-color: ${({ theme }) => theme.colors.brand.primary};
   color: ${({ theme }) => theme.colors.grey.grey1};
   border-radius: 5px;
   padding: 10px 5px;
-  margin-top: 20px
-`
+  margin-top: 20px;
+`;
 export const Container = styled.div`
   disply: flex;
-  
-`
+`;

@@ -1,7 +1,18 @@
-import { LiCard } from "./followersCard.style";
+import { DivSeguir, DivUser, LiCard } from "./followersCard.style";
 
-const Followers = () => {
-  return <LiCard>index</LiCard>;
+const Followers = ({ foll }: any) => {
+  console.log(foll);
+  return (
+    <LiCard>
+      <DivUser>
+        <img src={foll.imageUrl} alt={foll.name} />
+        <h2>{foll.name}</h2>
+      </DivUser>
+      <DivSeguir>
+        <button>Seuir</button>
+      </DivSeguir>
+    </LiCard>
+  );
 };
 
 export default Followers;
