@@ -46,7 +46,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
     setPosts(postsData);
-    const { data: userPostsData } = await api.get(`/posts/?userId=1`);
+    const { data: userPostsData } = await api.get(`/posts/?userId=${localStorage.getItem("userId")}`);
     setUserPosts(userPostsData);
   };
 
