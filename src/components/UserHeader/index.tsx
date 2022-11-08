@@ -1,20 +1,15 @@
 import { BsSearch } from "react-icons/bs";
 import { ReactComponent as YourTrip } from "../../assets/img/YourTrip.svg";
 import { useUserContext } from "../../contexts/UserContext";
-import {
-  EditProfile,
-  FormSearch,
-  HeaderDashboard,
-  UserInfo,
-} from "./header.style";
+import * as S from "./userheader.style";
 
 export const UserHeader = () => {
   const { user, setShowModal } = useUserContext();
 
   return (
-    <HeaderDashboard>
+    <S.HeaderDashboard>
       <YourTrip />
-      <FormSearch>
+      <S.FormSearch>
         <input
           type="search"
           name="searchTrip"
@@ -24,19 +19,18 @@ export const UserHeader = () => {
         <button type="submit">
           <BsSearch />
         </button>
-      </FormSearch>
-      <UserInfo>
+      </S.FormSearch>
+      <S.UserInfo>
         <p>Olá, {user?.user.name}!</p>
-        <img src="" alt={user?.user.imageUrl} />
-        <EditProfile
-          onClick={(e) => {
-            e.preventDefault();
+        <img src={user?.user.imageUrl} alt="" />
+        <S.EditProfile
+          onClick={() => {
             setShowModal("editProfile");
           }}
         >
           Editar perfil
-        </EditProfile>
-      </UserInfo>
-    </HeaderDashboard>
+        </S.EditProfile>
+      </S.UserInfo>
+    </S.HeaderDashboard>
   );
 };
