@@ -1,11 +1,9 @@
 import EditProfile from "../../components/EditProfileModal";
-import Trip from "../../components/TrippingCard";
 import { UserHeader } from "../../components/UserHeader";
 import { useUserContext } from "../../contexts/UserContext";
 import * as S from "../Dashboard/Dashboard.style";
 
 export const UserPage = () => {
-  const idUser = localStorage.getItem("@user: id");
   const { showModal } = useUserContext();
   return (
     <>
@@ -16,7 +14,7 @@ export const UserPage = () => {
           <section>
             <S.CreatePost>
               <h2>Posts</h2>
-              <S.StyledLink to={"/addTripping"}>
+              <S.StyledLink>
                 <p>Criar</p>
               </S.StyledLink>
             </S.CreatePost>

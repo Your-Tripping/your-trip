@@ -17,7 +17,7 @@ const Loading = styled.span`
     width: 50px;
     border: 5px solid transparent;
     height: 50px;
-    border-top: 5px solid #FF577F;
+    border-top: 5px solid ${({theme}) => theme.colors.brand.primary};
     animation: is-rotate 1s infinite ease-in-out;
     border-radius: 50%;
     @keyframes is-rotate {
