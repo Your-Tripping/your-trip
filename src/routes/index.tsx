@@ -12,10 +12,9 @@ export const RoutePages = () => {
       <Route path="/" element={<LandingPage />} />
       <Route element={<ProtectedRoutes />}>
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="userpage" element={<UserPage />} />
+        <Route path="userProfile" element={<UserPage />} />
+        <Route path="addTripping" element={<AddTrip />} />
       </Route>
-      <Route path="addTripping" element={<AddTrip />} />
-      <Route path="userProfile" element={ <UserPage /> } />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

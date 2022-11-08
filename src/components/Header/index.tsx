@@ -26,7 +26,7 @@ export const Header = () => {
       <S.UserInfo>
         <div>
           <section>
-            <p>Olá, {user?.user.name}!</p>
+            <p>Olá, {user?.user.name}</p>
             <button onClick={() => setProfile(true)} type="button">
               <img src={user?.user.imageUrl} alt="Imagem" />
             </button>
