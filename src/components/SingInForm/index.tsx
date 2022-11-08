@@ -28,7 +28,7 @@ const SingInForm = () => {
   });
 
   return (
-      <Form onSubmit={handleSubmit(singIn)}>
+      <Form background={false} onSubmit={handleSubmit(singIn)}>
         <Error>{errors.email?.message}</Error>
         <S.InputEmail
           placeholder="Digite seu e-mail"

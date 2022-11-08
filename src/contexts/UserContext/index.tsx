@@ -23,7 +23,6 @@ export interface iUser {
   user: iUserInfo;
 }
 
-
 interface iUserContext {
   user: iUser | null;
   usersList: iUser[];

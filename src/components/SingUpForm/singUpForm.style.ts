@@ -15,9 +15,6 @@ export const Conatiner = styled.div`
 `;
 
 export const RegisterForm = styled(Form)`
-  border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.grey.grey1};
-  padding: 1rem;
   margin-top: 80px;
   animation: transitionOpacity 1s ease;
   input {
@@ -26,16 +23,7 @@ export const RegisterForm = styled(Form)`
   p {
     text-align: center;
   }
-  @keyframes transitionOpacity {
-    0% {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  
 `;
 export const PasswordWrapper = styled.div`
   position: relative;

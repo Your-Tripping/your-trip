@@ -20,7 +20,7 @@ export interface iEditPost {
   places?: iPlace[];
 }
 
-interface iPlace {
+export interface iPlace {
   id: number;
   name: string;
   image: string;
