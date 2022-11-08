@@ -37,20 +37,21 @@ interface iUserContext {
   loading: boolean;
   setUsersList: React.Dispatch<React.SetStateAction<iUserInfo[]>>;
   handleFormDashboard: () => void;
+  updateUsersList: () => void;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [usersList, setUsersList] = useState<iUserInfo[]>([] as iUserInfo[]);
+  const [usersList, setUsersList] = useState([] as iUserInfo[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
 
-  const {cachePosts} = useTripContext()
+  const { cachePosts } = useTripContext();
 
   const singIn = async (body: iUserLogin) => {
     try {
@@ -61,7 +62,8 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       api.defaults.headers.authorization = `Bearer ${data.accessToken}`;
 
       setUser(data);
-      cachePosts()
+      cachePosts();
+      updateUsersList();
       setIsAuthenticated(true);
 
       navigate("/dashboard");
@@ -80,6 +82,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       toast.error("Ops! Algo deu errado!");
       console.error(error);
     }
+  };
+
+  const updateUsersList = async () => {
+    const { data } = await api.get<iUserInfo[]>("/users");
+    setUsersList(data);
   };
 
   useEffect(() => {
@@ -101,6 +108,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
             accessToken: token,
             user: data,
           });
+          updateUsersList();
         } catch (error) {
           console.log(error);
           window.localStorage.clear();
@@ -157,6 +165,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         setShowModal,
         loading,
         handleFormDashboard,
+        updateUsersList,
       }}
     >
       {children}
