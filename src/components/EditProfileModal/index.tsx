@@ -18,7 +18,7 @@ const EditProfile: React.FC = () => {
   });
   const { editProfile, setShowModal } = useUserContext();
   return (
-    <S.Conatiner>
+    <S.Container>
       <S.RegisterForm background onSubmit={handleSubmit(editProfile)}>
         <div>
           <S.Exit
@@ -61,7 +61,7 @@ const EditProfile: React.FC = () => {
           Editar
         </Button>
       </S.RegisterForm>
-    </S.Conatiner>
+    </S.Container>
   );
 };
 
