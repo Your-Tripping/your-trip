@@ -1,12 +1,19 @@
-import { createContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import { api } from "../../services/api";
+import { iUserInfo, useUserContext } from "../UserContext";
 
-interface iPost {
+export interface iPost {
   id: number;
   userId: number;
   username: string;
   country: string;
-  imageUrl: string;
+  profileUrl: string;
   title: string;
   location: string;
   places: iPlace[];
@@ -20,7 +27,7 @@ interface iEditPost {
   places?: iPlace[];
 }
 
-interface iPlace {
+export interface iPlace {
   id: number;
   name: string;
   image: string;
@@ -33,6 +40,10 @@ interface iTrippingContext {
   cachePosts: () => void;
   createPost: (post: iPost) => void;
   editPost: (post: iEditPost, id: number) => void;
+  randomPost: iPost;
+  setRandom: React.Dispatch<React.SetStateAction<iPost>>;
+  showRandom: boolean;
+  setShowRandom: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const TrippingContext = createContext<iTrippingContext>(
@@ -42,13 +53,25 @@ export const TrippingContext = createContext<iTrippingContext>(
 const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [posts, setPosts] = useState([] as iPost[]);
   const [userPosts, setUserPosts] = useState([] as iPost[]);
+  const [randomPost, setRandom] = useState({} as iPost);
+  const [showRandom, setShowRandom] = useState(false);
 
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
     setPosts(postsData);
-    const { data: userPostsData } = await api.get(`/posts/?userId=${localStorage.getItem("userId")}`);
+    const { data: userPostsData } = await api.get(
+      `/posts/?userId=${localStorage.getItem("userId")}`
+    );
     setUserPosts(userPostsData);
   };
+
+  const cacheUsers = async () => {
+    const { data } = await api.get<iUserInfo[]>("/users");
+    console.log(data);
+    setUsersList(data);
+  };
+
+  const { setUsersList } = useUserContext();
 
   const createPost = async (post: iPost) => {
     await api.post("/posts", post);
@@ -58,9 +81,28 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
     await api.patch(`/posts/${id}`, post);
   };
 
+  useEffect(() => {
+    cachePosts();
+    cacheUsers();
+  }, []);
+
+  useEffect(() => {
+    setRandom(posts[Math.floor(Math.random() * posts.length)]);
+  }, []);
+
   return (
     <TrippingContext.Provider
-      value={{ posts, userPosts, cachePosts, createPost, editPost }}
+      value={{
+        posts,
+        userPosts,
+        cachePosts,
+        createPost,
+        editPost,
+        randomPost,
+        setRandom,
+        showRandom,
+        setShowRandom,
+      }}
     >
       {children}
     </TrippingContext.Provider>
@@ -68,3 +110,8 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export default TrippingProvider;
+
+export const useTripContext = () => {
+  const context = useContext(TrippingContext);
+  return context;
+};

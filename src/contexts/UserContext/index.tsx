@@ -11,12 +11,8 @@ import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
 import { iUserEdit } from "../../services/edit";
-import { iPosts } from "../../components/TrippingCard/trippingCard.style";
-import { profile } from "console";
-import { boolean } from "yup";
-import { useTrippingContext } from "../TrippingContext";
 
-interface iUserInfo {
+export interface iUserInfo {
   name: string;
   imageUrl: string;
   bio: string;
@@ -29,7 +25,7 @@ export interface iUser {
 
 interface iUserContext {
   user: iUser | null;
-  usersList: iUser[];
+  usersList: iUserInfo[];
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   singIn: (body: iUserLogin) => void;
   singUp: (body: iUserRegister) => void;
@@ -38,20 +34,20 @@ interface iUserContext {
   showModal: string | null;
   setShowModal: React.Dispatch<React.SetStateAction<string | null>>;
   loading: boolean;
+  setUsersList: React.Dispatch<React.SetStateAction<iUserInfo[]>>;
+  handleFormDashboard: () => void;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [usersList, setUsersList] = useState<iUser[]>([] as iUser[]);
+  const [usersList, setUsersList] = useState<iUserInfo[]>([] as iUserInfo[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
-
-  const { cachePosts } = useTrippingContext();
 
   const singIn = async (body: iUserLogin) => {
     try {
@@ -61,13 +57,9 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("@user: id", data.user.id);
       api.defaults.headers.authorization = `Bearer ${data.accessToken}`;
 
-      cachePosts();
       setUser(data);
-
-      const { data: usersData } = await api.get("/users");
-      setUsersList(usersData);
       setIsAuthenticated(true);
-      
+
       navigate("/dashboard");
     } catch (error) {
       toast.error("Ops! Algo está errado!");
@@ -103,7 +95,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
           const { data } = await api.get<iUserInfo>(`/users/${id}`);
           setUser({
             accessToken: token,
-            user: data
+            user: data,
           });
         } catch (error) {
           console.log(error);
@@ -139,11 +131,19 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const handleFormDashboard = () => {
+    setIsAuthenticated(false);
+    window.localStorage.clear();
+    setUser(null);
+    navigate("/");
+  };
+
   return (
     <UserContext.Provider
       value={{
         user,
         usersList,
+        setUsersList,
         setUser,
         singIn,
         singUp,
@@ -151,7 +151,8 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         followUsers,
         showModal,
         setShowModal,
-        loading
+        loading,
+        handleFormDashboard
       }}
     >
       {children}

@@ -1,18 +1,19 @@
-import { DivSeguir, DivUser, LiCard } from "./followersCard.style";
-
-const Followers = ({ foll }: any) => {
-  console.log(foll);
+import { iUserInfo } from "../../contexts/UserContext";
+import * as S from "./followersCard.style";
+interface iFollow {
+  follower: iUserInfo;
+}
+const Followers = ({ follower }: iFollow) => {
   return (
-    <LiCard>
-      <DivUser>
-        <img src={foll.imageUrl} alt={foll.name} />
-        <h2>{foll.name}</h2>
-      </DivUser>
-      <DivSeguir>
+    <S.LiCard>
+      <S.DivUser>
+        <img src={follower.imageUrl} alt={follower.name} />
+        <h2>{follower.name}</h2>
+      </S.DivUser>
+      <S.DivSeguir>
         <button>Seuir</button>
-      </DivSeguir>
-    </LiCard>
+      </S.DivSeguir>
+    </S.LiCard>
   );
 };
-
 export default Followers;
