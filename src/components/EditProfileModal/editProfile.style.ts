@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import {
-  Form,
   H2,
   DiviserTwo,
 } from "../../components/SingInForm/singInForm.style";
+import { Form } from "../Forn/form.style";
 import { Text } from "../Text";
 
 export const Conatiner = styled.div`
