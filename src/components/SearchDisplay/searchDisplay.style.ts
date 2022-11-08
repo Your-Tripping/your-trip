@@ -8,11 +8,19 @@ export const SearchResults = styled.ul`
   padding: 0 108px;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 3%;
+  flex-wrap: wrap;
+  gap: 20px;
 
   & li {
-    width: 30%;
+    width: 100%;
+  }
+
+  @media (min-width: 996px) {
+    gap: 3%;
+
+    & li {
+      width: 30%;
+    }
   }
 `;
 

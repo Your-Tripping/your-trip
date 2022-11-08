@@ -4,7 +4,7 @@ export const UserCard = styled.li`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.grey.grey1};
   height: 140px;
-  padding: 0 20px;
+  padding: 8px 20px;
 `;
 
 export const SectionProfile = styled.section`
@@ -39,12 +39,12 @@ export const SectionProfile = styled.section`
 `;
 
 export const UserBio = styled.p`
-  font-size: ${({ theme }) => theme.typography.sizes.size3};
+  font-size: ${({ theme }) => theme.typography.sizes.size4};
 `;
 
 export const HalfLine = styled.hr`
-  margin: 8px 0;
+  margin: 12px 0;
   width: 90%;
-  height: 2px;
+  height: 1px;
   background-color: ${({ theme }) => theme.colors.grey.grey3};
 `;

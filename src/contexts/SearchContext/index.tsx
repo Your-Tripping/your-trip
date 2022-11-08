@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { TrippingContext } from "../TrippingContext";
-import { UserContext } from "../UserContext";
+import { iUserInfo, UserContext } from "../UserContext";
 
 export interface iPost {
   id: number;
@@ -20,16 +20,9 @@ interface iPlace {
   description: string;
 }
 
-export interface iUser {
-  name: string;
-  imageUrl: string;
-  bio: string;
-  id: string;
-}
-
 interface iSearchContext {
   filteredPosts: iPost[];
-  filteredUsers: iUser[];
+  filteredUsers: iUserInfo[];
   filter: string;
   applyFilter: (filter: string, input: string) => void;
 }
@@ -41,7 +34,7 @@ export const SearchContext = createContext<iSearchContext>(
 const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [filteredPosts, setFilteredPosts] = useState([] as iPost[]);
 
-  const [filteredUsers, setFilteredUsers] = useState([] as iUser[]);
+  const [filteredUsers, setFilteredUsers] = useState([] as iUserInfo[]);
 
   const { usersList } = useContext(UserContext);
 

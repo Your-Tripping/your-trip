@@ -1,9 +1,9 @@
 import React from "react";
 import * as S from "./searchUserCard.style";
 import { IoEllipsisHorizontalOutline } from "react-icons/io5";
-import { iGeneralUser } from "../../contexts/UserContext";
+import { iUserInfo } from "../../contexts/UserContext";
 
-const SearchUserCard = ({ user }: { user: iGeneralUser }) => {
+const SearchUserCard = ({ user }: { user: iUserInfo }) => {
   return (
     <S.UserCard>
       <S.SectionProfile className="Profile">

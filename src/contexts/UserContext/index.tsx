@@ -23,16 +23,9 @@ export interface iUser {
   user: iUserInfo;
 }
 
-export interface iGeneralUser {
-  name: string;
-  imageUrl: string;
-  bio: string;
-  id: string;
-}
-
 interface iUserContext {
   user: iUser | null;
-  usersList: iGeneralUser[];
+  usersList: iUserInfo[];
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   singIn: (body: iUserLogin) => void;
   singUp: (body: iUserRegister) => void;
@@ -43,13 +36,14 @@ interface iUserContext {
   loading: boolean;
   setUsersList: React.Dispatch<React.SetStateAction<iUserInfo[]>>;
   handleFormDashboard: () => void;
+  updateUsersList: (list: iUserInfo[]) => void;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<iUser | null>(null); 
-  const [usersList, setUsersList] = useState<iGeneralUser[]>([] as iGeneralUser[]);
+  const [user, setUser] = useState<iUser | null>(null);
+  const [usersList, setUsersList] = useState([] as iUserInfo[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -63,7 +57,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
       api.defaults.headers.authorization = `Bearer ${data.accessToken}`;
-      
+
       setUser(data);
       setIsAuthenticated(true);
 
@@ -83,6 +77,10 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       toast.error("Ops! Algo deu errado!");
       console.error(error);
     }
+  };
+
+  const updateUsersList = (list: iUserInfo[]) => {
+    setUsersList(list);
   };
 
   useEffect(() => {
@@ -160,6 +158,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         setShowModal,
         loading,
         handleFormDashboard,
+        updateUsersList,
       }}
     >
       {children}
