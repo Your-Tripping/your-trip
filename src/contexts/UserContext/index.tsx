@@ -10,9 +10,9 @@ import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
-import { useTrippingContext } from "../TrippingContext";
+import { iUserEdit } from "../../services/edit";
 
-interface iUserInfo {
+export interface iUserInfo {
   name: string;
   imageUrl: string;
   bio: string;
@@ -25,29 +25,29 @@ export interface iUser {
 
 interface iUserContext {
   user: iUser | null;
-  usersList: iUser[];
+  usersList: iUserInfo[];
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   singIn: (body: iUserLogin) => void;
   singUp: (body: iUserRegister) => void;
-  editProfile: (body: iUserRegister) => void;
+  editProfile: (body: iUserEdit) => void;
   followUsers: (id: string) => void;
   showModal: string | null;
   setShowModal: React.Dispatch<React.SetStateAction<string | null>>;
   loading: boolean;
+  setUsersList: React.Dispatch<React.SetStateAction<iUserInfo[]>>;
+  handleFormDashboard: () => void;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [usersList, setUsersList] = useState<iUser[]>([] as iUser[]);
+  const [usersList, setUsersList] = useState<iUserInfo[]>([] as iUserInfo[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
-
-  const { cachePosts } = useTrippingContext();
 
   const singIn = async (body: iUserLogin) => {
     try {
@@ -57,13 +57,9 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("@user: id", data.user.id);
       api.defaults.headers.authorization = `Bearer ${data.accessToken}`;
 
-      cachePosts();
       setUser(data);
-
-      const { data: usersData } = await api.get("/users");
-      setUsersList(usersData);
       setIsAuthenticated(true);
-      
+
       navigate("/dashboard");
     } catch (error) {
       toast.error("Ops! Algo está errado!");
@@ -99,7 +95,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
           const { data } = await api.get<iUserInfo>(`/users/${id}`);
           setUser({
             accessToken: token,
-            user: data
+            user: data,
           });
         } catch (error) {
           console.log(error);
@@ -111,11 +107,14 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     autoLogin();
   }, []);
 
-  const editProfile = async (body: iUserRegister) => {
+  const editProfile = async (body: iUserEdit) => {
     const userId = localStorage.getItem("@user: id");
     try {
+      const token = localStorage.getItem("@user: token");
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const { data } = await api.patch(`/users/${userId}`, body);
       toast.success("Perfil Atualizado!");
+      setShowModal(null);
     } catch (error) {
       console.log(error);
     }
@@ -132,11 +131,19 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const handleFormDashboard = () => {
+    setIsAuthenticated(false);
+    window.localStorage.clear();
+    setUser(null);
+    navigate("/");
+  };
+
   return (
     <UserContext.Provider
       value={{
         user,
         usersList,
+        setUsersList,
         setUser,
         singIn,
         singUp,
@@ -144,7 +151,8 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         followUsers,
         showModal,
         setShowModal,
-        loading
+        loading,
+        handleFormDashboard
       }}
     >
       {children}

@@ -14,7 +14,6 @@ import { GrMap } from "react-icons/gr";
 import { Input } from "../Input/input.style";
 import { iPost } from "../../contexts/TrippingContext";
 
-
 const Trip = ({ post }: {post: iPost}) => {
   const [placeIndex, setPlaceIndex] = useState(0);
   const [isLikes, setIsLikes] = useState(true);

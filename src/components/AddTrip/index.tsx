@@ -14,7 +14,7 @@ import * as S from "./addTrip.style";
 import { Error } from "../ErrorMessage/formError.style";
 import AddPlace from "../AddPlaceModal";
 
-export const AddTrippingModal = () => {
+export const AddTrip = () => {
   const [places, setPlaces] = useState([] as iPlace[]);
 
   const {register, handleSubmit, formState: errors } = useForm<iPost>({

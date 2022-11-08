@@ -1,18 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import { useTrippingContext } from "../../contexts/TrippingContext";
-import { useUserContext } from "../../contexts/UserContext";
-
 import Followers from "../../components/FollowersCard";
 import { Header } from "../../components/Header";
 import Trip from "../../components/TrippingCard";
-
+import { useTripContext } from "../../contexts/TrippingContext";
+import { useUserContext } from "../../contexts/UserContext";
 import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
-  const { usersList, setShowModal } = useUserContext();
-  const {showRandom, posts, randomPost, setShowRandom} = useTrippingContext()
-
-  const navigate = useNavigate();
+  const { usersList } = useUserContext();
+  const {showRandom, posts, randomPost, setShowRandom} = useTripContext()
 
   return (
     <S.BodyDashboard>
@@ -21,12 +16,7 @@ export const Dashboard = () => {
         <section>
           <S.CreatePost>
             <h2>Posts</h2>
-            <S.StyledLink
-              onClick={() => {
-                setShowModal("addTrip");
-                navigate("/addTripping");
-              }}
-            >
+            <S.StyledLink >
               <p>Criar</p>
             </S.StyledLink>
           </S.CreatePost>
@@ -53,9 +43,9 @@ export const Dashboard = () => {
           <S.Suggestion>
             <h2>Pessoas que talvez você conheça:</h2>
             <ul>
-              {usersList.map((foll, index) => (
-                <Followers key={index} foll={foll} />
-              ))}
+              {/* {usersList.map((foll, index) => (
+                <Followers key={index} follower={foll} />
+              ))} */}
             </ul>
           </S.Suggestion>
           <div>
