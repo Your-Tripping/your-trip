@@ -4,7 +4,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import * as S from "./userheader.style";
 
 export const UserHeader = () => {
-  const { user, setShowModal } = useUserContext();
+  const { user } = useUserContext();
 
   return (
     <S.HeaderDashboard>
@@ -23,13 +23,6 @@ export const UserHeader = () => {
       <S.UserInfo>
         <p>Olá, {user?.user.name}!</p>
         <img src={user?.user.imageUrl} alt="" />
-        <S.EditProfile
-          onClick={() => {
-            setShowModal("editProfile");
-          }}
-        >
-          Editar perfil
-        </S.EditProfile>
       </S.UserInfo>
     </S.HeaderDashboard>
   );
