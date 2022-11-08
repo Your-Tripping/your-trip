@@ -58,8 +58,8 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   const singIn = async (body: iUserLogin) => {
-    toast.success("Login concluído!");
     try {
+      toast.success("Login concluído!");
       const data = await login(body);
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
@@ -165,7 +165,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
 
   const handleFormDashboard = (): void =>  {
-    console.log("oi")
     setIsAuthenticated(false);
     window.localStorage.clear();
     setUser(null);
