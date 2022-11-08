@@ -10,7 +10,7 @@ export const MainDashboard = styled.main`
   display: flex;
   padding: 15px 108px;
   gap: 40px;
-
+  margin-top: 90px;
   section {
     width: 100%;
   }
@@ -49,7 +49,6 @@ export const StyledLink = styled(Link)`
   height: 32px;
   background-color: ${({ theme }) => theme.colors.brand.tertiary};
   border-radius: 8px;
-
   p {
     color: ${({ theme }) => theme.colors.brand.primary};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
