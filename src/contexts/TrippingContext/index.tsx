@@ -83,7 +83,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     cachePosts();
-    cacheUsers();
+    // cacheUsers();
   }, []);
 
   useEffect(() => {
