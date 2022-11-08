@@ -17,6 +17,7 @@ export interface iPost {
   title: string;
   location: string;
   places: iPlace[];
+  followername: string;
 }
 
 interface iEditPost {
@@ -37,6 +38,7 @@ export interface iPlace {
 interface iTrippingContext {
   posts: iPost[];
   userPosts: iPost[];
+  followUser: iPost[];
   cachePosts: () => void;
   createPost: (post: iPost) => void;
   editPost: (post: iEditPost, id: number) => void;
@@ -55,20 +57,25 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [userPosts, setUserPosts] = useState([] as iPost[]);
   const [randomPost, setRandom] = useState({} as iPost);
   const [showRandom, setShowRandom] = useState(false);
+  const [followUser, setFollowUser] = useState([] as iPost[]);
 
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
     setPosts(postsData);
+
     const { data: userPostsData } = await api.get(
       `/posts/?userId=${localStorage.getItem("userId")}`
     );
     setUserPosts(userPostsData);
-  };
 
-  const cacheUsers = async () => {
     const { data } = await api.get<iUserInfo[]>("/users");
-    console.log(data);
     setUsersList(data);
+
+    // requisição todos os seguidores
+    const { data: followe } = await api.get(
+      `/followers/?${window.localStorage.getItem("@user: id")}`
+    );
+    setFollowUser(followe);
   };
 
   const { setUsersList } = useUserContext();
@@ -83,15 +90,16 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     cachePosts();
-    // cacheUsers();
   }, []);
 
   useEffect(() => {
     setRandom(posts[Math.floor(Math.random() * posts.length)]);
   }, [posts]);
+
   useEffect(() => {
     setRandom(posts[Math.floor(Math.random() * posts.length)]);
   }, [showRandom]);
+
   return (
     <TrippingContext.Provider
       value={{
@@ -104,6 +112,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
         setRandom,
         showRandom,
         setShowRandom,
+        followUser,
       }}
     >
       {children}
