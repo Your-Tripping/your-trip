@@ -17,7 +17,7 @@ export const HeaderDashboard = styled.header`
 export const FormSearch = styled.form`
   height: 50px;
   width: 40%;
-  border: 1px solid ${({ theme }) => theme.colors.grey.grey2};
+  border: 1px solid ${({ theme }) => theme.colors.brand.tertiary};
   border-radius: 5px;
   padding: 18px 16px;
   display: flex;

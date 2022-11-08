@@ -31,8 +31,6 @@ export const CreatePost = styled.div`
   background-color: ${({ theme }) => theme.colors.grey.grey1};
   height: 60px;
   padding: 18px 20px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
 
   h2 {
     color: ${({ theme }) => theme.colors.brand.secondary};
@@ -85,8 +83,6 @@ export const Suggestion = styled.aside`
   width: 441px;
   height: 351px;
   padding: 30px 10px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
 
   h2 {
     color: ${({ theme }) => theme.colors.grey.grey4};
@@ -111,5 +107,5 @@ export const RandomBtn = styled.button`
   margin-top: 20px;
 `;
 export const Container = styled.div`
-  display: flex;
+  disply: flex;
 `;
