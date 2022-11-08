@@ -65,6 +65,12 @@ export const Post = styled.div`
     margin: 30px 0px;
   }
 
+  p {
+    color: ${({ theme }) => theme.colors.grey.grey3};
+    font-size: ${({ theme }) => theme.typography.sizes.size1};
+    font-weight: 700px;
+  }
+
   ul {
     width: 100%;
     height: 100%;

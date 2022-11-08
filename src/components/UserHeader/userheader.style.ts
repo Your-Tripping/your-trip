@@ -39,6 +39,7 @@ export const UserInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 26px;
+  height: 300px;
 
   p {
     color: ${({ theme }) => theme.colors.brand.secondary};
@@ -49,12 +50,6 @@ export const UserInfo = styled.div`
     width: 45px;
     height: 44px;
     border-radius: 50%;
+    object-fit: cover;
   }
-`;
-
-export const EditProfile = styled.button`
-  font-weight: 400;
-  font-size: ${({ theme }) => theme.typography.sizes.size1};
-  background-color: #fff;
-  color: ${({ theme }) => theme.colors.brand.secondary};
 `;

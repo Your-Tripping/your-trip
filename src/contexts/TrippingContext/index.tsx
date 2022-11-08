@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
-import { iUserInfo, useUserContext } from "../UserContext";
+import { iUserInfo, UserContext } from "../UserContext";
 
 export interface iPost {
   id?: number;
@@ -74,13 +74,6 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
     setFollowUser(follower)
   };
 
-  const cacheUsers = async () => {
-    const { data } = await api.get<iUserInfo[]>("/users");
-    setUsersList(data);
-  };
-
-  const { setUsersList } = useUserContext();
-
   const createPost = async (post: iPost) => {
     
     try {
@@ -100,7 +93,6 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     cachePosts();
-    cacheUsers();
   }, []);
 
   useEffect(() => {

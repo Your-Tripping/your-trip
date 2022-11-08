@@ -21,22 +21,24 @@ export const Dashboard = () => {
             </S.StyledLink>
           </S.CreatePost>
           <S.Post>
-            <h2>{showRandom ? false :"Principais viagens:"}</h2>
+            <h2>{showRandom ? false : "Principais viagens:"}</h2>
             <ul>
               {showRandom
                 ? false
-                :  posts.map((post, index) => (
-                    <Trip key={index} post={post} />
-                  ))}
+                : posts.map((post, index) => <Trip key={index} post={post} />)}
             </ul>
             {<h2>{showRandom ? "Viagem aleatória:" : false}</h2>}
-            {<ul>
-              {showRandom
-                ? [randomPost].map((post: any, index: any) => (
-                    <Trip key={index} post={post} /> 
-                  ))
-                : false}
-            </ul>}
+            {[showRandom].length === 0 ? (
+              <p>Você não possui nenhum roteiro de viagem ainda :(</p>
+            ) : (
+              <ul>
+                {showRandom
+                  ? [randomPost].map((post: any, index: any) => (
+                      <Trip key={index} post={post} />
+                    ))
+                  : false}
+              </ul>
+            )}
           </S.Post>
         </section>
         <S.Container>
@@ -51,9 +53,9 @@ export const Dashboard = () => {
           <div>
             <S.RandomBtn
               onClick={() => {
-                if(showRandom===true){
-                  setShowRandom(false)
-                  return
+                if (showRandom === true) {
+                  setShowRandom(false);
+                  return;
                 }
                 setShowRandom(true);
               }}
