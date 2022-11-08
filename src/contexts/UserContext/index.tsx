@@ -11,6 +11,7 @@ import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
 import { iUserEdit } from "../../services/edit";
+import { useTripContext } from "../TrippingContext";
 
 export interface iUserInfo {
   name: string;
@@ -36,18 +37,21 @@ interface iUserContext {
   loading: boolean;
   setUsersList: React.Dispatch<React.SetStateAction<iUserInfo[]>>;
   handleFormDashboard: () => void;
+  updateUsersList: () => void;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [usersList, setUsersList] = useState<iUserInfo[]>([] as iUserInfo[]);
+  const [usersList, setUsersList] = useState([] as iUserInfo[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
+
+  const { cachePosts } = useTripContext();
 
   const singIn = async (body: iUserLogin) => {
     try {
@@ -58,6 +62,8 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       api.defaults.headers.authorization = `Bearer ${data.accessToken}`;
 
       setUser(data);
+      cachePosts();
+      updateUsersList();
       setIsAuthenticated(true);
 
       navigate("/dashboard");
@@ -78,6 +84,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const updateUsersList = async () => {
+    const { data } = await api.get<iUserInfo[]>("/users");
+    setUsersList(data);
+  };
+
   useEffect(() => {
     const authenticated = () => {
       const token = window.localStorage.getItem("@user: token");
@@ -87,7 +98,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    const autoLogin = async () => {
+    const autoLogin = async (): Promise<void> => {
       const id = localStorage.getItem("@user: id");
       if (token) {
         try {
@@ -97,6 +108,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
             accessToken: token,
             user: data,
           });
+          updateUsersList();
         } catch (error) {
           console.log(error);
           window.localStorage.clear();
@@ -154,6 +166,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         setShowModal,
         loading,
         handleFormDashboard,
+        updateUsersList,
       }}
     >
       {children}

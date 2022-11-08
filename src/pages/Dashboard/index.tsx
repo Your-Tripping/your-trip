@@ -1,13 +1,10 @@
-import Followers from "../../components/FollowersCard";
 import { Header } from "../../components/Header";
 import Trip from "../../components/TrippingCard";
 import { useTripContext } from "../../contexts/TrippingContext";
-import { useUserContext } from "../../contexts/UserContext";
 import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
-  const { usersList } = useUserContext();
-  const {showRandom, posts, randomPost, setShowRandom} = useTripContext()
+  const { showRandom, posts, randomPost, setShowRandom } = useTripContext();
 
   return (
     <S.BodyDashboard>
@@ -16,27 +13,29 @@ export const Dashboard = () => {
         <section>
           <S.CreatePost>
             <h2>Posts</h2>
-            <S.StyledLink >
+            <S.StyledLink to="/addTripping">
               <p>Criar</p>
             </S.StyledLink>
           </S.CreatePost>
           <S.Post>
-            <h2>{showRandom ? false :"Principais viagens:"}</h2>
+            <h2>{showRandom ? false : "Principais viagens:"}</h2>
             <ul>
               {showRandom
                 ? false
-                :  posts.map((post, index) => (
-                    <Trip key={index} post={post} />
-                  ))}
+                : posts.map((post, index) => <Trip key={index} post={post} />)}
             </ul>
             {<h2>{showRandom ? "Viagem aleatória:" : false}</h2>}
-            {<ul>
-              {showRandom
-                ? [randomPost].map((post: any, index: any) => (
-                    <Trip key={index} post={post} /> 
-                  ))
-                : false}
-            </ul>}
+            {[showRandom].length === 0 ? (
+              <p>Você não possui nenhum roteiro de viagem ainda :(</p>
+            ) : (
+              <ul>
+                {showRandom
+                  ? [randomPost].map((post: any, index: any) => (
+                      <Trip key={index} post={post} />
+                    ))
+                  : false}
+              </ul>
+            )}
           </S.Post>
         </section>
         <S.Container>
@@ -51,9 +50,9 @@ export const Dashboard = () => {
           <div>
             <S.RandomBtn
               onClick={() => {
-                if(showRandom===true){
-                  setShowRandom(false)
-                  return
+                if (showRandom === true) {
+                  setShowRandom(false);
+                  return;
                 }
                 setShowRandom(true);
               }}

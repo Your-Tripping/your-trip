@@ -21,7 +21,7 @@ export const HeaderDashboard = styled.header`
     padding: 10px 10px;
     justify-content: flex-start;
     gap: 20px;
-    svg {
+    .icon {
       width: 100px;
       height: 36px;
     }

@@ -41,7 +41,7 @@ export const CreatePost = styled.div`
   }
 `;
 
-export const StyledLink = styled.button`
+export const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,9 +53,6 @@ export const StyledLink = styled.button`
   p {
     color: ${({ theme }) => theme.colors.brand.primary};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
-    @media (max-width: 768px) {
-      display: none;
-    }
   }
 `;
 
@@ -67,6 +64,12 @@ export const Post = styled.div`
     color: ${({ theme }) => theme.colors.grey.grey3};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
     margin: 30px 0px;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.grey.grey3};
+    font-size: ${({ theme }) => theme.typography.sizes.size1};
+    font-weight: 700px;
   }
 
   ul {
