@@ -16,7 +16,7 @@ export const Dashboard = () => {
         <section>
           <S.CreatePost>
             <h2>Posts</h2>
-            <S.StyledLink to={"/addTripping"}>
+            <S.StyledLink >
               <p>Criar</p>
             </S.StyledLink>
           </S.CreatePost>

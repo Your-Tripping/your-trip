@@ -21,7 +21,7 @@ export const UserPage = () => {
           <section>
             <CreatePost>
               <h2>Posts</h2>
-              <StyledLink to={"/addTripping"}>
+              <StyledLink >
                 <p>Criar</p>
               </StyledLink>
             </CreatePost>

@@ -19,7 +19,7 @@ const EditProfile: React.FC = () => {
   const { editProfile, setShowModal } = useUserContext();
   return (
     <S.Conatiner>
-      <S.RegisterForm onSubmit={handleSubmit(editProfile)}>
+      <S.RegisterForm background onSubmit={handleSubmit(editProfile)}>
         <div>
           <S.Exit
             onClick={() => {

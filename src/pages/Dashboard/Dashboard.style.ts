@@ -40,7 +40,7 @@ export const CreatePost = styled.div`
   }
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;

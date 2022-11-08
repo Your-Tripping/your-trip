@@ -33,7 +33,7 @@ export const SingUpForm: React.FC = () => {
 
   return (
     <S.Conatiner>
-      <S.RegisterForm onSubmit={handleSubmit(singUp)}>
+      <S.RegisterForm background onSubmit={handleSubmit(singUp)}>
         <div>
           <S.Exit
             onClick={() => {

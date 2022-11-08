@@ -1,15 +1,13 @@
 import styled from "styled-components";
-import {
-  Form,
-  H2,
-  DiviserTwo,
-} from "../../components/SingInForm/singInForm.style";
+import { H2, DiviserTwo } from "../../components/SingInForm/singInForm.style";
+import { Form } from "../Forn/form.style";
 import { Text } from "../Text";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const Conatiner = styled.div`
   position: absolute;
   width: 100%;
+  top: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -17,12 +15,7 @@ export const Conatiner = styled.div`
 `;
 
 export const RegisterForm = styled(Form)`
-  width: 280px;
-  height: 100vh;
-  border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.grey.grey1};
-  padding: 1rem;
-  margin-top: 300px;
+  margin-top: 80px;
   animation: transitionOpacity 1s ease;
   input {
     margin-bottom: 1rem;
@@ -30,20 +23,7 @@ export const RegisterForm = styled(Form)`
   p {
     text-align: center;
   }
-  @media (min-width: 800px) {
-    width: 350px;
-    height: auto;
-  }
-  @keyframes transitionOpacity {
-    0% {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  
 `;
 export const PasswordWrapper = styled.div`
   position: relative;
