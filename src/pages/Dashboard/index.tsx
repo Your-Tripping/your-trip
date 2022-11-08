@@ -7,7 +7,7 @@ import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
   const { usersList } = useUserContext();
-  const {showRandom, posts, randomPost, setShowRandom} = useTripContext()
+  const { showRandom, posts, randomPost, setShowRandom } = useTripContext();
 
   return (
     <S.BodyDashboard>
@@ -16,7 +16,7 @@ export const Dashboard = () => {
         <section>
           <S.CreatePost>
             <h2>Posts</h2>
-            <S.StyledLink >
+            <S.StyledLink>
               <p>Criar</p>
             </S.StyledLink>
           </S.CreatePost>
@@ -25,9 +25,7 @@ export const Dashboard = () => {
             <ul>
               {showRandom
                 ? false
-                : posts.map((post, index) => (
-                    <Trip key={index} post={post} />
-                  ))}
+                : posts.map((post, index) => <Trip key={index} post={post} />)}
             </ul>
             <h2>{showRandom ? "Viagem aleatória:" : false}</h2>
             <ul>
