@@ -1,12 +1,12 @@
 import { createContext, ReactNode, useState } from "react";
 import { api } from "../../services/api";
 
-interface iPost {
+export interface iPost {
   id: number;
   userId: number;
   username: string;
   country: string;
-  imageUrl: string;
+  profileUrl: string;
   title: string;
   location: string;
   places: iPlace[];
@@ -46,7 +46,9 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
     setPosts(postsData);
-    const { data: userPostsData } = await api.get(`/posts/?userId=${localStorage.getItem("userId")}`);
+    const { data: userPostsData } = await api.get(
+      `/posts/?userId=${localStorage.getItem("userId")}`
+    );
     setUserPosts(userPostsData);
   };
 

@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TrippingProvider from "./contexts/TrippingContext";
+import SearchProvider from "./contexts/SearchContext";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -20,7 +21,9 @@ root.render(
       <BrowserRouter>
         <TrippingProvider>
           <UserProvider>
-            <RoutePages />
+            <SearchProvider>
+              <RoutePages />
+            </SearchProvider>
           </UserProvider>
         </TrippingProvider>
       </BrowserRouter>

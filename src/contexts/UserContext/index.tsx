@@ -25,9 +25,16 @@ export interface iUser {
   };
 }
 
+export interface iGeneralUser {
+  name: string;
+  imageUrl: string;
+  bio: string;
+  id: string;
+}
+
 interface iUserContext {
   user: iUser | null;
-  usersList: iUser[];
+  usersList: iGeneralUser[];
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   singIn: (body: iUserLogin) => void;
   singUp: (body: iUserRegister) => void;
@@ -48,7 +55,7 @@ export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
-  const [usersList, setUsersList] = useState([] as iUser[]);
+  const [usersList, setUsersList] = useState([] as iGeneralUser[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isPlaces, setIsPlaces] = useState<iPosts[]>([] as iPosts[]);
@@ -103,16 +110,16 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         try {
           api.defaults.headers.authorization = `Bearer ${token}`;
           const { data } = await api.get(`/users/${id}`);
-            setUser({
-              ...user,
-              accessToken: data.password,
-              user: {
-                name: data.name,
-                imageUrl: data.imageUrl,
-                bio: data.bio,
-                id: data.id,
-              },
-            });
+          setUser({
+            ...user,
+            accessToken: data.password,
+            user: {
+              name: data.name,
+              imageUrl: data.imageUrl,
+              bio: data.bio,
+              id: data.id,
+            },
+          });
         } catch (error) {
           console.error(error);
           window.localStorage.clear();
