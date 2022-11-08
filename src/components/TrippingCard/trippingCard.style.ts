@@ -197,20 +197,3 @@ export const SectionLomments = styled.section`
   }
 `;
 
-export interface iPosts {
-  id: number;
-  userId: number;
-  username: string;
-  country: string;
-  profileUrl: string;
-  title: string;
-  location: string;
-  places: Iplaces[];
-}
-
-export interface Iplaces {
-  id: number;
-  name: string;
-  image: string;
-  description: string;
-}

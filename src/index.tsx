@@ -8,7 +8,7 @@ import { RoutePages } from "./routes";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import TrippingProvider from "./contexts/TrippingContext";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -18,9 +18,11 @@ root.render(
     <ToastContainer />
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <UserProvider>
-          <RoutePages />
-        </UserProvider>
+        <TrippingProvider>
+          <UserProvider>
+            <RoutePages />
+          </UserProvider>
+        </TrippingProvider>
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
