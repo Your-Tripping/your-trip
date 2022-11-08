@@ -111,4 +111,5 @@ export const RandomBtn = styled.button`
 `;
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
 `;

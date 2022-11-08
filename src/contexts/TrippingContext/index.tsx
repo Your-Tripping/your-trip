@@ -88,8 +88,10 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setRandom(posts[Math.floor(Math.random() * posts.length)]);
-  }, []);
-
+  }, [posts]);
+  useEffect(() => {
+    setRandom(posts[Math.floor(Math.random() * posts.length)]);
+  }, [showRandom]);
   return (
     <TrippingContext.Provider
       value={{
