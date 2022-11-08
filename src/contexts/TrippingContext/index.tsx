@@ -56,6 +56,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [userPosts, setUserPosts] = useState([] as iPost[]);
   const [randomPost, setRandom] = useState({} as iPost);
   const [showRandom, setShowRandom] = useState(false);
+  const [followUser, setFollowUser] = useState([] as iPost[]);
 
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
@@ -64,6 +65,10 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
       `/posts/?userId=${localStorage.getItem("userId")}`
     );
     setUserPosts(userPostsData);
+    const { data: follower } = await api.get(
+      `/followers/?${window.localStorage.getItem("@user: id")}`
+    );
+    setFollowUser(follower)
   };
 
   const cacheUsers = async () => {
