@@ -126,10 +126,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     const userId = localStorage.getItem("@user: id");
     try {
       const token = localStorage.getItem("@user: token");
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      api.defaults.headers.authorization = `Bearer ${token}`;
       const { data } = await api.patch(`/users/${userId}`, body);
       toast.success("Perfil Atualizado!");
       setShowModal(null);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

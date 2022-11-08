@@ -27,7 +27,7 @@ export const UserHeader = () => {
       </FormSearch>
       <UserInfo>
         <p>Olá, {user?.user.name}!</p>
-        <img src="" alt={user?.user.imageUrl} />
+        <img src={user?.user.imageUrl} alt="" />
         <EditProfile
           onClick={(e) => {
             e.preventDefault();
