@@ -14,6 +14,14 @@ export const MainDashboard = styled.main`
   section {
     width: 100%;
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    section {
+      order: 1;
+    }
+  }
 `;
 
 export const CreatePost = styled.div`
@@ -83,6 +91,16 @@ export const Suggestion = styled.aside`
   h2 {
     color: ${({ theme }) => theme.colors.grey.grey4};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      flex-direction: row;
+    }
   }
 `;
 export const RandomBtn = styled.button`

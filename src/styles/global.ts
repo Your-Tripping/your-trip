@@ -19,10 +19,11 @@ button{
 }
 body{
     background-image: url(${Map});
-    background-position: center;
     width: 100%;
     height: auto;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: left bottom;
+    background-attachment: fixed;
 }
 `;
