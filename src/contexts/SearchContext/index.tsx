@@ -58,6 +58,7 @@ const SearchProvider = ({ children }: { children: ReactNode }) => {
             processString(user.name).includes(processString(input))
           )
         );
+        console.log(usersList)
         break;
       case "Lugares":
         setFilteredPosts(

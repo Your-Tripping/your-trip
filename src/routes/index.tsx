@@ -15,7 +15,8 @@ export const RoutePages = () => {
         <Route path="dashboard" element={<Dashboard />} />
       </Route>
       <Route path="addTripping" element={<AddTrip />} />
-      <Route path="userProfile" element={ <UserPage /> } />
+      <Route path="userProfile" element={<UserPage />} />
+      <Route path="search" element={<SearchPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

@@ -32,11 +32,7 @@ export interface iGeneralUser {
 
 interface iUserContext {
   user: iUser | null;
-<<<<<<< HEAD
   usersList: iGeneralUser[];
-=======
-  usersList: iUserInfo[];
->>>>>>> develop
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   singIn: (body: iUserLogin) => void;
   singUp: (body: iUserRegister) => void;
@@ -52,12 +48,8 @@ interface iUserContext {
 export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<iUser | null>(null);
-<<<<<<< HEAD
-  const [usersList, setUsersList] = useState([] as iGeneralUser[]);
-=======
-  const [usersList, setUsersList] = useState<iUserInfo[]>([] as iUserInfo[]);
->>>>>>> develop
+  const [user, setUser] = useState<iUser | null>(null); 
+  const [usersList, setUsersList] = useState<iGeneralUser[]>([] as iGeneralUser[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -71,7 +63,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
       api.defaults.headers.authorization = `Bearer ${data.accessToken}`;
-
+      
       setUser(data);
       setIsAuthenticated(true);
 
@@ -107,23 +99,10 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       if (token) {
         try {
           api.defaults.headers.authorization = `Bearer ${token}`;
-<<<<<<< HEAD
-          const { data } = await api.get(`/users/${id}`);
-          setUser({
-            ...user,
-            accessToken: data.password,
-            user: {
-              name: data.name,
-              imageUrl: data.imageUrl,
-              bio: data.bio,
-              id: data.id,
-            },
-=======
           const { data } = await api.get<iUserInfo>(`/users/${id}`);
           setUser({
             accessToken: token,
             user: data,
->>>>>>> develop
           });
         } catch (error) {
           console.log(error);
@@ -133,7 +112,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     };
     autoLogin();
-  }, [user]);
+  }, []);
 
   const editProfile = async (body: iUserEdit) => {
     const userId = localStorage.getItem("@user: id");

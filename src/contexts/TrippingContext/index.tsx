@@ -6,7 +6,7 @@ import {
   useEffect,
 } from "react";
 import { api } from "../../services/api";
-import { iUserInfo, useUserContext } from "../UserContext";
+import { iGeneralUser, iUserInfo, useUserContext } from "../UserContext";
 
 export interface iPost {
   id: number;
@@ -66,12 +66,11 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const cacheUsers = async () => {
-    const { data } = await api.get<iUserInfo[]>("/users");
-    console.log(data);
+    const { data } = await api.get<iGeneralUser[]>("/users");
     setUsersList(data);
   };
 
-  const { setUsersList } = useUserContext();
+  const { setUsersList, usersList } = useUserContext();
 
   const createPost = async (post: iPost) => {
     await api.post("/posts", post);
@@ -84,6 +83,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     cachePosts();
     cacheUsers();
+    console.log(usersList);
   }, []);
 
   useEffect(() => {

@@ -26,7 +26,6 @@ const SearchBar = () => {
   const { applyFilter } = useContext(SearchContext);
 
   const applySearch = (data: iSearchParams) => {
-    console.log(data)
     applyFilter(data.filter, data.target)
     navigate("/search")
   };
