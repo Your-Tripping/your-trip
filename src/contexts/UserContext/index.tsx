@@ -11,6 +11,7 @@ import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
 import { iUserEdit } from "../../services/edit";
+import { useTripContext } from "../TrippingContext";
 
 export interface iUserInfo {
   name: string;
@@ -50,6 +51,8 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
 
+  const {cachePosts} = useTripContext()
+
   const singIn = async (body: iUserLogin) => {
     try {
       const data = await login(body);
@@ -59,6 +62,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       api.defaults.headers.authorization = `Bearer ${data.accessToken}`;
 
       setUser(data);
+      cachePosts()
       setIsAuthenticated(true);
 
       navigate("/dashboard");
@@ -92,7 +96,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    const autoLogin = async () => {
+    const autoLogin = async (): Promise<void> => {
       const id = localStorage.getItem("@user: id");
       if (token) {
         try {
