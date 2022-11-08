@@ -68,8 +68,8 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
     );
     setUserPosts(userPostsData);
 
-    const { data } = await api.get<iUserInfo[]>("/users");
-    setUsersList(data);
+    const { data: users } = await api.get<iUserInfo[]>("/users");
+    setUsersList(users);
 
     // requisição todos os seguidores
     const { data: followe } = await api.get(
@@ -90,7 +90,6 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     cachePosts();
-    // cacheUsers();
   }, []);
 
   useEffect(() => {

@@ -105,7 +105,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     };
     autoLogin();
-  }, [user]);
+  }, []);
 
   const editProfile = async (body: iUserEdit) => {
     const userId = localStorage.getItem("@user: id");
