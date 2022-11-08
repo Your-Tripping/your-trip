@@ -14,13 +14,14 @@ import { GrMap } from "react-icons/gr";
 import { Input } from "../Input/input.style";
 import { iPost } from "../../contexts/TrippingContext";
 
-const Trip = ({ post }: {post: iPost}) => {
+const Trip = ({ post }: { post: iPost }) => {
   const [placeIndex, setPlaceIndex] = useState(0);
   const [isLikes, setIsLikes] = useState(true);
 
+  const idKoken: string | null = window.localStorage.getItem("@user: id");
+
   const next = () => {
-    placeIndex !== post.places.length - 1 &&
-      setPlaceIndex(placeIndex + 1);
+    placeIndex !== post.places.length - 1 && setPlaceIndex(placeIndex + 1);
   };
 
   const prev = () => placeIndex > 0 && setPlaceIndex(placeIndex - 1);
@@ -33,7 +34,9 @@ const Trip = ({ post }: {post: iPost}) => {
           <h2>{post.username}</h2>
         </div>
         <div>
-          <button>Seguir</button>
+          {Number(idKoken) === post.userId ? undefined : (
+            <button>Seguir</button>
+          )}
           <IoEllipsisHorizontalOutline />
         </div>
       </S.SectionProfile>
@@ -51,9 +54,7 @@ const Trip = ({ post }: {post: iPost}) => {
           <AiOutlineCaretRight
             style={{
               color:
-                placeIndex !== post.places.length - 1
-                  ? "#079BAB"
-                  : "#CEEBEE",
+                placeIndex !== post.places.length - 1 ? "#079BAB" : "#CEEBEE",
             }}
             onClick={next}
           />
