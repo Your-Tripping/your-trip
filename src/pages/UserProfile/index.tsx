@@ -1,42 +1,37 @@
 import EditProfile from "../../components/EditProfileModal";
+import Trip from "../../components/TrippingCard";
 import { UserHeader } from "../../components/UserHeader";
 import { useUserContext } from "../../contexts/UserContext";
-import {
-  BodyDashboard,
-  MainDashboard,
-  CreatePost,
-  Post,
-  Suggestion,
-  StyledLink,
-} from "../Dashboard/Dashboard.style";
+import * as S from "../Dashboard/Dashboard.style";
 
 export const UserPage = () => {
+  const idUser = localStorage.getItem("@user: id");
   const { showModal } = useUserContext();
   return (
     <>
       {showModal === "editProfile" && <EditProfile />}
-      <BodyDashboard>
+      <S.BodyDashboard>
         <UserHeader />
-        <MainDashboard>
+        <S.MainDashboard>
           <section>
-            <CreatePost>
+            <S.CreatePost>
               <h2>Posts</h2>
-              <StyledLink to={"/addTripping"}>
+              <S.StyledLink to={"/addTripping"}>
                 <p>Criar</p>
-              </StyledLink>
-            </CreatePost>
+              </S.StyledLink>
+            </S.CreatePost>
 
-            <Post>
-              <h2>Principais viagens:</h2>
-              <ul>{/* post aqui */}</ul>
-            </Post>
+            <S.Post>
+              <h2>Minhas viagens:</h2>
+              <ul></ul>
+            </S.Post>
           </section>
-          <Suggestion>
+          <S.Suggestion>
             <h2>Pessoas que talvez você conheça:</h2>
             <ul>{/* sugestões aqui */}</ul>
-          </Suggestion>
-        </MainDashboard>
-      </BodyDashboard>
+          </S.Suggestion>
+        </S.MainDashboard>
+      </S.BodyDashboard>
     </>
   );
 };
