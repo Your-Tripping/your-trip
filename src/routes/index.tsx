@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { AddTrip } from "../components/AddTrip";
+import AddTrip from "../components/AddTrip";
 import { Dashboard } from "../pages/Dashboard";
 import LandingPage from "../pages/Home";
 import { UserPage } from "../pages/UserProfile";

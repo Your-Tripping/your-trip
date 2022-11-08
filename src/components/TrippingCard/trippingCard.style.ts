@@ -84,11 +84,11 @@ export const SectionSlideshow = styled.section`
 
   div {
     width: 100%;
-
     position: relative;
 
     img {
       width: 100%;
+      height: 600px;
       object-fit: cover;
     }
 
@@ -196,4 +196,3 @@ export const SectionLomments = styled.section`
     margin-left: -60px;
   }
 `;
-

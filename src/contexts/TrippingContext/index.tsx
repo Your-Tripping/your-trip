@@ -5,19 +5,19 @@ import {
   useState,
   useEffect,
 } from "react";
+import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserInfo, useUserContext } from "../UserContext";
 
 export interface iPost {
-  id: number;
-  userId: number;
-  username: string;
+  id?: number;
+  userId: string | undefined;
+  username: string | undefined;
   country: string;
-  profileUrl: string;
+  profileUrl: string | undefined;
   title: string;
   location: string;
   places: iPlace[];
-  followername: string;
 }
 
 interface iEditPost {
@@ -29,7 +29,7 @@ interface iEditPost {
 }
 
 export interface iPlace {
-  id: number;
+  id?: number;
   name: string;
   image: string;
   description: string;
@@ -38,7 +38,6 @@ export interface iPlace {
 interface iTrippingContext {
   posts: iPost[];
   userPosts: iPost[];
-  followUser: iPost[];
   cachePosts: () => void;
   createPost: (post: iPost) => void;
   editPost: (post: iEditPost, id: number) => void;
@@ -62,26 +61,33 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
     setPosts(postsData);
-
     const { data: userPostsData } = await api.get(
       `/posts/?userId=${localStorage.getItem("userId")}`
     );
     setUserPosts(userPostsData);
-
-    const { data: users } = await api.get<iUserInfo[]>("/users");
-    setUsersList(users);
-
-    // requisição todos os seguidores
-    const { data: followe } = await api.get(
+    const { data: follower } = await api.get(
       `/followers/?${window.localStorage.getItem("@user: id")}`
     );
-    setFollowUser(followe);
+    setFollowUser(follower)
+  };
+
+  const cacheUsers = async () => {
+    const { data } = await api.get<iUserInfo[]>("/users");
+    setUsersList(data);
   };
 
   const { setUsersList } = useUserContext();
 
   const createPost = async (post: iPost) => {
-    await api.post("/posts", post);
+    
+    try {
+      await api.post("/posts", post);
+      toast.success("Viagem postada!")
+      cachePosts()
+    } catch (error) {
+      console.error(error);
+      toast.error("Ops! Algo esta errado!")    
+    }
   };
 
   const editPost = async (post: iEditPost, id: number) => {
@@ -90,16 +96,15 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     cachePosts();
+    cacheUsers();
   }, []);
 
   useEffect(() => {
     setRandom(posts[Math.floor(Math.random() * posts.length)]);
   }, [posts]);
-
   useEffect(() => {
     setRandom(posts[Math.floor(Math.random() * posts.length)]);
   }, [showRandom]);
-
   return (
     <TrippingContext.Provider
       value={{
@@ -112,7 +117,6 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
         setRandom,
         showRandom,
         setShowRandom,
-        followUser,
       }}
     >
       {children}
