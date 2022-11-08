@@ -11,8 +11,7 @@ import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
 import { iPosts } from "../../components/TrippingCard/trippingCard.style";
-import { profile } from "console";
-import { boolean } from "yup";
+
 
 export interface iUser {
   accessToken: string;
@@ -21,6 +20,8 @@ export interface iUser {
     imageUrl: string;
     bio: string;
     id: string;
+    email: string;
+    password: string;
   };
 }
 
@@ -41,6 +42,7 @@ interface iUserContext {
   randomPost: any;
   showRandom: boolean;
   setShowRandom: React.Dispatch<React.SetStateAction<true | false>>;
+  handleFormDashboard: () => void;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
@@ -56,17 +58,14 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   const singIn = async (body: iUserLogin) => {
+    toast.success("Login concluído!");
     try {
       const data = await login(body);
-      toast.success("Login concluído!");
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
-      const { data: profileData } = await api.get("/posts");
-      setIsPlaces(profileData);
       const { data: usersData } = await api.get("/users");
       setUsersList(usersData);
       setUser(data);
-      toast.success("Login concluído!");
       setIsAuthenticated(true);
     } catch (error) {
       toast.error("Ops! Algo está errado!");
@@ -108,6 +107,8 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
                 imageUrl: data.imageUrl,
                 bio: data.bio,
                 id: data.id,
+                email: data.email,
+                password: data.password
               },
             });
         } catch (error) {
@@ -162,6 +163,15 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     setRandom(isPlaces[Math.floor(Math.random() * isPlaces.length)]);
   }, [token]);
 
+
+  const handleFormDashboard = (): void =>  {
+    console.log("oi")
+    setIsAuthenticated(false);
+    window.localStorage.clear();
+    setUser(null);
+    navigate("/");
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -181,6 +191,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         randomPost,
         showRandom,
         setShowRandom,
+        handleFormDashboard
       }}
     >
       {children}
