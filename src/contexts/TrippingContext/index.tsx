@@ -5,15 +5,16 @@ import {
   useState,
   useEffect,
 } from "react";
+import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserInfo, useUserContext } from "../UserContext";
 
 export interface iPost {
-  id: number;
-  userId: number;
-  username: string;
+  id?: number;
+  userId: string | undefined;
+  username: string | undefined;
   country: string;
-  profileUrl: string;
+  profileUrl: string | undefined;
   title: string;
   location: string;
   places: iPlace[];
@@ -28,7 +29,7 @@ interface iEditPost {
 }
 
 export interface iPlace {
-  id: number;
+  id?: number;
   name: string;
   image: string;
   description: string;
@@ -55,6 +56,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [userPosts, setUserPosts] = useState([] as iPost[]);
   const [randomPost, setRandom] = useState({} as iPost);
   const [showRandom, setShowRandom] = useState(false);
+  const [followUser, setFollowUser] = useState([] as iPost[]);
 
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
@@ -63,18 +65,29 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
       `/posts/?userId=${localStorage.getItem("userId")}`
     );
     setUserPosts(userPostsData);
+    const { data: follower } = await api.get(
+      `/followers/?${window.localStorage.getItem("@user: id")}`
+    );
+    setFollowUser(follower)
   };
 
   const cacheUsers = async () => {
     const { data } = await api.get<iUserInfo[]>("/users");
-    console.log(data);
     setUsersList(data);
   };
 
   const { setUsersList } = useUserContext();
 
   const createPost = async (post: iPost) => {
-    await api.post("/posts", post);
+    
+    try {
+      await api.post("/posts", post);
+      toast.success("Viagem postada!")
+      cachePosts()
+    } catch (error) {
+      console.error(error);
+      toast.error("Ops! Algo esta errado!")    
+    }
   };
 
   const editPost = async (post: iEditPost, id: number) => {

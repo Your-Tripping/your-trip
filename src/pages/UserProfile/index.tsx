@@ -39,7 +39,6 @@ export const UserPage = () => {
             Editar perfil
           </T.EditProfile>
         </T.informationUser>
-
         <section>
           <S.CreatePost>
             <h2>Posts</h2>
