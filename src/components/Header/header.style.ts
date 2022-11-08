@@ -6,20 +6,62 @@ export const HeaderDashboard = styled.header`
   justify-content: space-between;
   padding: 15px 108px;
   align-items: center;
-  height: 70px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100%;
+  height: 80px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 
 export const UserInfo = styled.div`
   display: flex;
-  align-items: center;
-  gap: 26px;
+  flex-direction: column;
+
+  div {
+    position: absolute;
+    top: 18px;
+    right: 25px;
+    width: 200px;
+  }
+
+  div > section {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+
+  div > div {
+    position: relative;
+    top: 20px;
+    left: 5px;
+    border-radius: 0px 0px 10px 10px;
+
+    button, a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      height: 45px;
+      border-radius: unset;
+      color: ${({ theme }) => theme.colors.brand.primary};
+      background-color: ${({ theme }) => theme.colors.brand.quartiary};
+      font-size: ${({ theme }) => theme.typography.sizes.size3};;
+      transition: ease-in-out;
+    }
+
+    button:hover, a:hover {
+      background-color: ${({ theme }) => theme.colors.brand.primary};
+      color: ${({ theme }) => theme.colors.brand.quartiary};
+    }
+  }
 
   p {
     color: ${({ theme }) => theme.colors.brand.secondary};
     font-size: ${({ theme }) => theme.typography.sizes.size1};
   }
 
+  button,
   img {
     width: 45px;
     height: 44px;

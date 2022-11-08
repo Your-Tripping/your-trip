@@ -12,8 +12,9 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import { IoEllipsisHorizontalOutline } from "react-icons/io5";
 import { GrMap } from "react-icons/gr";
 import { Input } from "../Input/input.style";
+import { iPost } from "../../contexts/TrippingContext";
 
-const Trip = ({ post }: {post: S.iPosts}) => {
+const Trip = ({ post }: {post: iPost}) => {
   const [placeIndex, setPlaceIndex] = useState(0);
   const [isLikes, setIsLikes] = useState(true);
 

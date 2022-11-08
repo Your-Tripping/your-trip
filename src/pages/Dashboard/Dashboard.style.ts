@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-
 export const BodyDashboard = styled.div`
   height: 100vh;
 `;
@@ -11,9 +10,17 @@ export const MainDashboard = styled.main`
   display: flex;
   padding: 15px 108px;
   gap: 40px;
-
+  margin-top: 90px;
   section {
     width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    section {
+      order: 1;
+    }
   }
 `;
 
@@ -24,6 +31,8 @@ export const CreatePost = styled.div`
   background-color: ${({ theme }) => theme.colors.grey.grey1};
   height: 60px;
   padding: 18px 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
 
   h2 {
     color: ${({ theme }) => theme.colors.brand.secondary};
@@ -31,7 +40,7 @@ export const CreatePost = styled.div`
   }
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,7 +49,6 @@ export const StyledLink = styled(Link)`
   height: 32px;
   background-color: ${({ theme }) => theme.colors.brand.tertiary};
   border-radius: 8px;
-
   p {
     color: ${({ theme }) => theme.colors.brand.primary};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
@@ -76,10 +84,22 @@ export const Suggestion = styled.aside`
   width: 441px;
   height: 351px;
   padding: 30px 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
 
   h2 {
     color: ${({ theme }) => theme.colors.grey.grey4};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      flex-direction: row;
+    }
   }
 `;
 export const RandomBtn = styled.button`
@@ -87,9 +107,9 @@ export const RandomBtn = styled.button`
   color: ${({ theme }) => theme.colors.grey.grey1};
   border-radius: 5px;
   padding: 10px 5px;
-  margin-top: 20px
-`
+  margin-top: 20px;
+`;
 export const Container = styled.div`
-  disply: flex;
-  
-`
+  display: flex;
+  flex-direction: column;
+`;

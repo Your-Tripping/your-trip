@@ -1,13 +1,15 @@
 import styled from "styled-components";
-import { H2, DiviserTwo } from "../../components/SingInForm/singInForm.style";
+import {
+  H2,
+  DiviserTwo,
+} from "../../components/SingInForm/singInForm.style";
 import { Form } from "../Forn/form.style";
 import { Text } from "../Text";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const Conatiner = styled.div`
   position: absolute;
   width: 100%;
-  top: 0;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -15,7 +17,11 @@ export const Conatiner = styled.div`
 `;
 
 export const RegisterForm = styled(Form)`
-  margin-top: 80px;
+  width: 280px;
+  border-radius: 5px;
+  background-color: ${({ theme }) => theme.colors.grey.grey1};
+  padding: 1rem;
+  margin-top: 100px;
   animation: transitionOpacity 1s ease;
   input {
     margin-bottom: 1rem;
@@ -23,26 +29,20 @@ export const RegisterForm = styled(Form)`
   p {
     text-align: center;
   }
-  
-`;
-export const PasswordWrapper = styled.div`
-  position: relative;
-  height: 49.6px;
-  margin-bottom: 25px;
-`;
-export const VisibleIcon = styled(FaEyeSlash)`
-  color: var(--grey-1);
-  position: absolute;
-  bottom: 16px;
-  right: 12px;
-  cursor: pointer;
-`;
-export const InvisibleIcon = styled(FaEye)`
-  color: var(--grey-1);
-  position: absolute;
-  bottom: 16px;
-  right: 12px;
-  cursor: pointer;
+  @media (min-width: 800px) {
+    width: 350px;
+    height: auto;
+  }
+  @keyframes transitionOpacity {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 `;
 export const Title = styled(H2)`
   color: ${({ theme }) => theme.colors.brand.primary};

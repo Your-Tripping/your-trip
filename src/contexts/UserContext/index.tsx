@@ -10,19 +10,17 @@ import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
-import { iPosts } from "../../components/TrippingCard/trippingCard.style";
-import { profile } from "console";
-import { boolean } from "yup";
-import { TrippingContext } from "../TrippingContext";
+import { iUserEdit } from "../../services/edit";
 
+export interface iUserInfo {
+  name: string;
+  imageUrl: string;
+  bio: string;
+  id: string;
+}
 export interface iUser {
   accessToken: string;
-  user: {
-    name: string;
-    imageUrl: string;
-    bio: string;
-    id: string;
-  };
+  user: iUserInfo;
 }
 
 export interface iGeneralUser {
@@ -34,50 +32,50 @@ export interface iGeneralUser {
 
 interface iUserContext {
   user: iUser | null;
+<<<<<<< HEAD
   usersList: iGeneralUser[];
+=======
+  usersList: iUserInfo[];
+>>>>>>> develop
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   singIn: (body: iUserLogin) => void;
   singUp: (body: iUserRegister) => void;
-  editProfile: (body: iUserRegister) => void;
+  editProfile: (body: iUserEdit) => void;
   followUsers: (id: string) => void;
   showModal: string | null;
   setShowModal: React.Dispatch<React.SetStateAction<string | null>>;
   loading: boolean;
-  isPlaces: iPosts[];
-  setIsPlaces: React.Dispatch<React.SetStateAction<iPosts[]>>;
-  loadUser: () => void;
-  randomPost: any;
-  showRandom: boolean;
-  setShowRandom: React.Dispatch<React.SetStateAction<true | false>>;
+  setUsersList: React.Dispatch<React.SetStateAction<iUserInfo[]>>;
+  handleFormDashboard: () => void;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<iUser | null>(null);
+<<<<<<< HEAD
   const [usersList, setUsersList] = useState([] as iGeneralUser[]);
+=======
+  const [usersList, setUsersList] = useState<iUserInfo[]>([] as iUserInfo[]);
+>>>>>>> develop
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isPlaces, setIsPlaces] = useState<iPosts[]>([] as iPosts[]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
 
-  const { cachePosts } = useContext(TrippingContext);
-
   const singIn = async (body: iUserLogin) => {
     try {
       const data = await login(body);
+      toast.success("Login concluído!");
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
-      cachePosts();
-      // const { data: profileData } = await api.get("/posts");
-      // setIsPlaces(profileData);
-      const { data: usersData } = await api.get("/users");
-      setUsersList(usersData);
+      api.defaults.headers.authorization = `Bearer ${data.accessToken}`;
+
       setUser(data);
-      toast.success("Login concluído!");
       setIsAuthenticated(true);
+
+      navigate("/dashboard");
     } catch (error) {
       toast.error("Ops! Algo está errado!");
       console.log(error);
@@ -109,6 +107,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       if (token) {
         try {
           api.defaults.headers.authorization = `Bearer ${token}`;
+<<<<<<< HEAD
           const { data } = await api.get(`/users/${id}`);
           setUser({
             ...user,
@@ -119,22 +118,31 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
               bio: data.bio,
               id: data.id,
             },
+=======
+          const { data } = await api.get<iUserInfo>(`/users/${id}`);
+          setUser({
+            accessToken: token,
+            user: data,
+>>>>>>> develop
           });
         } catch (error) {
-          console.error(error);
+          console.log(error);
           window.localStorage.clear();
         }
       }
       setLoading(false);
     };
     autoLogin();
-  }, []);
+  }, [user]);
 
-  const editProfile = async (body: iUserRegister) => {
+  const editProfile = async (body: iUserEdit) => {
     const userId = localStorage.getItem("@user: id");
     try {
+      const token = localStorage.getItem("@user: token");
+      api.defaults.headers.authorization = `Bearer ${token}`;
       const { data } = await api.patch(`/users/${userId}`, body);
       toast.success("Perfil Atualizado!");
+      setShowModal(null);
     } catch (error) {
       console.log(error);
     }
@@ -151,32 +159,19 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const loadUser = async () => {
-    const token: string | null = localStorage.getItem("@user: token");
-
-    if (token) {
-      try {
-        api.defaults.headers.authorization = `Bearer ${token}`;
-
-        const { data } = await api.get("/posts");
-
-        setIsPlaces(data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
+  const handleFormDashboard = () => {
+    setIsAuthenticated(false);
+    window.localStorage.clear();
+    setUser(null);
+    navigate("/");
   };
-  const [randomPost, setRandom] = useState([] as any);
-  const [showRandom, setShowRandom] = useState(false);
-  useEffect(() => {
-    setRandom(isPlaces[Math.floor(Math.random() * isPlaces.length)]);
-  }, [token]);
 
   return (
     <UserContext.Provider
       value={{
         user,
         usersList,
+        setUsersList,
         setUser,
         singIn,
         singUp,
@@ -185,12 +180,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         showModal,
         setShowModal,
         loading,
-        isPlaces,
-        setIsPlaces,
-        loadUser,
-        randomPost,
-        showRandom,
-        setShowRandom,
+        handleFormDashboard,
       }}
     >
       {children}
