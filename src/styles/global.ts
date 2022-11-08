@@ -19,7 +19,6 @@ button{
 }
 body{
     background-image: url(${Map});
-    background-position: center;
     width: 100%;
     height: auto;
     background-repeat: no-repeat;

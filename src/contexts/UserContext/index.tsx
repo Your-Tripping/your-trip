@@ -10,23 +10,17 @@ import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
-import { iPosts } from "../../components/TrippingCard/trippingCard.style";
-import { profile } from "console";
-import { boolean } from "yup";
-import { TrippingContext } from "../TrippingContext";
+import { useTrippingContext } from "../TrippingContext";
 
+interface iUserInfo {
+  name: string;
+  imageUrl: string;
+  bio: string;
+  id: string;
+}
 export interface iUser {
-  imageUrl: string | undefined;
-  name: ReactNode;
   accessToken: string;
-  user: {
-    name: string;
-    imageUrl: string;
-    bio: string;
-    id: string;
-    email: string;
-    password: string;
-  };
+  user: iUserInfo;
 }
 
 interface iUserContext {
@@ -40,12 +34,6 @@ interface iUserContext {
   showModal: string | null;
   setShowModal: React.Dispatch<React.SetStateAction<string | null>>;
   loading: boolean;
-  isPlaces: iPosts[];
-  setIsPlaces: React.Dispatch<React.SetStateAction<iPosts[]>>;
-  loadUser: () => void;
-  randomPost: any;
-  showRandom: boolean;
-  setShowRandom: React.Dispatch<React.SetStateAction<true | false>>;
 }
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
@@ -55,25 +43,28 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const [usersList, setUsersList] = useState<iUser[]>([] as iUser[]);
   const [showModal, setShowModal] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isPlaces, setIsPlaces] = useState<iPosts[]>([] as iPosts[]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const token = window.localStorage.getItem("@user: token");
   const navigate = useNavigate();
 
-  const { cachePosts } = useContext(TrippingContext);
+  const { cachePosts } = useTrippingContext();
 
   const singIn = async (body: iUserLogin) => {
     try {
       const data = await login(body);
+      toast.success("Login concluído!");
       localStorage.setItem("@user: token", data.accessToken);
       localStorage.setItem("@user: id", data.user.id);
+      api.defaults.headers.authorization = `Bearer ${data.accessToken}`;
+
       cachePosts();
-      const { data: profileData } = await api.get("/posts");
-      setIsPlaces(profileData);
+      setUser(data);
+
       const { data: usersData } = await api.get("/users");
       setUsersList(usersData);
-      setUser(data);
       setIsAuthenticated(true);
+      
+      navigate("/dashboard");
     } catch (error) {
       toast.error("Ops! Algo está errado!");
       console.log(error);
@@ -105,19 +96,13 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       if (token) {
         try {
           api.defaults.headers.authorization = `Bearer ${token}`;
-          const { data } = await api.get(`/users/${id}`);
-            setUser({
-              ...user,
-              accessToken: data.password,
-              user: {
-                name: data.name,
-                imageUrl: data.imageUrl,
-                bio: data.bio,
-                id: data.id,
-              },
-            });
+          const { data } = await api.get<iUserInfo>(`/users/${id}`);
+          setUser({
+            accessToken: token,
+            user: data
+          });
         } catch (error) {
-          console.error(error);
+          console.log(error);
           window.localStorage.clear();
         }
       }
@@ -147,23 +132,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const loadUser = async () => {
-    if (token) {
-      try {
-        api.defaults.headers.authorization = `Bearer ${token}`;
-        const { data } = await api.get<iPosts[]>("/posts");
-        setIsPlaces(data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  };
-  const [randomPost, setRandom] = useState([] as any);
-  const [showRandom, setShowRandom] = useState(false);
-  useEffect(() => {
-    setRandom(isPlaces[Math.floor(Math.random() * isPlaces.length)]);
-  }, [token]);
-
   return (
     <UserContext.Provider
       value={{
@@ -176,13 +144,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         followUsers,
         showModal,
         setShowModal,
-        loading,
-        isPlaces,
-        setIsPlaces,
-        loadUser,
-        randomPost,
-        showRandom,
-        setShowRandom,
+        loading
       }}
     >
       {children}
