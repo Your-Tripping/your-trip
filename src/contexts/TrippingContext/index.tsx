@@ -5,13 +5,14 @@ import {
   useState,
   useEffect,
 } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserInfo, useUserContext } from "../UserContext";
 
 export interface iPost {
   id?: number;
-  userId: string | undefined;
+  userId: string | undefined ;
   username: string | undefined;
   country: string;
   profileUrl: string | undefined;
@@ -58,6 +59,8 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [showRandom, setShowRandom] = useState(false);
   const [followUser, setFollowUser] = useState([] as iPost[]);
 
+  const navigate = useNavigate()
+
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
     setPosts(postsData);
@@ -84,6 +87,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
       await api.post("/posts", post);
       toast.success("Viagem postada!")
       cachePosts()
+      navigate("/dashboard")
     } catch (error) {
       console.error(error);
       toast.error("Ops! Algo esta errado!")    

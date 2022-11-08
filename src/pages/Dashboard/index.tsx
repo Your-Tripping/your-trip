@@ -6,6 +6,9 @@ import * as S from "./Dashboard.style";
 export const Dashboard = () => {
   const {showRandom, posts, randomPost, setShowRandom} = useTripContext()
 
+  console.log(posts);
+  
+  
   return (
     <S.BodyDashboard>
       <Header />
