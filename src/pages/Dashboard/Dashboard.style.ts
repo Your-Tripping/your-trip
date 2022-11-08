@@ -17,6 +17,7 @@ export const MainDashboard = styled.main`
 
   @media (max-width: 768px) {
     flex-direction: column;
+    padding: 10px 10px;
 
     section {
       order: 1;
@@ -52,6 +53,9 @@ export const StyledLink = styled.button`
   p {
     color: ${({ theme }) => theme.colors.brand.primary};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 
@@ -96,10 +100,10 @@ export const Suggestion = styled.aside`
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-    @media (max-width: 768px) {
-      flex-direction: row;
-    }
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: row;
   }
 `;
 export const RandomBtn = styled.button`

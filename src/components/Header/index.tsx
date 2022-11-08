@@ -17,7 +17,7 @@ export const Header = () => {
           type="search"
           name="searchTrip"
           id="searchTrip"
-          placeholder="Digite aqui sua pesquisa.."
+          placeholder="Digite aqui sua pesquisa..."
         />
         <button type="submit">
           <BsSearch />
