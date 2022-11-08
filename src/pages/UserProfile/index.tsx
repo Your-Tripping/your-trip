@@ -1,10 +1,13 @@
 import EditProfile from "../../components/EditProfileModal";
+import Trip from "../../components/TrippingCard";
 import { UserHeader } from "../../components/UserHeader";
+import { useTripContext } from "../../contexts/TrippingContext";
 import { useUserContext } from "../../contexts/UserContext";
 import * as S from "../Dashboard/Dashboard.style";
 
 export const UserPage = () => {
-  const { showModal } = useUserContext();
+  const { showModal, usersList } = useUserContext();
+  const { userPosts } = useTripContext();
   return (
     <>
       {showModal === "editProfile" && <EditProfile />}
@@ -21,12 +24,20 @@ export const UserPage = () => {
 
             <S.Post>
               <h2>Minhas viagens:</h2>
-              <ul></ul>
+              <ul>
+                {userPosts.map((post, index) => (
+                  <Trip key={index} post={post} />
+                ))}
+              </ul>
             </S.Post>
           </section>
           <S.Suggestion>
             <h2>Pessoas que talvez você conheça:</h2>
-            <ul>{/* sugestões aqui */}</ul>
+            <ul>
+              {/* {usersList.map((foll, index) => (
+                <Followers key={index} follower={foll} />
+              ))} */}
+            </ul>
           </S.Suggestion>
         </S.MainDashboard>
       </S.BodyDashboard>

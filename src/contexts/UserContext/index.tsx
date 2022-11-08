@@ -105,7 +105,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     };
     autoLogin();
-  }, []);
+  }, [user]);
 
   const editProfile = async (body: iUserEdit) => {
     const userId = localStorage.getItem("@user: id");
@@ -115,7 +115,6 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       const { data } = await api.patch(`/users/${userId}`, body);
       toast.success("Perfil Atualizado!");
       setShowModal(null);
-      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -153,7 +152,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         showModal,
         setShowModal,
         loading,
-        handleFormDashboard
+        handleFormDashboard,
       }}
     >
       {children}
