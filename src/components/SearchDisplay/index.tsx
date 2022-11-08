@@ -15,13 +15,17 @@ const SearchDisplay = () => {
             <SearchUserCard user={user}></SearchUserCard>
           ))
         ) : (
-          <S.EmptySearch>Desculpe, nao encontramos nenhum resultado para sua busca</S.EmptySearch>
+          <S.EmptySearch>
+            Desculpe, não encontramos nenhum resultado para sua busca...
+          </S.EmptySearch>
         )
       ) : filter === "Lugares" ? (
         filteredPosts.length > 0 ? (
           filteredPosts.map((post, index) => <Trip key={index} post={post} />)
         ) : (
-          <S.EmptySearch>Desculpe, nao encontramos nenhum resultado para sua busca</S.EmptySearch>
+          <S.EmptySearch>
+            Desculpe, não encontramos nenhum resultado para sua busca...
+          </S.EmptySearch>
         )
       ) : null}
     </S.SearchResults>

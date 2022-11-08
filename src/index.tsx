@@ -19,13 +19,13 @@ root.render(
     <ToastContainer />
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <UserProvider>
-          <TrippingProvider>
+        <TrippingProvider>
+          <UserProvider>
             <SearchProvider>
               <RoutePages />
             </SearchProvider>
-          </TrippingProvider>
-        </UserProvider>
+          </UserProvider>
+        </TrippingProvider>
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>

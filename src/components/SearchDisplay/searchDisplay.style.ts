@@ -25,5 +25,12 @@ export const SearchResults = styled.ul`
 `;
 
 export const EmptySearch = styled.p`
+  width: 100%;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.grey.grey1};
+  height: 140px;
+  padding: 8px 20px;
   font-size: ${({ theme }) => theme.typography.sizes.size1};
+  display: flex;
+  align-items: center;
 `;

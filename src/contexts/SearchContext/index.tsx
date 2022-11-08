@@ -1,24 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { TrippingContext } from "../TrippingContext";
+import { iPost, TrippingContext } from "../TrippingContext";
 import { iUserInfo, UserContext } from "../UserContext";
-
-export interface iPost {
-  id: number;
-  userId: number;
-  username: string;
-  country: string;
-  profileUrl: string;
-  title: string;
-  location: string;
-  places: iPlace[];
-}
-
-interface iPlace {
-  id: number;
-  name: string;
-  image: string;
-  description: string;
-}
 
 interface iSearchContext {
   filteredPosts: iPost[];
