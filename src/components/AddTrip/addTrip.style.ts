@@ -1,30 +1,53 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "../Button/button.style";
 import { Text } from "../Text";
 
 export const Box = styled.div`
   width: fit-content;
   margin: 0 auto;
+  position: relative;
+  margin-top: 30px;
   input,
   button {
     margin-bottom: 1rem;
   }
+  form{
+    padding: 0;
+  }
 `;
 export const FormTitle = styled(Text)`
   font-family: "Stick No Bills", sans-serif;
-  color: ${({ theme }) => theme.colors.brand.secondary};
-  font-size: 1.5rem;
+  color: ${({ theme }) => theme.colors.brand.primary};
+  font-size: 1.75rem;
   text-align: center;
   margin-bottom: 2rem;
+  padding-top: 50px;
 `;
 
-export const place = styled.li`
+export const BackLink = styled(Link)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: ${({ theme }) => theme.colors.brand.primary};
+  font-size: 20px;
+`
+
+export const PostButton = styled(Button)`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+export const Place = styled.li`
   padding: 10px;
   width: 280px;
   display: flex;
   background-color: #fff;
   border-radius: 4px;
+  margin-bottom: 1rem;
   h5 {
-    font-size: 12px;
+    font-size: .7rem;
     padding-bottom: 5px;
     color: ${({ theme }) => theme.colors.brand.primary};
   }

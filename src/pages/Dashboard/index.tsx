@@ -6,7 +6,6 @@ import { useUserContext } from "../../contexts/UserContext";
 import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
-  const { usersList } = useUserContext();
   const {showRandom, posts, randomPost, setShowRandom} = useTripContext()
 
   return (
@@ -16,7 +15,7 @@ export const Dashboard = () => {
         <section>
           <S.CreatePost>
             <h2>Posts</h2>
-            <S.StyledLink >
+            <S.StyledLink to="/addTripping">
               <p>Criar</p>
             </S.StyledLink>
           </S.CreatePost>

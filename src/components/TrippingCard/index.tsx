@@ -33,7 +33,6 @@ const Trip = ({ post }: {post: iPost}) => {
           <h2>{post.username}</h2>
         </div>
         <div>
-          <button>Seguir</button>
           <IoEllipsisHorizontalOutline />
         </div>
       </S.SectionProfile>

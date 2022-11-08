@@ -5,15 +5,16 @@ import {
   useState,
   useEffect,
 } from "react";
+import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserInfo, useUserContext } from "../UserContext";
 
 export interface iPost {
-  id: number;
-  userId: number;
-  username: string;
+  id?: number;
+  userId: string | undefined;
+  username: string | undefined;
   country: string;
-  profileUrl: string;
+  profileUrl: string | undefined;
   title: string;
   location: string;
   places: iPlace[];
@@ -28,7 +29,7 @@ interface iEditPost {
 }
 
 export interface iPlace {
-  id: number;
+  id?: number;
   name: string;
   image: string;
   description: string;
@@ -67,14 +68,21 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
 
   const cacheUsers = async () => {
     const { data } = await api.get<iUserInfo[]>("/users");
-    console.log(data);
     setUsersList(data);
   };
 
   const { setUsersList } = useUserContext();
 
   const createPost = async (post: iPost) => {
-    await api.post("/posts", post);
+    
+    try {
+      await api.post("/posts", post);
+      toast.success("Viagem postada!")
+      cachePosts()
+    } catch (error) {
+      console.error(error);
+      toast.error("Ops! Algo esta errado!")    
+    }
   };
 
   const editPost = async (post: iEditPost, id: number) => {
