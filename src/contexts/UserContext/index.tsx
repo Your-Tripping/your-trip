@@ -10,6 +10,10 @@ import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iUserLogin, login } from "../../services/login";
 import { iUserRegister, register } from "../../services/register";
+import { iUserEdit } from "../../services/edit";
+import { iPosts } from "../../components/TrippingCard/trippingCard.style";
+import { profile } from "console";
+import { boolean } from "yup";
 import { useTrippingContext } from "../TrippingContext";
 
 interface iUserInfo {
@@ -29,7 +33,7 @@ interface iUserContext {
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
   singIn: (body: iUserLogin) => void;
   singUp: (body: iUserRegister) => void;
-  editProfile: (body: iUserRegister) => void;
+  editProfile: (body: iUserEdit) => void;
   followUsers: (id: string) => void;
   showModal: string | null;
   setShowModal: React.Dispatch<React.SetStateAction<string | null>>;
@@ -111,11 +115,14 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     autoLogin();
   }, []);
 
-  const editProfile = async (body: iUserRegister) => {
+  const editProfile = async (body: iUserEdit) => {
     const userId = localStorage.getItem("@user: id");
     try {
+      const token = localStorage.getItem("@user: token");
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const { data } = await api.patch(`/users/${userId}`, body);
       toast.success("Perfil Atualizado!");
+      setShowModal(null);
     } catch (error) {
       console.log(error);
     }
