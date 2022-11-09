@@ -8,6 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
+import { useUserContext } from "../UserContext";
 
 export interface iPost {
   id?: number | undefined;
@@ -62,6 +63,8 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [followUser, setFollowUser] = useState([] as iPost[]);
   const [currentPost, setCurrentPost] = useState({} as iPost)
 
+  const {setShowModal} = useUserContext()
+
   const navigate = useNavigate();
 
   const cachePosts = async () => {
@@ -104,7 +107,15 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const deletePost = async (id: number) => {
-    await api.delete(`/posts/${id}`);
+    try {
+      await api.delete(`/posts/${id}`);
+      toast.success("Viagem deletada!")
+      cachePosts()
+      navigate("/dashboard")
+    } catch (error) {
+      console.error(error);
+      toast.error("Ops! Algo esta errado!");
+    }
   };
 
   useEffect(() => {
