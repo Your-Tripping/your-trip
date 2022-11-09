@@ -7,7 +7,6 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 export const Conatiner = styled.div`
   position: absolute;
   width: 100%;
-  height: 100vh;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
@@ -16,13 +15,10 @@ export const Conatiner = styled.div`
 `;
 
 export const RegisterForm = styled(Form)`
-  margin-top: 80px;
+  margin-top: 30px;
   animation: transitionOpacity 1s ease;
   input {
     margin-bottom: 1rem;
-  }
-  p {
-    text-align: center;
   }
 `;
 export const PasswordWrapper = styled.div`

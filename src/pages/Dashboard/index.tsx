@@ -1,3 +1,4 @@
+import { Button } from "../../components/Button/button.style";
 import Followers from "../../components/FollowersCard";
 import { Header } from "../../components/Header";
 import Trip from "../../components/TrippingCard";
