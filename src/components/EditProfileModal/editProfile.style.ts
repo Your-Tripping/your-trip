@@ -4,7 +4,7 @@ import { Form } from "../Form/form.style";
 import { Text } from "../Text";
 
 export const Container = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   z-index: 1;
   width: 100%;
@@ -13,6 +13,10 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  & body {
+    overflow-y: hidden;
+  }
 `;
 
 export const RegisterForm = styled(Form)`
@@ -20,7 +24,6 @@ export const RegisterForm = styled(Form)`
   border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.grey.grey1};
   padding: 1rem;
-  margin-top: 100px;
   animation: transitionOpacity 1s ease;
   input {
     margin-bottom: 1rem;

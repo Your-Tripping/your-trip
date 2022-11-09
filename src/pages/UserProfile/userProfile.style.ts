@@ -4,12 +4,12 @@ export const HeaderPage = styled.div`
   display: flex;
   background-color: ${({ theme }) => theme.colors.grey.grey1};
   justify-content: space-between;
-  padding: 15px 108px;
+  padding: 15px 123px 15px 108px;
   align-items: center;
   height: 70px;
   z-index: 0;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: 100%;
+  width: 100vw;
 
   div {
     display: flex;
@@ -45,7 +45,7 @@ export const HeaderPage = styled.div`
   }
 
   @media (max-width: 768px) {
-    padding: 10px;
+    padding: 10px 30px 10px 15px;
   }
 `;
 

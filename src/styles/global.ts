@@ -17,13 +17,17 @@ export const GlobalStyles = createGlobalStyle`
 button{
   cursor: pointer;
 }
+
 body{
-    background-image: url(${Map});
-    width: 100%;
-    height: auto;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: left bottom;
-    background-attachment: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  background-image: url(${Map});
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left bottom;
+  background-attachment: fixed;
 }
 `;
