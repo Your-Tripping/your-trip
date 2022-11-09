@@ -16,7 +16,7 @@ import { IoEllipsisHorizontalOutline } from "react-icons/io5";
 import { GrMap } from "react-icons/gr";
 import { Input } from "../Input/input.style";
 
-import ImageNotFound from "../../assets/img/noImage.png"
+import ImageNotFound from "../../assets/img/noImage.png";
 
 const Trip = ({ post }: { post: iPost }) => {
   const [placeIndex, setPlaceIndex] = useState<number>(0);
@@ -77,20 +77,16 @@ const Trip = ({ post }: { post: iPost }) => {
           <img
             src={defaultImage ? ImageNotFound : post.places[placeIndex].image}
             alt={post.places[placeIndex].name}
-            onError={() =>
-              setDefaultImage(true)
-            }
+            onError={() => setDefaultImage(true)}
           />
           <div>
             <GrMap />
             <p>{post.country}</p>
           </div>
         </div>
-
         <h3>{post.places[placeIndex].name}</h3>
         <p>{post.places[placeIndex].description}</p>
       </S.SectionSlideshow>
-
       <S.SectionLinks>
         <div>
           {isLikes ? (
@@ -110,13 +106,12 @@ const Trip = ({ post }: { post: iPost }) => {
         </div>
         <div>
           <TfiCommentAlt />
-          <p>comments</p>
+          <p>Comments</p>
           <span>3</span>
         </div>
       </S.SectionLinks>
-
       <S.SectionLomments>
-        <Input placeholder="Digite aqui sua pesquisa.." />
+        <Input placeholder="Digite aqui sua pesquisa..." />
         <RiSendPlaneFill />
       </S.SectionLomments>
     </S.LiCard>

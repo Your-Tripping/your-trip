@@ -4,8 +4,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import SearchBar from "../SearchBar";
 import { useState } from "react";
 import OptionsProfile from "../OptionsProfile";
-
-export const Header = () => {
+const Header = () => {
   const { user } = useUserContext();
   const [profile, setProfile] = useState<boolean>(false);
 
@@ -27,3 +26,5 @@ export const Header = () => {
     </S.HeaderDashboard>
   );
 };
+
+export default Header;

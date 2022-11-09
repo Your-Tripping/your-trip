@@ -4,7 +4,7 @@ import { Form } from "../Form/form.style";
 import { Text } from "../Text";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-export const Conatiner = styled.div`
+export const Container = styled.div`
   position: absolute;
   width: 100%;
   top: 0;
@@ -65,8 +65,11 @@ export const AlreadyLogged = styled(Text)`
   margin-top: 1rem;
   display: block;
   text-align: center;
-  span {
+  button {
     color: ${({ theme }) => theme.colors.brand.primary};
+    padding: 0 3px; 
+    font-weight: 600;
+    background-color: transparent;
   }
 `;
 export const Diviser = styled.div`

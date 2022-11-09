@@ -1,8 +1,10 @@
 import { useUserContext } from "../../contexts/UserContext";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { formSchemaEdit } from "../../validation/edit";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { formSchemaEdit } from "../../validation/edit";
 import { iUserEdit } from "../../services/edit";
+
 import { Error } from "../ErrorMessage/formError.style";
 import { Input } from "../Input/input.style";
 import * as S from "./editProfile.style";

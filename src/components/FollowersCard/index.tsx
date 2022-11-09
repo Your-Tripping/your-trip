@@ -1,37 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { iFollower, iPost, useTripContext } from "../../contexts/TrippingContext";
+import { iFollower, useTripContext } from "../../contexts/TrippingContext";
 import { iUserInfo, useUserContext } from "../../contexts/UserContext";
 import * as S from "./followersCard.style";
-interface iFollow {
-  follower: iUserInfo;
-}
-const Followers = ({ follower }: iFollow) => {
+
+const Followers = ({ follower }: {follower: iUserInfo}) => {
   const { followUser, follow, unfollow } = useTripContext();
   const { user } = useUserContext();
-  const [following, setFollowing] = useState<boolean>(false)
   
-  const userId = (foll: iFollower | undefined) => {
-    if(foll?.followername === user?.user.name) {
-      return foll
-    }
-  };  
-  const hadleFollowing = () => {
-    const currentId = followUser.filter(userId)[0]?.id 
-    
-    if(currentId && following){
-      unfollow(currentId as number)
-      setFollowing(false)
-    }else{
-      follow({
-        userId: follower.id,
-        username: follower.name,
-        followername: user?.user.name,
-      })
-      setFollowing(true);
-    }
-    
-  }
-
+  const userId = ({ username }: iFollower) => username === follower.name;
+  const isFollowing = followUser.some(
+    (element) =>
+      element.username === follower.name &&
+      element.followername === user?.user.name
+  );
+  const hadleFollower = () =>
+    followUser.length > 0 &&
+    unfollow(followUser.filter(userId)[0].id as string | number);
   return (
     <S.LiCard>
       <S.DivUser>
@@ -39,7 +22,22 @@ const Followers = ({ follower }: iFollow) => {
         <h2>{follower.name}</h2>
       </S.DivUser>
       <S.DivSeguir>
-        <button  onClick={hadleFollowing}>{following ? "seguindo" : "seguir"}</button>
+        {isFollowing ? (
+          <button onClick={hadleFollower}>Seguindo</button>
+        ) : (
+          <button
+            className="follow"
+            onClick={() =>
+              follow({
+                userId: follower.id,
+                username: follower.name,
+                followername: user?.user.name,
+              })
+            }
+          >
+            Seguir
+          </button>
+        )}
       </S.DivSeguir>
     </S.LiCard>
   );

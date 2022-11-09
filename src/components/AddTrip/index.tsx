@@ -72,7 +72,7 @@ const AddTrip = () => {
             <Input
               placeholder={`${
                 showModal !== "editTrip"
-                  ? "Digite o titulo aqui..."
+                  ? "Digite o título aqui..."
                   : currentPost?.title
               }`}
               {...register("title")}
@@ -84,7 +84,7 @@ const AddTrip = () => {
             <Input
               placeholder={`${
                 showModal !== "editTrip"
-                  ? "Digite o nome do País aqui..."
+                  ? "Digite o nome do país aqui..."
                   : currentPost?.country
               }`}
               {...register("country")}
@@ -109,7 +109,7 @@ const AddTrip = () => {
               setPlaceModal(true);
             }}
           >
-            Adicionar Parada
+            Adicionar parada
           </Button>
           {showModal === "editTrip" && (
             <Button buttonType="tertiary">Editar</Button>
