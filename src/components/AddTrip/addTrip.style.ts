@@ -6,6 +6,7 @@ import { Text } from "../Text";
 export const Box = styled.div`
   width: fit-content;
   margin: 0 auto;
+
   position: relative;
   margin-top: 30px;
   input,
@@ -13,7 +14,7 @@ export const Box = styled.div`
     margin-bottom: 1rem;
   }
   form{
-    padding: 0;
+    padding: 7px;
   }
 `;
 export const FormTitle = styled(Text)`

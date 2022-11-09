@@ -10,7 +10,7 @@ import * as S from "./userProfile.style";
 export const UserPage = () => {
   const { showModal, setShowModal, user, handleFormDashboard } =
     useUserContext();
-  const { userPosts } = useTripContext();
+  const { userPosts, followUser } = useTripContext();
   return (
     <>
       <S.HeaderPage>
@@ -27,6 +27,7 @@ export const UserPage = () => {
         <S.informationUser>
           <img src={user?.user.imageUrl} alt="Imagem" />
           <h2>{user?.user.name}</h2>
+          <p>{followUser.length} seguidores</p>
           <p>{user?.user.bio}</p>
           <S.EditProfile
             onClick={() => {
