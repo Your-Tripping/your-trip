@@ -32,6 +32,11 @@ export const SectionProfile = styled.section`
     button {
       padding: 10px 20px;
       border-radius: 10px;
+      background-color: ${({ theme }) => theme.colors.brand.primary};
+      color: ${({ theme }) => theme.colors.grey.grey1};
+    }
+
+    .follow {
       background-color: ${({ theme }) => theme.colors.brand.tertiary};
       color: ${({ theme }) => theme.colors.brand.primary};
     }
