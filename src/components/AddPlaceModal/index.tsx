@@ -16,10 +16,11 @@ import { toast } from "react-toastify";
 interface iAddTripProps {
   setPlaces: React.Dispatch<React.SetStateAction<iPlace[]>>;
   places: iPlace[];
+  setPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AddPlace = ({ setPlaces, places }: iAddTripProps) => {
-  const { setShowModal } = useUserContext();
+const AddPlace = ({ setPlaces, places, setPlaceModal }: iAddTripProps) => {
+  
   const {
     register,
     handleSubmit,
@@ -28,17 +29,17 @@ const AddPlace = ({ setPlaces, places }: iAddTripProps) => {
     resolver: yupResolver(placeSchema),
   });
 
-  const logg = (body: iPlace) => {
+  const addPlace = (body: iPlace) => {
     const newPlace = [...places, body];
     setPlaces(newPlace);
-    setShowModal(null);
+    setPlaceModal(false);
     toast.success("Lugar Adicionado!");
   };
 
   return (
     <Container>
-      <S.AddPlaceForm background onSubmit={handleSubmit(logg)}>
-        <S.CloseButton onClick={() => setShowModal(null)}>
+      <S.AddPlaceForm background onSubmit={handleSubmit(addPlace)}>
+        <S.CloseButton onClick={(e) => {e.preventDefault(); setPlaceModal(false)}}>
           <GrClose />
         </S.CloseButton>
         <S.ModalTitle tag="h3">Parada</S.ModalTitle>

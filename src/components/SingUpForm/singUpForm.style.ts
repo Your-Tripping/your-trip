@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { H2, DiviserTwo } from "../../components/SingInForm/singInForm.style";
-import { Form } from "../Forn/form.style";
+import { Form } from "../Form/form.style";
 import { Text } from "../Text";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -23,7 +23,6 @@ export const RegisterForm = styled(Form)`
   p {
     text-align: center;
   }
-  
 `;
 export const PasswordWrapper = styled.div`
   position: relative;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
@@ -9,7 +9,7 @@ import { TfiPencil, TfiArrowLeft } from "react-icons/tfi";
 
 import { Button } from "../Button/button.style";
 import { Input } from "../Input/input.style";
-import { Form } from "../Forn/form.style";
+import { Form } from "../Form/form.style";
 import * as S from "./addTrip.style";
 import { Error } from "../ErrorMessage/formError.style";
 import AddPlace from "../AddPlaceModal";
@@ -18,10 +18,9 @@ import { Text } from "../Text";
 
 const AddTrip = () => {
   const [places, setPlaces] = useState([] as iPlace[]);
-  const [post, setPost] = useState({} as iPost);
-
+  const [placeModal, setPlaceModal] = useState<boolean>(false)
   const { showModal, setShowModal, user } = useUserContext();
-  const { createPost } = useTripContext();
+  const { createPost, currentPost, editPost } = useTripContext();
 
   const {
     register,
@@ -31,14 +30,20 @@ const AddTrip = () => {
     resolver: yupResolver(tripSchema),
   });
 
+  useEffect(() => {
+    showModal === "editTrip" && setPlaces(currentPost.places)
+  },[])
+
   const handlePost = (body: iPost) => {
-    createPost({
+    const data = {
       ...body,
       userId: user?.user.id,
       username: user?.user.name,
       profileUrl: user?.user.imageUrl,
       places: places,
-    });
+    };
+
+    showModal === "editTrip" ? editPost(data, currentPost.id as number) : createPost(data);
   };
 
   const normalizeText = (text: string) =>
@@ -47,7 +52,7 @@ const AddTrip = () => {
   return (
     <>
       <S.Box>
-        <S.BackLink to="/dashboard">
+        <S.BackLink to="/dashboard" onClick={() => setShowModal(null)}>
           <TfiArrowLeft />
         </S.BackLink>
         <S.FormTitle tag="h3" size="size1">
@@ -58,15 +63,16 @@ const AddTrip = () => {
             Titulo:
             <Error>{errors.title?.message}</Error>
             <Input
-              placeholder="Digite o título aqui..."
+              placeholder={`${showModal !== "editTrip" ? "Digite o titulo aqui..." : currentPost?.title}`}
               {...register("title")}
+              
             />
           </label>
           <label>
             País:
             <Error>{errors.country?.message}</Error>
             <Input
-              placeholder="Digite o nome do País aqui..."
+              placeholder={`${showModal !== "editTrip" ? "Digite o nome do País aqui..." : currentPost?.country}`}
               {...register("country")}
             />
           </label>
@@ -74,20 +80,36 @@ const AddTrip = () => {
             Local:
             <Error>{errors.location?.message}</Error>
             <Input
-              placeholder="Digite o nome do Local aqui..."
+              placeholder={`${showModal !== "editTrip" ? "Digite o nome do local aqui..." : currentPost?.location}`}
               {...register("location")}
             />
           </label>
-          <Button
-            buttonType="tertiary"
-            onClick={(e) => {
-              e.preventDefault();
-              setShowModal("addTrip");
-            }}
-          >
-            Adicionar Parada
-          </Button>
-          <S.PostButton buttonType="primary">Postar</S.PostButton>
+            <Button
+              buttonType="tertiary"
+              onClick={(e) => {
+                e.preventDefault();
+                setPlaceModal(true);
+              }}
+            >
+              Adicionar Parada
+            </Button>
+          {showModal === "editTrip" && (
+            <Button
+              buttonType="tertiary"
+            >
+              Editar
+            </Button>
+          )}
+          {showModal === "editTrip" && (
+            <Button
+              buttonType="tertiary"
+            >
+              Deletar
+            </Button>
+          )}
+          {showModal === "editTrip" ? null : (
+            <S.PostButton buttonType="primary">Postar</S.PostButton>
+          )}
         </Form>
         <ul>
           {places.map(({ name, description, image }) => (
@@ -104,9 +126,9 @@ const AddTrip = () => {
           ))}
         </ul>
       </S.Box>
-      {showModal === "addTrip" ? (
-        <AddPlace setPlaces={setPlaces} places={places} />
-      ) : null}
+      {placeModal && (
+        <AddPlace setPlaces={setPlaces} places={places} setPlaceModal={setPlaceModal} />
+      )}
     </>
   );
 };

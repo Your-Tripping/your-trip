@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Form } from "../Forn/form.style";
+import { Form } from "../Form/form.style";
 import { Text } from "../Text";
 
 export const ModalTitle = styled(Text)`
@@ -20,10 +20,10 @@ export const AddPlaceForm = styled(Form)`
 `;
 
 export const CloseButton = styled.button`
-    background-color: transparent;
-    font-size: 20px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 1rem;
+  background-color: transparent;
+  font-size: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1rem;
 `;

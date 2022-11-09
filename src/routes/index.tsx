@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import AddTrip from "../components/AddTrip";
 import { Dashboard } from "../pages/Dashboard";
+import HandleTrip from "../pages/HandleTrip";
 import LandingPage from "../pages/Home";
 import SearchPage from "../pages/SearchResults";
 import { UserPage } from "../pages/UserProfile";
@@ -13,7 +13,7 @@ export const RoutePages = () => {
       <Route path="/" element={<LandingPage />} />
       <Route element={<ProtectedRoutes />}>
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="addTripping" element={<AddTrip />} />
+        <Route path="addTripping" element={<HandleTrip />} />
         <Route path="userProfile" element={<UserPage />} />
         <Route path="search" element={<SearchPage />} />
       </Route>
