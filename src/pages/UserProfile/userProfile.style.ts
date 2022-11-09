@@ -43,6 +43,10 @@ export const HeaderPage = styled.div`
   a:hover {
     border-bottom: 1px solid ${({ theme }) => theme.colors.brand.primary};
   }
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 export const EditProfile = styled.button`
@@ -64,16 +68,30 @@ export const EditProfile = styled.button`
 export const MainUserPage = styled.main`
   display: flex;
   padding: 15px 108px;
-  gap: 130px;
-  
+  gap: 80px;
 
-  section {
-    width: 60%;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 15px 15px;
+    gap: 20px;
   }
+`;
+
+export const Posts = styled.div`
+  background-color: ${({ theme }) => theme.colors.grey.grey1};
+  height: 60px;
+  padding: 18px 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  color: ${({ theme }) => theme.colors.brand.primary};
+  font-size: ${({ theme }) => theme.typography.sizes.size2};
+  margin-bottom: 40px;
 `;
 
 export const informationUser = styled.div`
   width: 30%;
+  min-width: 250px;
+  height: 400px;
   border-radius: 10px;
   display: flex;
   padding: 25px;
@@ -98,5 +116,9 @@ export const informationUser = styled.div`
   p {
     font-size: ${({ theme }) => theme.typography.sizes.size3};
     color: ${({ theme }) => theme.colors.grey.grey3};
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;
