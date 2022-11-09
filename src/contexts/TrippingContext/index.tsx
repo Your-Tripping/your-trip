@@ -8,6 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
+import { useUserContext } from "../UserContext";
 
 export interface iPost {
   id?: number | undefined;
@@ -56,7 +57,7 @@ interface iTrippingContext {
   setCurrentPost: React.Dispatch<React.SetStateAction<iPost>>;
   followUser: iPost[];
   follow: (body: iFollow) => void;
-  unfollow: (id: string) => void;
+  unfollow: (id: string | number) => void;
 }
 
 export const TrippingContext = createContext<iTrippingContext>(
@@ -70,6 +71,8 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [showRandom, setShowRandom] = useState(false);
   const [followUser, setFollowUser] = useState([] as iPost[]);
   const [currentPost, setCurrentPost] = useState({} as iPost);
+
+  const { setShowModal } = useUserContext();
 
   const navigate = useNavigate();
 
@@ -113,7 +116,15 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const deletePost = async (id: number) => {
-    await api.delete(`/posts/${id}`);
+    try {
+      await api.delete(`/posts/${id}`);
+      toast.success("Viagem deletada!");
+      cachePosts();
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+      toast.error("Ops! Algo esta errado!");
+    }
   };
 
   // Rota: Seguir usuário:
@@ -128,7 +139,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Rota: Seguir usuário:
-  const unfollow = (id: string) => {
+  const unfollow = (id: string | number) => {
     console.log(id);
     try {
       api.delete(`/followers/${id}`);
