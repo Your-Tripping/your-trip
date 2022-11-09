@@ -57,7 +57,7 @@ interface iTrippingContext {
   setCurrentPost: React.Dispatch<React.SetStateAction<iPost>>;
   followUser: iPost[];
   follow: (body: iFollow) => void;
-  unfollow: (id: iFollow) => void;
+  unfollow: (id: string) => void;
 }
 
 export const TrippingContext = createContext<iTrippingContext>(
@@ -139,7 +139,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Rota: Seguir usuário:
-  const unfollow = (id: iFollow) => {
+  const unfollow = (id: string) => {
     try {
       api.delete(`/followers/?${id}`);
     } catch (error) {

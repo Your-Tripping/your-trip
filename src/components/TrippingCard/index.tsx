@@ -45,7 +45,6 @@ const Trip = ({ post }: { post: iPost }) => {
           <h2>{post.username}</h2>
         </div>
         <div>
-          {idToken == post.userId ? null : <button>Seguir</button>}
           {idToken == post.userId ? (
             <IoEllipsisHorizontalOutline
               onClick={() => {

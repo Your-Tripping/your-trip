@@ -20,8 +20,7 @@ const Followers = ({ follower }: iFollow) => {
       </S.DivUser>
       <S.DivSeguir>
         {followUser.filter(userId).length === 1 ? (
-          // <button onClick={() => unfollow(follower.id)}>Seguindo</button>
-          <button>Seguindo</button>
+          <button onClick={() => unfollow(follower.id as string)}>Seguindo</button>
         ) : (
           <button
             className="follow"
