@@ -40,7 +40,8 @@ interface iTrippingContext {
   userPosts: iPost[];
   cachePosts: () => void;
   createPost: (post: iPost) => void;
-  editPost: (post: iPost, id: number) => void;
+  editPost: (post: iEditPost, id: number) => void;
+  deletePost: (id: number) => void;
   randomPost: iPost;
   setRandom: React.Dispatch<React.SetStateAction<iPost>>;
   showRandom: boolean;
@@ -66,10 +67,12 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
     setPosts(postsData);
+
     const { data: userPostsData } = await api.get(
-      `/posts/?userId=${localStorage.getItem("userId")}`
+      `/posts/?userId=${window.localStorage.getItem("@user: id")}`
     );
     setUserPosts(userPostsData);
+    console.log(userPosts);
     const { data: follower } = await api.get(
       `/followers/?${window.localStorage.getItem("@user: id")}`
     );
@@ -88,7 +91,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const editPost = async (post: iPost, id: number ) => {
+  const editPost = async (post: iEditPost, id: number ) => {
     try {
       await api.patch(`/posts/${id}`, post);
       toast.success("Post editado!")
@@ -98,6 +101,10 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
       console.error(error);
       toast.error("Ops! Algo esta errado!");
     }
+  };
+
+  const deletePost = async (id: number) => {
+    await api.delete(`/posts/${id}`);
   };
 
   useEffect(() => {
@@ -124,7 +131,8 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
         showRandom,
         setShowRandom,
         currentPost,
-        setCurrentPost
+        setCurrentPost,
+        deletePost
       }}
     >
       {children}

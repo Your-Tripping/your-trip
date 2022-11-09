@@ -11,7 +11,7 @@ export const Header = () => {
 
   return (
     <S.HeaderDashboard>
-      <YourTrip />
+      <YourTrip class="icon" />
       <SearchBar />
       <S.UserInfo>
         <div>

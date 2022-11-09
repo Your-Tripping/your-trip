@@ -6,6 +6,7 @@ interface iSearchContext {
   filteredPosts: iPost[];
   filteredUsers: iUserInfo[];
   filter: string;
+  target: string;
   applyFilter: (filter: string, input: string) => void;
 }
 
@@ -24,8 +25,11 @@ const SearchProvider = ({ children }: { children: ReactNode }) => {
 
   const [filter, setFilter] = useState("none");
 
+  const [target, setTarget] = useState("");
+
   const applyFilter = (filter: string, input: string) => {
     setFilter(filter);
+    setTarget(input)
     switch (filter) {
       case "Usuarios":
         setFilteredUsers(
@@ -54,7 +58,7 @@ const SearchProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <SearchContext.Provider
-      value={{ filteredUsers, filteredPosts, filter, applyFilter }}
+      value={{ filteredUsers, filteredPosts, filter, applyFilter, target }}
     >
       {children}
     </SearchContext.Provider>

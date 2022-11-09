@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 export const Conatiner = styled.div`
   position: absolute;
   width: 100%;
+  height: 100vh;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;

@@ -5,18 +5,15 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { useTripContext } from "../../contexts/TrippingContext";
 import { useUserContext } from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
-import * as S from "../Dashboard/Dashboard.style";
-import * as T from "./userProfile.style";
+import * as S from "./userProfile.style";
 
 export const UserPage = () => {
   const { showModal, setShowModal, user, handleFormDashboard } =
     useUserContext();
   const { userPosts } = useTripContext();
-
-  console.log(userPosts)
   return (
     <>
-      <T.HeaderPage>
+      <S.HeaderPage>
         <YourTrip />
         <div>
           <button onClick={handleFormDashboard}>Sair</button>
@@ -24,42 +21,36 @@ export const UserPage = () => {
             <AiOutlineArrowRight />
           </Link>
         </div>
-      </T.HeaderPage>
+      </S.HeaderPage>
       {showModal === "editProfile" && <EditProfile />}
-      <T.MainUserPage>
-        <T.informationUser>
+      <S.MainUserPage>
+        <S.informationUser>
           <img src={user?.user.imageUrl} alt="Imagem" />
           <h2>{user?.user.name}</h2>
           <p>{user?.user.bio}</p>
-          <T.EditProfile
+          <S.EditProfile
             onClick={() => {
               setShowModal("editProfile");
             }}
           >
             Editar perfil
-          </T.EditProfile>
-        </T.informationUser>
+          </S.EditProfile>
+        </S.informationUser>
         <section>
-          <S.CreatePost>
-            <h2>Posts</h2>
-            <S.StyledLink to="/addTripping">
-              <p>Criar</p>
-            </S.StyledLink>
-          </S.CreatePost>
-          <S.Post>
-            <h2>Minhas viagens:</h2>
-            {userPosts.length === 0 ? (
-              <p>Você não possui nenhum roteiro de viagem ainda :(</p>
-            ) : (
-              <ul>
-                {userPosts.map((post, index) => (
-                  <Trip key={index} post={post} />
-                ))}
-              </ul>
-            )}
-          </S.Post>
+          <S.Posts>
+            <h2>Posts: </h2>
+          </S.Posts>
+          {userPosts.length === 0 ? (
+            <p>Você não possui nenhum roteiro de viagem ainda :(</p>
+          ) : (
+            <ul>
+              {userPosts.map((post, index) => (
+                <Trip key={index} post={post} />
+              ))}
+            </ul>
+          )}
         </section>
-      </T.MainUserPage>
+      </S.MainUserPage>
     </>
   );
 };
