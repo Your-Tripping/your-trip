@@ -72,8 +72,6 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [followUser, setFollowUser] = useState([] as iPost[]);
   const [currentPost, setCurrentPost] = useState({} as iPost);
 
-  const {setShowModal} = useUserContext()
-
   const navigate = useNavigate();
 
   const cachePosts = async () => {
