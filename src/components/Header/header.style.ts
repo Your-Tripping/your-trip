@@ -86,11 +86,13 @@ export const UserInfo = styled.div`
   }
 
   div > div {
-    position: relative;
-    top: 20px;
-    left: 5px;
+    position: absolute;
+    top: 80px;
+    right: 105px;
     border-radius: 0px 0px 10px 10px;
     @media (max-width: 768px) {
+      position: relative;
+      top: 14px;
       left: -60px;
     }
 
