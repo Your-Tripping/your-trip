@@ -41,6 +41,7 @@ interface iTrippingContext {
   cachePosts: () => void;
   createPost: (post: iPost) => void;
   editPost: (post: iEditPost, id: number) => void;
+  deletePost: (id: number) => void;
   randomPost: iPost;
   setRandom: React.Dispatch<React.SetStateAction<iPost>>;
   showRandom: boolean;
@@ -68,23 +69,26 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
     const { data: follower } = await api.get(
       `/followers/?${window.localStorage.getItem("@user: id")}`
     );
-    setFollowUser(follower)
+    setFollowUser(follower);
   };
 
   const createPost = async (post: iPost) => {
-    
     try {
       await api.post("/posts", post);
-      toast.success("Viagem postada!")
-      cachePosts()
+      toast.success("Viagem postada!");
+      cachePosts();
     } catch (error) {
       console.error(error);
-      toast.error("Ops! Algo esta errado!")    
+      toast.error("Ops! Algo esta errado!");
     }
   };
 
   const editPost = async (post: iEditPost, id: number) => {
     await api.patch(`/posts/${id}`, post);
+  };
+
+  const deletePost = async (id: number) => {
+    await api.delete(`/posts/${id}`);
   };
 
   useEffect(() => {
@@ -109,6 +113,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
         setRandom,
         showRandom,
         setShowRandom,
+        deletePost
       }}
     >
       {children}
