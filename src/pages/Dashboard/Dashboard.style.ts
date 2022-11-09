@@ -18,7 +18,7 @@ export const MainDashboard = styled.main`
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 10px 10px;
-
+    margin-top: 150px;
     section {
       order: 1;
     }

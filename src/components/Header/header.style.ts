@@ -19,16 +19,13 @@ export const HeaderDashboard = styled.header`
 
   @media (max-width: 768px) {
     padding: 10px 10px;
-    justify-content: flex-start;
-    gap: 20px;
+    justify-content: space-between;
+    height: 140px;
+    flex-direction: column;
     .icon {
       width: 100px;
       height: 36px;
     }
-  }
-  @media (max-width: 1024px) {
-    justify-content: flex-start;
-    gap: 30px;
   }
 `;
 
@@ -73,12 +70,12 @@ export const UserInfo = styled.div`
   flex-direction: column;
 
   div {
-    position: absolute;
-    top: 18px;
-    right: 25px;
     width: 200px;
     @media (max-width: 768px) {
       width: 40px;
+      position: absolute;
+      top: 5px;
+      right: 25px;
     }
   }
 

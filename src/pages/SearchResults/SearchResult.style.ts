@@ -5,12 +5,16 @@ export const SearchMain = styled.div`
   flex-direction: column;
   justify-content: center;
   position: relative;
-  top: 80px;
+  margin-top: 80px;
+
+  @media (max-width: 768px) {
+    margin-top: 140px;
+  }
 
   & > div {
     display: flex;
     flex-direction: row;
-    margin: 16px 108px 0;
+    margin: 16px 108px;
     background-color: ${({ theme }) => theme.colors.grey.grey1};
     border-radius: 8px;
     padding: 16px;
@@ -29,6 +33,10 @@ export const SearchMain = styled.div`
 
     & span {
       color: ${({ theme }) => theme.colors.brand.primary};
+    }
+
+    @media (max-width: 768px) {
+      margin: 16px 10px;
     }
   }
 `;

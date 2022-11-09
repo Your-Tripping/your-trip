@@ -5,7 +5,7 @@ export const SearchResults = styled.ul`
   margin-bottom: 25px;
   align-self: center;
   width: 100%;
-  padding: 0 108px;
+  padding: 0 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -15,9 +15,17 @@ export const SearchResults = styled.ul`
     width: 100%;
   }
 
-  @media (min-width: 996px) {
-    gap: 3%;
+  @media (min-width: 768px) {
+    padding: 0 108px;
+  }
 
+  @media (min-width: 996px) {
+    & li {
+      width: 48%;
+    }
+  }
+
+  @media (min-width: 1220px) {
     & li {
       width: 30%;
     }
