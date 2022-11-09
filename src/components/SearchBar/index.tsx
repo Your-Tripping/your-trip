@@ -1,20 +1,16 @@
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as S from "./searchBar.style";
 import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { SearchContext } from "../../contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
+import { searchSchema } from "../../validation/searchSchema";
+
+import * as S from "./searchBar.style";
 
 interface iSearchParams {
   filter: string;
   target: string;
 }
-
-const searchSchema = yup.object().shape({
-  filter: yup.string().required("Campo obrigatorio"),
-  target: yup.string().required("Campo obrigatorio"),
-});
 
 const SearchBar = () => {
   const navigate = useNavigate();

@@ -1,13 +1,14 @@
-import Followers from "../../components/FollowersCard";
-import { Header } from "../../components/Header";
-import Trip from "../../components/TrippingCard";
 import { useTripContext } from "../../contexts/TrippingContext";
 import { useUserContext } from "../../contexts/UserContext";
+
+import Followers from "../../components/FollowersCard";
+import Header from "../../components/Header";
+import Trip from "../../components/TrippingCard";
 import * as S from "./Dashboard.style";
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const { showRandom, posts, randomPost, setShowRandom } = useTripContext();
-  const { usersList } = useUserContext();
+  const { usersList, user } = useUserContext();
 
   return (
     <S.BodyDashboard>
@@ -24,7 +25,7 @@ export const Dashboard = () => {
             <h2>{showRandom ? "Viagem aleatória:" : "Principais viagens:"}</h2>
             <ul>
               {showRandom
-                ? [randomPost].map((post: any, index: any) => (
+                ? [randomPost].map((post, index) => (
                     <Trip key={index} post={post} />
                   ))
                 : posts.map((post, index) => <Trip key={index} post={post} />)}
@@ -35,9 +36,12 @@ export const Dashboard = () => {
           <S.Suggestion>
             <h2>Pessoas que talvez você conheça:</h2>
             <ul>
-              {usersList.map((follower, index) => (
-                <Followers key={index} follower={follower} />
-              ))}
+              {usersList.map(
+                (follower, index) =>
+                  follower.name !== user?.user.name && (
+                    <Followers key={index} follower={follower} />
+                  )
+              )}
             </ul>
           </S.Suggestion>
           <div>
@@ -58,3 +62,5 @@ export const Dashboard = () => {
     </S.BodyDashboard>
   );
 };
+
+export default Dashboard;

@@ -76,11 +76,8 @@ export const Post = styled.div`
   ul {
     width: 100%;
     height: 100%;
-
     display: flex;
     flex-direction: column;
-    gap: 20px;
-
     margin-bottom: 30px;
   }
 `;

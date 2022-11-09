@@ -1,17 +1,20 @@
-import { iPost, useTripContext } from "../../contexts/TrippingContext";
+import { iFollower, useTripContext } from "../../contexts/TrippingContext";
 import { iUserInfo, useUserContext } from "../../contexts/UserContext";
 import * as S from "./followersCard.style";
-interface iFollow {
-  follower: iUserInfo;
-}
-const Followers = ({ follower }: iFollow) => {
+
+const Followers = ({ follower }: {follower: iUserInfo}) => {
   const { followUser, follow, unfollow } = useTripContext();
   const { user } = useUserContext();
-
-  const userId = ({ userId }: iPost) => userId === follower.id;
-
-  console.log(follower.id);
-
+  
+  const userId = ({ username }: iFollower) => username === follower.name;
+  const isFollowing = followUser.some(
+    (element) =>
+      element.username === follower.name &&
+      element.followername === user?.user.name
+  );
+  const hadleFollower = () =>
+    followUser.length > 0 &&
+    unfollow(followUser.filter(userId)[0].id as string | number);
   return (
     <S.LiCard>
       <S.DivUser>
@@ -19,9 +22,8 @@ const Followers = ({ follower }: iFollow) => {
         <h2>{follower.name}</h2>
       </S.DivUser>
       <S.DivSeguir>
-        {followUser.filter(userId).length === 1 ? (
-          // <button onClick={() => unfollow(follower.id)}>Seguindo</button>
-          <button>Seguindo</button>
+        {isFollowing ? (
+          <button onClick={hadleFollower}>Seguindo</button>
         ) : (
           <button
             className="follow"
@@ -33,7 +35,7 @@ const Followers = ({ follower }: iFollow) => {
               })
             }
           >
-            Seuir
+            Seguir
           </button>
         )}
       </S.DivSeguir>

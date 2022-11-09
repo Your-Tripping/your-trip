@@ -4,10 +4,9 @@ import { Form } from "../Form/form.style";
 import { Text } from "../Text";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-export const Conatiner = styled.div`
+export const Container = styled.div`
   position: absolute;
   width: 100%;
-  height: 100vh;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
@@ -16,13 +15,10 @@ export const Conatiner = styled.div`
 `;
 
 export const RegisterForm = styled(Form)`
-  margin-top: 80px;
+  margin-top: 30px;
   animation: transitionOpacity 1s ease;
   input {
     margin-bottom: 1rem;
-  }
-  p {
-    text-align: center;
   }
 `;
 export const PasswordWrapper = styled.div`
@@ -69,8 +65,11 @@ export const AlreadyLogged = styled(Text)`
   margin-top: 1rem;
   display: block;
   text-align: center;
-  span {
+  button {
     color: ${({ theme }) => theme.colors.brand.primary};
+    padding: 0 3px; 
+    font-weight: 600;
+    background-color: transparent;
   }
 `;
 export const Diviser = styled.div`

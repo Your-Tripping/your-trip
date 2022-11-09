@@ -32,7 +32,7 @@ export const SingUpForm: React.FC = () => {
   };
 
   return (
-    <S.Conatiner>
+    <S.Container>
       <S.RegisterForm background onSubmit={handleSubmit(singUp)}>
         <div>
           <S.Exit
@@ -117,11 +117,11 @@ export const SingUpForm: React.FC = () => {
         </Button>
         <S.AlreadyLogged tag="span" size="size4">
           Já tem cadastro?
-          <Text tag="span" size="size4">
+          <button onClick={(e) => {e.preventDefault(); setShowModal(null)}}>
             Fazer login
-          </Text>
+          </button>
         </S.AlreadyLogged>
       </S.RegisterForm>
-    </S.Conatiner>
+    </S.Container>
   );
 };

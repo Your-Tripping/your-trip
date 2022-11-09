@@ -88,7 +88,7 @@ export const Posts = styled.div`
   margin-bottom: 40px;
 `;
 
-export const informationUser = styled.div`
+export const InformationUser = styled.div`
   width: 30%;
   min-width: 250px;
   height: 400px;

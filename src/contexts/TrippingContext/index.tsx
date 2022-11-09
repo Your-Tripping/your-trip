@@ -36,10 +36,11 @@ export interface iPlace {
   description: string;
 }
 
-export interface iFollow {
+export interface iFollower {
   followername: string | undefined;
   userId: string;
   username: string;
+  id?: string | number;
 }
 
 interface iTrippingContext {
@@ -55,9 +56,9 @@ interface iTrippingContext {
   setShowRandom: React.Dispatch<React.SetStateAction<boolean>>;
   currentPost: iPost;
   setCurrentPost: React.Dispatch<React.SetStateAction<iPost>>;
-  followUser: iPost[];
-  follow: (body: iFollow) => void;
-  unfollow: (id: string) => void;
+  followUser: iFollower[];
+  follow: (body: iFollower) => void;
+  unfollow: (id: string | number) => void;
 }
 
 export const TrippingContext = createContext<iTrippingContext>(
@@ -69,10 +70,8 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [userPosts, setUserPosts] = useState([] as iPost[]);
   const [randomPost, setRandom] = useState({} as iPost);
   const [showRandom, setShowRandom] = useState(false);
-  const [followUser, setFollowUser] = useState([] as iPost[]);
+  const [followUser, setFollowUser] = useState([] as iFollower[]);
   const [currentPost, setCurrentPost] = useState({} as iPost);
-
-  const {setShowModal} = useUserContext()
 
   const navigate = useNavigate();
 
@@ -118,32 +117,31 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const deletePost = async (id: number) => {
     try {
       await api.delete(`/posts/${id}`);
-      toast.success("Viagem deletada!")
-      cachePosts()
-      navigate("/dashboard")
+      toast.success("Viagem deletada!");
+      cachePosts();
+      navigate("/dashboard");
     } catch (error) {
       console.error(error);
       toast.error("Ops! Algo esta errado!");
     }
   };
 
-  // Rota: Seguir usuário:
-  const follow = (body: iFollow) => {
+  const follow = (body: iFollower) => {
     try {
       api.post("/followers", body);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
     cachePosts();
   };
 
-  // Rota: Seguir usuário:
-  const unfollow = (id: string) => {
+  const unfollow = (id: string | number) => {
+
     try {
-      api.delete(`/followers/?${id}`);
+      api.delete(`/followers/${id}`);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
     cachePosts();

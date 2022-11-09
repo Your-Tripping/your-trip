@@ -5,13 +5,13 @@ import SearchBar from "../SearchBar";
 import { useState } from "react";
 import OptionsProfile from "../OptionsProfile";
 
-export const Header = () => {
+const Header = () => {
   const { user } = useUserContext();
   const [profile, setProfile] = useState<boolean>(false);
 
   return (
     <S.HeaderDashboard>
-      <YourTrip class="icon" />
+      <YourTrip className="icon" />
       <SearchBar />
       <S.UserInfo>
         <div>
@@ -27,3 +27,5 @@ export const Header = () => {
     </S.HeaderDashboard>
   );
 };
+
+export default Header;

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Dashboard } from "../pages/Dashboard";
+import Dashboard  from "../pages/Dashboard";
 import HandleTrip from "../pages/HandleTrip";
 import LandingPage from "../pages/Home";
 import SearchPage from "../pages/SearchResults";

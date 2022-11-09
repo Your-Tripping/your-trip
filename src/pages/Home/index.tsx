@@ -6,6 +6,7 @@ import SingInForm from "../../components/SingInForm";
 import { SingUpForm } from "../../components/SingUpForm";
 import Loading from "../../components/Loading";
 import * as Style from "./home.style";
+
 const LandingPage: React.FC = () => {
   const { showModal, loading } = useUserContext();
   return (
