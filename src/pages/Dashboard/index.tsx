@@ -47,7 +47,7 @@ export const Dashboard = () => {
                 setShowRandom(true);
               }}
             >
-              Viagem aleatória
+              {showRandom ? "Principais viagens" : "Viagem aleatória"}
             </S.RandomBtn>
           </div>
         </S.Container>
