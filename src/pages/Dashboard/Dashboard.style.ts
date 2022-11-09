@@ -62,7 +62,8 @@ export const Post = styled.div`
   h2 {
     color: ${({ theme }) => theme.colors.grey.grey3};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
-    margin: 30px 0px;
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 
   p {
@@ -82,7 +83,10 @@ export const Post = styled.div`
     margin-bottom: 30px;
   }
 `;
-
+export const Random = styled.h2`
+  color: ${({ theme }) => theme.colors.grey.grey3};
+  font-size: ${({ theme }) => theme.typography.sizes.size3};
+`
 export const Suggestion = styled.aside`
   display: flex;
   flex-direction: column;

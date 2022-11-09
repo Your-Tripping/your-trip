@@ -42,9 +42,9 @@ export const UserPage = () => {
         <section>
           <S.CreatePost>
             <h2>Posts</h2>
-            <S.StyledLink>
+            {/* <S.StyledLink>
               <p>Criar</p>
-            </S.StyledLink>
+            </S.StyledLink> */}
           </S.CreatePost>
           <S.Post>
             <h2>Minhas viagens:</h2>
