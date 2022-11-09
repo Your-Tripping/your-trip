@@ -116,6 +116,7 @@ export const RandomBtn = styled.button`
   border-radius: 5px;
   padding: 10px 5px;
   margin-top: 20px;
+  width: 70px;
 `;
 export const Container = styled.div`
   display: flex;
