@@ -1,34 +1,66 @@
-import { Header } from "../../components/Header";
-import {
-  BodyDashboard,
-  MainDashboard,
-  CreatePost,
-  Post,
-  Suggestion,
-  StyledLink,
-} from "./Dashboard.style";
+import { useTripContext } from "../../contexts/TrippingContext";
+import { useUserContext } from "../../contexts/UserContext";
 
-export const Dashboard = () => {
+import Followers from "../../components/FollowersCard";
+import Header from "../../components/Header";
+import Trip from "../../components/TrippingCard";
+import * as S from "./Dashboard.style";
+
+const Dashboard = () => {
+  const { showRandom, posts, randomPost, setShowRandom } = useTripContext();
+  const { usersList, user } = useUserContext();
+
   return (
-    <BodyDashboard>
+    <S.BodyDashboard>
       <Header />
-      <MainDashboard>
+      <S.MainDashboard>
         <section>
-          <CreatePost>
+          <S.CreatePost>
             <h2>Posts</h2>
-            <StyledLink to={"/addTripping"}><p>Criar</p></StyledLink>
-          </CreatePost>
-
-          <Post>
-            <h2>Principais viagens:</h2>
-            <ul>{/* post aqui */}</ul>
-          </Post>
+            <S.StyledLink to="/addTripping">
+              <p>Criar</p>
+            </S.StyledLink>
+          </S.CreatePost>
+          <S.Post>
+            <h2>{showRandom ? "Viagem aleatória:" : "Principais viagens:"}</h2>
+            <ul>
+              {showRandom
+                ? [randomPost].map((post, index) => (
+                    <Trip key={index} post={post} />
+                  ))
+                : posts.map((post, index) => <Trip key={index} post={post} />)}
+            </ul>
+          </S.Post>
         </section>
-        <Suggestion>
-          <h2>Pessoas que talvez você conheça:</h2>
-          <ul>{/* sugestões aqui */}</ul>
-        </Suggestion>
-      </MainDashboard>
-    </BodyDashboard>
+        <S.Container>
+          <S.Suggestion>
+            <h2>Pessoas que talvez você conheça:</h2>
+            <ul>
+              {usersList.map(
+                (follower, index) =>
+                  follower.name !== user?.user.name && (
+                    <Followers key={index} follower={follower} />
+                  )
+              )}
+            </ul>
+          </S.Suggestion>
+          <div>
+            <S.RandomBtn
+              onClick={() => {
+                if (showRandom === true) {
+                  setShowRandom(false);
+                  return;
+                }
+                setShowRandom(true);
+              }}
+            >
+              {showRandom ? "Principais viagens" : "Viagem aleatória"}
+            </S.RandomBtn>
+          </div>
+        </S.Container>
+      </S.MainDashboard>
+    </S.BodyDashboard>
   );
 };
+
+export default Dashboard;

@@ -8,7 +8,6 @@ export interface iUserLogin{
 
 
 export const login = async (body: iUserLogin) => {
-  console.log(body);
   const { data } = await api.post<iUser>("/login", body);
   return data;
 };

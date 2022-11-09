@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { formSchemaRegister } from "../../validation/register";
@@ -19,9 +20,20 @@ export const SingUpForm: React.FC = () => {
     resolver: yupResolver(formSchemaRegister),
   });
   const { singUp, setShowModal } = useUserContext();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const togglePassword = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+  const [isPasswordCheckVisible, setIsPasswordCheckVisible] = useState(false);
+
+  const togglePasswordCheck = () => {
+    setIsPasswordCheckVisible(!isPasswordCheckVisible);
+  };
+
   return (
-    <S.Conatiner>
-      <S.RegisterForm onSubmit={handleSubmit(singUp)}>
+    <S.Container>
+      <S.RegisterForm background onSubmit={handleSubmit(singUp)}>
         <div>
           <S.Exit
             onClick={() => {
@@ -72,28 +84,44 @@ export const SingUpForm: React.FC = () => {
         />
         <S.Label htmlFor="password">Senha</S.Label>
         <Error>{errors?.password?.message}</Error>
-        <Input
-          id="password"
-          placeholder="Digite sua senha"
-          type="password"
-          {...register("password")}
-        />
+        <S.PasswordWrapper>
+          <Input
+            id="password"
+            placeholder="Digite sua senha"
+            type={isPasswordVisible ? "text" : "password"}
+            {...register("password")}
+          />
+          {!isPasswordVisible ? (
+            <S.VisibleIcon onClick={() => togglePassword()} />
+          ) : (
+            <S.InvisibleIcon onClick={() => togglePassword()} />
+          )}
+        </S.PasswordWrapper>
         <S.Label htmlFor="passwordConfirmation">Confirmar Senha</S.Label>
         <Error>{errors?.passwordConfirmation?.message}</Error>
-        <Input
-          id="passwordConfirmation"
-          placeholder="Digite sua senha novamente"
-          type="password"
-          {...register("passwordConfirmation")}
-        />
+        <S.PasswordWrapper>
+          <Input
+            id="passwordConfirmation"
+            placeholder="Digite sua senha novamente"
+            type={isPasswordCheckVisible ? "text" : "password"}
+            {...register("passwordConfirmation")}
+          />
+          {!isPasswordCheckVisible ? (
+            <S.VisibleIcon onClick={() => togglePasswordCheck()} />
+          ) : (
+            <S.InvisibleIcon onClick={() => togglePasswordCheck()} />
+          )}
+        </S.PasswordWrapper>
         <Button buttonType="tertiary" type="submit">
           Cadastrar
         </Button>
-        <S.AlreadyLogged tag="span" size="size4" >
+        <S.AlreadyLogged tag="span" size="size4">
           Já tem cadastro?
-          <Text tag="span" size="size4">Fazer login</Text>
+          <button onClick={(e) => {e.preventDefault(); setShowModal(null)}}>
+            Fazer login
+          </button>
         </S.AlreadyLogged>
       </S.RegisterForm>
-    </S.Conatiner>
+    </S.Container>
   );
 };

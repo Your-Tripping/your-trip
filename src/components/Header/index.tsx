@@ -1,26 +1,31 @@
-import { BsSearch } from "react-icons/bs";
 import { ReactComponent as YourTrip } from "../../assets/img/YourTrip.svg";
-import { FormSearch, HeaderDashboard, UserInfo } from "./header.style";
+import * as S from "./header.style";
+import { useUserContext } from "../../contexts/UserContext";
+import SearchBar from "../SearchBar";
+import { useState } from "react";
+import OptionsProfile from "../OptionsProfile";
 
-export const Header = () => {
+const Header = () => {
+  const { user } = useUserContext();
+  const [profile, setProfile] = useState<boolean>(false);
+
   return (
-    <HeaderDashboard>
-      <YourTrip />
-      <FormSearch>
-        <input
-          type="search"
-          name="searchTrip"
-          id="searchTrip"
-          placeholder="Digite aqui sua pesquisa.."
-        />
-        <button type="submit">
-          <BsSearch />
-        </button>
-      </FormSearch>
-      <UserInfo>
-        <p>Olá, {"Carlos"}!</p>
-        <img src="" alt="imagem" />
-      </UserInfo>
-    </HeaderDashboard>
+    <S.HeaderDashboard>
+      <YourTrip className="icon" />
+      <SearchBar />
+      <S.UserInfo>
+        <div>
+          <section>
+            <p>Olá, {user?.user.name}</p>
+            <button onClick={() => setProfile(true)} type="button">
+              <img src={user?.user.imageUrl} alt="Imagem" />
+            </button>
+          </section>
+          {profile && <OptionsProfile setProfile={setProfile} />}
+        </div>
+      </S.UserInfo>
+    </S.HeaderDashboard>
   );
 };
+
+export default Header;
