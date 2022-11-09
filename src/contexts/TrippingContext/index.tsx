@@ -61,25 +61,26 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
     setPosts(postsData);
+
     const { data: userPostsData } = await api.get(
-      `/posts/?userId=${localStorage.getItem("userId")}`
+      `/posts/?userId=${window.localStorage.getItem("@user: id")}`
     );
     setUserPosts(userPostsData);
+    console.log(userPosts);
     const { data: follower } = await api.get(
       `/followers/?${window.localStorage.getItem("@user: id")}`
     );
-    setFollowUser(follower)
+    setFollowUser(follower);
   };
 
   const createPost = async (post: iPost) => {
-    
     try {
       await api.post("/posts", post);
-      toast.success("Viagem postada!")
-      cachePosts()
+      toast.success("Viagem postada!");
+      cachePosts();
     } catch (error) {
       console.error(error);
-      toast.error("Ops! Algo esta errado!")    
+      toast.error("Ops! Algo esta errado!");
     }
   };
 
