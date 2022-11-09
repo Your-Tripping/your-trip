@@ -180,7 +180,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
 export default UserProvider;
 
-export const useUserContext = () => {
+export const useUserContext: () => iUserContext = () => {
   const context = useContext(UserContext);
   return context;
 };

@@ -25,7 +25,7 @@ export const Dashboard = () => {
             <h2>{showRandom ? "Viagem aleatória:" : "Principais viagens:"}</h2>
             <ul>
               {showRandom
-                ? [randomPost].map((post: any, index: any) => (
+                ? [randomPost].map((post, index) => (
                     <Trip key={index} post={post} />
                   ))
                 : posts.map((post, index) => <Trip key={index} post={post} />)}

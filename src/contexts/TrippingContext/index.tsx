@@ -36,10 +36,11 @@ export interface iPlace {
   description: string;
 }
 
-export interface iFollow {
+export interface iFollower {
   followername: string | undefined;
   userId: string;
   username: string;
+  id?: string | number;
 }
 
 interface iTrippingContext {
@@ -55,8 +56,8 @@ interface iTrippingContext {
   setShowRandom: React.Dispatch<React.SetStateAction<boolean>>;
   currentPost: iPost;
   setCurrentPost: React.Dispatch<React.SetStateAction<iPost>>;
-  followUser: iPost[];
-  follow: (body: iFollow) => void;
+  followUser: iFollower[];
+  follow: (body: iFollower) => void;
   unfollow: (id: string | number) => void;
 }
 
@@ -69,7 +70,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [userPosts, setUserPosts] = useState([] as iPost[]);
   const [randomPost, setRandom] = useState({} as iPost);
   const [showRandom, setShowRandom] = useState(false);
-  const [followUser, setFollowUser] = useState([] as iPost[]);
+  const [followUser, setFollowUser] = useState([] as iFollower[]);
   const [currentPost, setCurrentPost] = useState({} as iPost);
 
   const { setShowModal } = useUserContext();
@@ -128,7 +129,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Rota: Seguir usuário:
-  const follow = (body: iFollow) => {
+  const follow = (body: iFollower) => {
     try {
       api.post("/followers", body);
     } catch (error) {

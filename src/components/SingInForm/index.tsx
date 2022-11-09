@@ -53,9 +53,9 @@ const SingInForm = () => {
       </Button>
       <S.ForgotPassword>
         <S.Forgot color="grey4" fontWeight={600} tag="p" size="size3">
-          Esqueçeu sua senha?
+          Esqueceu sua senha?
         </S.Forgot>
-        <S.OpenModal buttonType="primary" type="submit">
+        <S.OpenModal buttonType="primary" type="button">
           Clique aqui
         </S.OpenModal>
       </S.ForgotPassword>
