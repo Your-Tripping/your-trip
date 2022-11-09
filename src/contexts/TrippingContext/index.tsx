@@ -5,11 +5,12 @@ import {
   useState,
   useEffect,
 } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 
 export interface iPost {
-  id?: number;
+  id?: number | undefined;
   userId: string | undefined;
   username: string | undefined;
   country: string;
@@ -45,6 +46,8 @@ interface iTrippingContext {
   setRandom: React.Dispatch<React.SetStateAction<iPost>>;
   showRandom: boolean;
   setShowRandom: React.Dispatch<React.SetStateAction<boolean>>;
+  currentPost: iPost;
+  setCurrentPost: React.Dispatch<React.SetStateAction<iPost>>;
 }
 
 export const TrippingContext = createContext<iTrippingContext>(
@@ -57,6 +60,9 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [randomPost, setRandom] = useState({} as iPost);
   const [showRandom, setShowRandom] = useState(false);
   const [followUser, setFollowUser] = useState([] as iPost[]);
+  const [currentPost, setCurrentPost] = useState({} as iPost)
+
+  const navigate = useNavigate();
 
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
@@ -78,14 +84,23 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
       await api.post("/posts", post);
       toast.success("Viagem postada!");
       cachePosts();
+      navigate("/dashboard");
     } catch (error) {
       console.error(error);
       toast.error("Ops! Algo esta errado!");
     }
   };
 
-  const editPost = async (post: iEditPost, id: number) => {
-    await api.patch(`/posts/${id}`, post);
+  const editPost = async (post: iEditPost, id: number ) => {
+    try {
+      await api.patch(`/posts/${id}`, post);
+      toast.success("Post editado!")
+      cachePosts()
+      navigate("/dashboard")
+    } catch (error) {
+      console.error(error);
+      toast.error("Ops! Algo esta errado!");
+    }
   };
 
   const deletePost = async (id: number) => {
@@ -102,6 +117,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setRandom(posts[Math.floor(Math.random() * posts.length)]);
   }, [showRandom]);
+
   return (
     <TrippingContext.Provider
       value={{
@@ -114,6 +130,8 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
         setRandom,
         showRandom,
         setShowRandom,
+        currentPost,
+        setCurrentPost,
         deletePost
       }}
     >

@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { iPost, useTripContext } from "../../contexts/TrippingContext";
+import { useUserContext } from "../../contexts/UserContext";
 
 import * as S from "./trippingCard.style";
 import {
@@ -12,13 +15,21 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import { IoEllipsisHorizontalOutline } from "react-icons/io5";
 import { GrMap } from "react-icons/gr";
 import { Input } from "../Input/input.style";
-import { iPost } from "../../contexts/TrippingContext";
+
+import ImageNotFound from "../../assets/img/noImage.png"
 
 const Trip = ({ post }: { post: iPost }) => {
-  const [placeIndex, setPlaceIndex] = useState(0);
-  const [isLikes, setIsLikes] = useState(true);
+  const [placeIndex, setPlaceIndex] = useState<number>(0);
+  const [isLikes, setIsLikes] = useState<boolean>(true);
+  const [defaultImage, setDefaultImage] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+
+  const { setCurrentPost } = useTripContext();
 
   const idToken: string | null = window.localStorage.getItem("@user: id");
+
+  const { setShowModal } = useUserContext();
 
   const next = () => {
     placeIndex !== post.places.length - 1 && setPlaceIndex(placeIndex + 1);
@@ -35,7 +46,15 @@ const Trip = ({ post }: { post: iPost }) => {
         </div>
         <div>
           {idToken == post.userId ? null : <button>Seguir</button>}
-          <IoEllipsisHorizontalOutline />
+          {idToken == post.userId ? (
+            <IoEllipsisHorizontalOutline
+              onClick={() => {
+                setCurrentPost(post);
+                setShowModal("editTrip");
+                navigate("/addTripping");
+              }}
+            />
+          ) : null}
         </div>
       </S.SectionProfile>
       <S.SectionSlideshow>
@@ -57,8 +76,11 @@ const Trip = ({ post }: { post: iPost }) => {
             onClick={next}
           />
           <img
-            src={post.places[placeIndex].image}
+            src={defaultImage ? ImageNotFound : post.places[placeIndex].image}
             alt={post.places[placeIndex].name}
+            onError={() =>
+              setDefaultImage(true)
+            }
           />
           <div>
             <GrMap />

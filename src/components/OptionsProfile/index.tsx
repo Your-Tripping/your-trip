@@ -3,7 +3,11 @@ import { AiOutlineCloseCircle } from "react-icons/ai"
 import { useUserContext } from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
 
-export const OptionsProfile = ({ setProfile }: any) => {
+interface iOptionsProfile{
+  setProfile: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const OptionsProfile = ({ setProfile }: iOptionsProfile) => {
   const { handleFormDashboard } = useUserContext();
 
   return (
@@ -14,3 +18,5 @@ export const OptionsProfile = ({ setProfile }: any) => {
     </S.DivProfile>
   );
 };
+
+export default OptionsProfile;

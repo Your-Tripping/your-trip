@@ -3,7 +3,7 @@ import * as S from "./header.style";
 import { useUserContext } from "../../contexts/UserContext";
 import SearchBar from "../SearchBar";
 import { useState } from "react";
-import { OptionsProfile } from "../OptionsProfile";
+import OptionsProfile from "../OptionsProfile";
 
 export const Header = () => {
   const { user } = useUserContext();

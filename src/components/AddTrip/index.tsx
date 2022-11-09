@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
@@ -7,21 +7,25 @@ import { tripSchema } from "../../validation/trip";
 
 import { TfiPencil, TfiArrowLeft } from "react-icons/tfi";
 
+import { useUserContext } from "../../contexts/UserContext";
+
 import { Button } from "../Button/button.style";
 import { Input } from "../Input/input.style";
-import { Form } from "../Forn/form.style";
+import { Form } from "../Form/form.style";
 import * as S from "./addTrip.style";
 import { Error } from "../ErrorMessage/formError.style";
 import AddPlace from "../AddPlaceModal";
-import { useUserContext } from "../../contexts/UserContext";
 import { Text } from "../Text";
+
+import ImageNotFound from "../../assets/img/noImage.png";
 
 const AddTrip = () => {
   const [places, setPlaces] = useState([] as iPlace[]);
-  const [post, setPost] = useState({} as iPost);
-
+  const [placeModal, setPlaceModal] = useState<boolean>(false);
+  const [currentPlace, setCurrentPlace] = useState<iPlace | null>(null);
+  const [defaultImage, setDefaultImage] = useState<boolean>(false);
   const { showModal, setShowModal, user } = useUserContext();
-  const { createPost } = useTripContext();
+  const { createPost, currentPost, editPost } = useTripContext();
 
   const {
     register,
@@ -31,14 +35,22 @@ const AddTrip = () => {
     resolver: yupResolver(tripSchema),
   });
 
+  useEffect(() => {
+    showModal === "editTrip" && setPlaces(currentPost.places);
+  }, []);
+
   const handlePost = (body: iPost) => {
-    createPost({
+    const data = {
       ...body,
       userId: user?.user.id,
       username: user?.user.name,
       profileUrl: user?.user.imageUrl,
       places: places,
-    });
+    };
+
+    showModal === "editTrip"
+      ? editPost(data, currentPost.id as number)
+      : createPost(data);
   };
 
   const normalizeText = (text: string) =>
@@ -47,7 +59,7 @@ const AddTrip = () => {
   return (
     <>
       <S.Box>
-        <S.BackLink to="/dashboard">
+        <S.BackLink to="/dashboard" onClick={() => setShowModal(null)}>
           <TfiArrowLeft />
         </S.BackLink>
         <S.FormTitle tag="h3" size="size1">
@@ -58,7 +70,11 @@ const AddTrip = () => {
             Titulo:
             <Error>{errors.title?.message}</Error>
             <Input
-              placeholder="Digite o título aqui..."
+              placeholder={`${
+                showModal !== "editTrip"
+                  ? "Digite o titulo aqui..."
+                  : currentPost?.title
+              }`}
               {...register("title")}
             />
           </label>
@@ -66,7 +82,11 @@ const AddTrip = () => {
             País:
             <Error>{errors.country?.message}</Error>
             <Input
-              placeholder="Digite o nome do País aqui..."
+              placeholder={`${
+                showModal !== "editTrip"
+                  ? "Digite o nome do País aqui..."
+                  : currentPost?.country
+              }`}
               {...register("country")}
             />
           </label>
@@ -74,7 +94,11 @@ const AddTrip = () => {
             Local:
             <Error>{errors.location?.message}</Error>
             <Input
-              placeholder="Digite o nome do Local aqui..."
+              placeholder={`${
+                showModal !== "editTrip"
+                  ? "Digite o nome do local aqui..."
+                  : currentPost?.location
+              }`}
               {...register("location")}
             />
           </label>
@@ -82,31 +106,55 @@ const AddTrip = () => {
             buttonType="tertiary"
             onClick={(e) => {
               e.preventDefault();
-              setShowModal("addTrip");
+              setPlaceModal(true);
             }}
           >
             Adicionar Parada
           </Button>
-          <S.PostButton buttonType="primary">Postar</S.PostButton>
+          {showModal === "editTrip" && (
+            <Button buttonType="tertiary">Editar</Button>
+          )}
+          {showModal === "editTrip" && (
+            <Button buttonType="tertiary">Deletar</Button>
+          )}
+          {showModal === "editTrip" ? null : (
+            <S.PostButton buttonType="primary">Postar</S.PostButton>
+          )}
         </Form>
         <ul>
-          {places.map(({ name, description, image }) => (
-            <S.Place>
-              <img src={image} alt={name} />
+          {places.map((place, index) => (
+            <S.Place key={index}>
+              <img
+                src={defaultImage ? ImageNotFound : place.image}
+                alt={place.name}
+                onError={() =>
+                  setDefaultImage(true)
+                }
+              />
               <div>
-                <Text tag="h5">{name}</Text>
-                <p>{normalizeText(description)}</p>
+                <Text tag="h5">{place.name}</Text>
+                <p>{normalizeText(place.description)}</p>
               </div>
-              <button>
+              <button
+                onClick={() => {
+                  setCurrentPlace(place);
+                  setPlaceModal(true);
+                }}
+              >
                 <TfiPencil />
               </button>
             </S.Place>
           ))}
         </ul>
       </S.Box>
-      {showModal === "addTrip" ? (
-        <AddPlace setPlaces={setPlaces} places={places} />
-      ) : null}
+      {placeModal && (
+        <AddPlace
+          setPlaces={setPlaces}
+          places={places}
+          setPlaceModal={setPlaceModal}
+          currentPlace={currentPlace}
+        />
+      )}
     </>
   );
 };
