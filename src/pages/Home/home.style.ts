@@ -12,13 +12,13 @@ export const BackgroundImg = styled.img`
 `
 export const Logo = styled.img`
     width: 250px;
-    margin-top: 100px;
+    margin-top: 80px;
 `
 export const Diviser = styled.div`
     width: 280px;
     height: 1px;
     background: ${({theme}) => theme.colors.grey.grey3};
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 `
 export const H2 = styled(Text)`
     text-align: center;
