@@ -15,8 +15,8 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import { IoEllipsisHorizontalOutline } from "react-icons/io5";
 import { GrMap } from "react-icons/gr";
 import { Input } from "../Input/input.style";
-
-import ImageNotFound from "../../assets/img/noImage.png"
+import perfil from "../../assets/img/perfil.png";
+import ImageNotFound from "../../assets/img/noImage.png";
 
 const Trip = ({ post }: { post: iPost }) => {
   const [placeIndex, setPlaceIndex] = useState<number>(0);
@@ -41,7 +41,7 @@ const Trip = ({ post }: { post: iPost }) => {
     <S.LiCard>
       <S.SectionProfile className="Profile">
         <div>
-          <img src={post.profileUrl} alt={post.username} />
+          <img src={post.profileUrl} alt={post.username} onError={(event:any)=>{console.log("a");event.target.src = perfil}}/>
           <h2>{post.username}</h2>
         </div>
         <div>
@@ -78,9 +78,7 @@ const Trip = ({ post }: { post: iPost }) => {
           <img
             src={defaultImage ? ImageNotFound : post.places[placeIndex].image}
             alt={post.places[placeIndex].name}
-            onError={() =>
-              setDefaultImage(true)
-            }
+            onError={(event:any)=>{event.target.src = ImageNotFound}}
           />
           <div>
             <GrMap />
