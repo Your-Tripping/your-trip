@@ -40,6 +40,7 @@ interface iTrippingContext {
   cachePosts: () => void;
   createPost: (post: iPost) => void;
   editPost: (post: iEditPost, id: number) => void;
+  deletePost: (id: number) => void;
   randomPost: iPost;
   setRandom: React.Dispatch<React.SetStateAction<iPost>>;
   showRandom: boolean;
@@ -85,6 +86,10 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
     await api.patch(`/posts/${id}`, post);
   };
 
+  const deletePost = async (id: number) => {
+    await api.delete(`/posts/${id}`);
+  };
+
   useEffect(() => {
     cachePosts();
   }, []);
@@ -107,6 +112,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
         setRandom,
         showRandom,
         setShowRandom,
+        deletePost
       }}
     >
       {children}

@@ -44,7 +44,7 @@ export const UserPage = () => {
             <h2>Posts</h2>
             <S.StyledLink to="/addTripping">
               <p>Criar</p>
-            </S.StyledLink>
+            </S.StyledLink> */}
           </S.CreatePost>
           <S.Post>
             <h2>Minhas viagens:</h2>
