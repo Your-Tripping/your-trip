@@ -8,6 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
+import { useUserContext } from "../UserContext";
 
 export interface iPost {
   id?: number | undefined;
@@ -35,6 +36,12 @@ export interface iPlace {
   description: string;
 }
 
+export interface iFollow {
+  followername: string | undefined;
+  userId: string;
+  username: string;
+}
+
 interface iTrippingContext {
   posts: iPost[];
   userPosts: iPost[];
@@ -48,7 +55,9 @@ interface iTrippingContext {
   setShowRandom: React.Dispatch<React.SetStateAction<boolean>>;
   currentPost: iPost;
   setCurrentPost: React.Dispatch<React.SetStateAction<iPost>>;
-  followUser: iPost[]; 
+  followUser: iPost[];
+  follow: (body: iFollow) => void;
+  unfollow: (id: string) => void;
 }
 
 export const TrippingContext = createContext<iTrippingContext>(
@@ -61,22 +70,24 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [randomPost, setRandom] = useState({} as iPost);
   const [showRandom, setShowRandom] = useState(false);
   const [followUser, setFollowUser] = useState([] as iPost[]);
-  const [currentPost, setCurrentPost] = useState({} as iPost)
+  const [currentPost, setCurrentPost] = useState({} as iPost);
+
+  const {setShowModal} = useUserContext()
 
   const navigate = useNavigate();
 
   const cachePosts = async () => {
-    const { data: postsData } = await api.get("/posts");
+    const { data: postsData } = await api.get("/posts/?_sort=id&_order=desc");
     setPosts(postsData);
 
     const { data: userPostsData } = await api.get(
       `/posts/?userId=${window.localStorage.getItem("@user: id")}`
     );
     setUserPosts(userPostsData);
-    console.log(userPosts);
     const { data: follower } = await api.get(
       `/followers/?${window.localStorage.getItem("@user: id")}`
     );
+
     setFollowUser(follower);
   };
 
@@ -92,10 +103,22 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const editPost = async (post: iEditPost, id: number ) => {
+  const editPost = async (post: iEditPost, id: number) => {
     try {
       await api.patch(`/posts/${id}`, post);
-      toast.success("Post editado!")
+      toast.success("Post editado!");
+      cachePosts();
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+      toast.error("Ops! Algo esta errado!");
+    }
+  };
+
+  const deletePost = async (id: number) => {
+    try {
+      await api.delete(`/posts/${id}`);
+      toast.success("Viagem deletada!")
       cachePosts()
       navigate("/dashboard")
     } catch (error) {
@@ -104,8 +127,26 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const deletePost = async (id: number) => {
-    await api.delete(`/posts/${id}`);
+  // Rota: Seguir usuário:
+  const follow = (body: iFollow) => {
+    try {
+      api.post("/followers", body);
+    } catch (error) {
+      console.log(error);
+    }
+
+    cachePosts();
+  };
+
+  // Rota: Seguir usuário:
+  const unfollow = (id: string) => {
+    try {
+      api.delete(`/followers/?${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+
+    cachePosts();
   };
 
   useEffect(() => {
@@ -134,7 +175,9 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
         currentPost,
         setCurrentPost,
         deletePost,
-        followUser, 
+        followUser,
+        follow,
+        unfollow,
       }}
     >
       {children}

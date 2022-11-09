@@ -32,6 +32,8 @@ export const UserPage = () => {
           <S.EditProfile
             onClick={() => {
               setShowModal("editProfile");
+              document.body.style.position = "fixed";
+              document.body.style.padding = "0 15px 0 0";
             }}
           >
             Editar perfil

@@ -24,6 +24,8 @@ const EditProfile: React.FC = () => {
           <S.Exit
             onClick={() => {
               setShowModal(null);
+              document.body.style.position = "";
+              document.body.style.padding = "0";
             }}
           >
             x
