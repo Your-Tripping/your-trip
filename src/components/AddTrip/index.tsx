@@ -25,7 +25,7 @@ const AddTrip = () => {
   const [currentPlace, setCurrentPlace] = useState<iPlace | null>(null);
   const [defaultImage, setDefaultImage] = useState<boolean>(false);
   const { showModal, setShowModal, user } = useUserContext();
-  const { createPost, currentPost, editPost } = useTripContext();
+  const { createPost, currentPost, editPost, deletePost } = useTripContext();
 
   const {
     register,
@@ -115,7 +115,15 @@ const AddTrip = () => {
             <Button buttonType="tertiary">Editar</Button>
           )}
           {showModal === "editTrip" && (
-            <Button buttonType="tertiary">Deletar</Button>
+            <Button
+              buttonType="tertiary"
+              onClick={(e) => {
+                e.preventDefault();
+                deletePost(currentPost.id as number);
+              }}
+            >
+              Deletar
+            </Button>
           )}
           {showModal === "editTrip" ? null : (
             <S.PostButton buttonType="primary">Postar</S.PostButton>
@@ -127,9 +135,7 @@ const AddTrip = () => {
               <img
                 src={defaultImage ? ImageNotFound : place.image}
                 alt={place.name}
-                onError={() =>
-                  setDefaultImage(true)
-                }
+                onError={() => setDefaultImage(true)}
               />
               <div>
                 <Text tag="h5">{place.name}</Text>
