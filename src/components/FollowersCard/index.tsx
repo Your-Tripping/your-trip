@@ -8,9 +8,11 @@ const Followers = ({ follower }: iFollow) => {
   const { followUser, follow, unfollow } = useTripContext();
   const { user } = useUserContext();
 
-  const userId = ({ userId }: iPost) => userId === follower.id;
+  const userId = ({ username }: iPost) => username === follower.name;
 
-  console.log(follower.id);
+  const hadleFollower = () =>
+    followUser.length > 0 &&
+    unfollow(followUser.filter(userId)[0].id as string | number);
 
   return (
     <S.LiCard>
@@ -20,8 +22,7 @@ const Followers = ({ follower }: iFollow) => {
       </S.DivUser>
       <S.DivSeguir>
         {followUser.filter(userId).length === 1 ? (
-          // <button onClick={() => unfollow(follower.id)}>Seguindo</button>
-          <button>Seguindo</button>
+          <button onClick={hadleFollower}>Seguindo</button>
         ) : (
           <button
             className="follow"
@@ -33,7 +34,7 @@ const Followers = ({ follower }: iFollow) => {
               })
             }
           >
-            Seuir
+            Seguir
           </button>
         )}
       </S.DivSeguir>
