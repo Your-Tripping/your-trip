@@ -1,3 +1,4 @@
+import { Button } from "../../components/Button/button.style";
 import Followers from "../../components/FollowersCard";
 import { Header } from "../../components/Header";
 import Trip from "../../components/TrippingCard";
@@ -7,7 +8,7 @@ import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
   const { showRandom, posts, randomPost, setShowRandom } = useTripContext();
-  const { usersList } = useUserContext();
+  const { usersList, user } = useUserContext();
 
   return (
     <S.BodyDashboard>
@@ -35,9 +36,12 @@ export const Dashboard = () => {
           <S.Suggestion>
             <h2>Pessoas que talvez você conheça:</h2>
             <ul>
-              {usersList.map((follower, index) => (
-                <Followers key={index} follower={follower} />
-              ))}
+              {usersList.map(
+                (follower, index) =>
+                  follower.name !== user?.user.name && (
+                    <Followers key={index} follower={follower} />
+                  )
+              )}
             </ul>
           </S.Suggestion>
           <div>

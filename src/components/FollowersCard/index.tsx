@@ -10,8 +10,6 @@ const Followers = ({ follower }: iFollow) => {
 
   const userId = ({ userId }: iPost) => userId === follower.id;
 
-  console.log(follower.id);
-
   return (
     <S.LiCard>
       <S.DivUser>
@@ -20,8 +18,9 @@ const Followers = ({ follower }: iFollow) => {
       </S.DivUser>
       <S.DivSeguir>
         {followUser.filter(userId).length === 1 ? (
-          // <button onClick={() => unfollow(follower.id)}>Seguindo</button>
-          <button>Seguindo</button>
+          <button onClick={() => unfollow(follower.id as string)}>
+            Seguindo
+          </button>
         ) : (
           <button
             className="follow"
@@ -33,7 +32,7 @@ const Followers = ({ follower }: iFollow) => {
               })
             }
           >
-            Seuir
+            Seguir
           </button>
         )}
       </S.DivSeguir>
