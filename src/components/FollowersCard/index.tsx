@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { iFollower, iPost, useTripContext } from "../../contexts/TrippingContext";
 import { iUserInfo, useUserContext } from "../../contexts/UserContext";
 import * as S from "./followersCard.style";
+import perfil from "../../assets/img/perfil.png";
 interface iFollow {
   follower: iUserInfo;
 }
@@ -35,7 +36,7 @@ const Followers = ({ follower }: iFollow) => {
   return (
     <S.LiCard>
       <S.DivUser>
-        <img src={follower.imageUrl} alt={follower.name} />
+        <img src={follower.imageUrl} alt={follower.name} onError={(event:any)=>{event.target.src = perfil}}/>
         <h2>{follower.name}</h2>
       </S.DivUser>
       <S.DivSeguir>

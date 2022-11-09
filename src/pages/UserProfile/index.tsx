@@ -6,7 +6,7 @@ import { useTripContext } from "../../contexts/TrippingContext";
 import { useUserContext } from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
 import * as S from "./userProfile.style";
-
+import perfil from "../../assets/img/perfil.png"
 export const UserPage = () => {
   const { showModal, setShowModal, user, handleFormDashboard } =
     useUserContext();
@@ -25,7 +25,7 @@ export const UserPage = () => {
       {showModal === "editProfile" && <EditProfile />}
       <S.MainUserPage>
         <S.informationUser>
-          <img src={user?.user.imageUrl} alt="Imagem" />
+          <img src={user?.user.imageUrl} alt="Imagem" onError={(event:any)=>{event.target.src = perfil}}/>
           <h2>{user?.user.name}</h2>
           <p>{followUser.length} seguidores</p>
           <p>{user?.user.bio}</p>

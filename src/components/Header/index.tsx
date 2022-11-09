@@ -4,7 +4,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import SearchBar from "../SearchBar";
 import { useState } from "react";
 import OptionsProfile from "../OptionsProfile";
-
+import perfil from "../../assets/img/perfil.png"
 export const Header = () => {
   const { user } = useUserContext();
   const [profile, setProfile] = useState<boolean>(false);
@@ -18,7 +18,7 @@ export const Header = () => {
           <section>
             <p>Olá, {user?.user.name}</p>
             <button onClick={() => setProfile(true)} type="button">
-              <img src={user?.user.imageUrl} alt="Imagem" />
+              <img src={user?.user.imageUrl} alt="Imagem" onError={(event:any)=>{event.target.src = perfil}}/>
             </button>
           </section>
           {profile && <OptionsProfile setProfile={setProfile} />}
