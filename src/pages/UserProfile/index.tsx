@@ -7,7 +7,7 @@ import { ReactComponent as YourTrip } from "../../assets/img/YourTrip.svg";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import * as S from "./userProfile.style";
-
+import perfil from "../../assets/img/perfil.png"
 export const UserPage = () => {
   const { showModal, setShowModal, user, handleFormDashboard } =
     useUserContext();
@@ -34,8 +34,8 @@ export const UserPage = () => {
       </S.HeaderPage>
       {showModal === "editProfile" && <EditProfile />}
       <S.MainUserPage>
-        <S.InformationUser>
-          <img src={user?.user.imageUrl} alt="Imagem" />
+        <S.informationUser>
+          <img src={user?.user.imageUrl} alt="Imagem" onError={(event:any)=>{event.target.src = perfil}}/>
           <h2>{user?.user.name}</h2>
           <p>{following.length} Seguindo</p>
           <p>{followers.length} Seguidores</p>

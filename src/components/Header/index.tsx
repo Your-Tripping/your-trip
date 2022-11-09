@@ -4,6 +4,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import SearchBar from "../SearchBar";
 import { useState } from "react";
 import OptionsProfile from "../OptionsProfile";
+
 const Header = () => {
   const { user } = useUserContext();
   const [profile, setProfile] = useState<boolean>(false);
