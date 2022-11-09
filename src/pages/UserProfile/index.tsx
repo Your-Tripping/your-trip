@@ -34,7 +34,7 @@ export const UserPage = () => {
       </S.HeaderPage>
       {showModal === "editProfile" && <EditProfile />}
       <S.MainUserPage>
-        <S.informationUser>
+        <S.InformationUser>
           <img src={user?.user.imageUrl} alt="Imagem" onError={(event:any)=>{event.target.src = perfil}}/>
           <h2>{user?.user.name}</h2>
           <p>{following.length} Seguindo</p>
