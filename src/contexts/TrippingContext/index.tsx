@@ -48,6 +48,7 @@ interface iTrippingContext {
   setShowRandom: React.Dispatch<React.SetStateAction<boolean>>;
   currentPost: iPost;
   setCurrentPost: React.Dispatch<React.SetStateAction<iPost>>;
+  followUser: iPost[]; 
 }
 
 export const TrippingContext = createContext<iTrippingContext>(
@@ -132,7 +133,8 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
         setShowRandom,
         currentPost,
         setCurrentPost,
-        deletePost
+        deletePost,
+        followUser, 
       }}
     >
       {children}
