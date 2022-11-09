@@ -7,7 +7,6 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
-import { iUserInfo, UserContext } from "../UserContext";
 
 export interface iPost {
   id?: number;
@@ -41,6 +40,7 @@ interface iTrippingContext {
   cachePosts: () => void;
   createPost: (post: iPost) => void;
   editPost: (post: iEditPost, id: number) => void;
+  deletePost: (id: number) => void;
   randomPost: iPost;
   setRandom: React.Dispatch<React.SetStateAction<iPost>>;
   showRandom: boolean;
@@ -88,6 +88,10 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
     await api.patch(`/posts/${id}`, post);
   };
 
+  const deletePost = async (id: number) => {
+    await api.delete(`/posts/${id}`);
+  };
+
   useEffect(() => {
     cachePosts();
   }, []);
@@ -110,6 +114,7 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
         setRandom,
         showRandom,
         setShowRandom,
+        deletePost
       }}
     >
       {children}
