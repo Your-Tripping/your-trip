@@ -13,7 +13,7 @@ export const UserPage = () => {
     useUserContext();
   const { userPosts } = useTripContext();
 
-  console.log(userPosts)
+  console.log(userPosts);
   return (
     <>
       <T.HeaderPage>
@@ -42,7 +42,7 @@ export const UserPage = () => {
         <section>
           <S.CreatePost>
             <h2>Posts</h2>
-            {/* <S.StyledLink>
+            <S.StyledLink to="/addTripping">
               <p>Criar</p>
             </S.StyledLink> */}
           </S.CreatePost>

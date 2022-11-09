@@ -18,7 +18,7 @@ const Trip = ({ post }: { post: iPost }) => {
   const [placeIndex, setPlaceIndex] = useState(0);
   const [isLikes, setIsLikes] = useState(true);
 
-  const idKoken: string | null = window.localStorage.getItem("@user: id");
+  const idToken: string | null = window.localStorage.getItem("@user: id");
 
   const next = () => {
     placeIndex !== post.places.length - 1 && setPlaceIndex(placeIndex + 1);
@@ -34,7 +34,7 @@ const Trip = ({ post }: { post: iPost }) => {
           <h2>{post.username}</h2>
         </div>
         <div>
-          {/* {Number(idKoken) !== post.userId && <button>Seguir</button>} */}
+          {idToken !== post.userId && <button>Seguir</button>}
           <IoEllipsisHorizontalOutline />
         </div>
       </S.SectionProfile>

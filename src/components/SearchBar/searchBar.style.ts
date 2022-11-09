@@ -6,6 +6,9 @@ export const SearchButton = styled.button`
   color: ${({ theme }) => theme.colors.grey.grey1};
   height: 100%;
   padding: 0 8px;
+  @media (max-width: 360px) {
+    display: none;
+  }
 `;
 
 export const SearchForm = styled.form`
@@ -17,6 +20,9 @@ export const SearchForm = styled.form`
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
+  @media (max-width: 360px) {
+    display: none;
+  }
 `;
 
 export const SearchFilter = styled.select`
@@ -26,12 +32,15 @@ export const SearchFilter = styled.select`
   color: ${({ theme }) => theme.colors.grey.grey1};
   font-size: ${({ theme }) => theme.typography.sizes.size3};
   padding: 0 8px;
+  @media (max-width: 1024px) {
+    width: 20px;
+  }
 `;
 
 export const SearchIcon = styled(BsSearch)`
   background-color: transparent;
   color: ${({ theme }) => theme.colors.grey.grey1};
-  width: 40px;
+  width: 20px;
   height: 30px;
 `;
 

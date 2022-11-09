@@ -1,4 +1,3 @@
-import { BsSearch } from "react-icons/bs";
 import { ReactComponent as YourTrip } from "../../assets/img/YourTrip.svg";
 import * as S from "./header.style";
 import { useUserContext } from "../../contexts/UserContext";
@@ -12,7 +11,7 @@ export const Header = () => {
 
   return (
     <S.HeaderDashboard>
-      <YourTrip />
+      <YourTrip class="icon" />
       <SearchBar />
       <S.UserInfo>
         <div>

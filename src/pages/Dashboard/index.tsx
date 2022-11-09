@@ -4,7 +4,7 @@ import { useTripContext } from "../../contexts/TrippingContext";
 import * as S from "./Dashboard.style";
 
 export const Dashboard = () => {
-  const {showRandom, posts, randomPost, setShowRandom} = useTripContext()
+  const { showRandom, posts, randomPost, setShowRandom } = useTripContext();
 
   return (
     <S.BodyDashboard>

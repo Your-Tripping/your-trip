@@ -127,6 +127,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       const { data } = await api.patch(`/users/${userId}`, body);
       toast.success("Perfil Atualizado!");
       setShowModal(null);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
