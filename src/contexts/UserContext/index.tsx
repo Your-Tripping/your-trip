@@ -54,6 +54,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const { cachePosts } = useTripContext();
 
   const singIn = async (body: iUserLogin) => {
+    setLoading(true)
     try {
       const data = await login(body);
       toast.success("Login concluído!");
@@ -71,9 +72,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       toast.error("Ops! Algo está errado!");
       console.log(error);
     }
+    setLoading(false)
   };
 
   const singUp = async (body: iUserRegister) => {
+    setLoading(true)
     try {
       const data = await register(body);
       toast.success("Cadastro concluído, faça login para continuar!");
@@ -82,6 +85,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       toast.error("Ops! Algo deu errado!");
       console.error(error);
     }
+    setLoading(false)
   };
 
   const updateUsersList = async () => {

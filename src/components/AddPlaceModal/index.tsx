@@ -10,17 +10,21 @@ import { Button } from "../Button/button.style";
 import { Input } from "../Input/input.style";
 import { Container } from "../Loading/loading.style";
 import * as S from "./addPlaceModal.style";
-import { useUserContext } from "../../contexts/UserContext";
 import { toast } from "react-toastify";
 
 interface iAddTripProps {
   setPlaces: React.Dispatch<React.SetStateAction<iPlace[]>>;
   places: iPlace[];
   setPlaceModal: React.Dispatch<React.SetStateAction<boolean>>;
+  currentPlace: iPlace | null;
 }
 
-const AddPlace = ({ setPlaces, places, setPlaceModal }: iAddTripProps) => {
-  
+const AddPlace = ({
+  setPlaces,
+  places,
+  setPlaceModal,
+  currentPlace,
+}: iAddTripProps) => {
   const {
     register,
     handleSubmit,
@@ -36,10 +40,36 @@ const AddPlace = ({ setPlaces, places, setPlaceModal }: iAddTripProps) => {
     toast.success("Lugar Adicionado!");
   };
 
+  const editPlace = (body: iPlace) => {
+    const newPlaces = places.filter(
+      (place) => place.name !== currentPlace?.name
+    );
+    setPlaces([...newPlaces, body]);
+    toast.success("Lugar editado!");
+  };
+
+  const deletePlace = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
+    const filteredPlaces = places.filter(place => place.name !== currentPlace?.name);
+    setPlaces(filteredPlaces)
+    toast.success("Lugar Deletado!")
+    setPlaceModal(false)
+  };
+
   return (
     <Container>
-      <S.AddPlaceForm background onSubmit={handleSubmit(addPlace)}>
-        <S.CloseButton onClick={(e) => {e.preventDefault(); setPlaceModal(false)}}>
+      <S.AddPlaceForm
+        background
+        onSubmit={
+          currentPlace ? handleSubmit(editPlace) : handleSubmit(addPlace)
+        }
+      >
+        <S.CloseButton
+          onClick={(e) => {
+            e.preventDefault();
+            setPlaceModal(false);
+          }}
+        >
           <GrClose />
         </S.CloseButton>
         <S.ModalTitle tag="h3">Parada</S.ModalTitle>
@@ -58,7 +88,9 @@ const AddPlace = ({ setPlaces, places, setPlaceModal }: iAddTripProps) => {
           <Error>{errors.image?.message}</Error>
           <Input placeholder="descrição longa" {...register("description")} />
         </label>
-        <Button buttonType="tertiary">Adicionar</Button>
+        {!currentPlace && <Button buttonType="tertiary">Adicionar</Button>}
+        {currentPlace && <Button buttonType="tertiary">Editar</Button>}
+        {currentPlace && <Button buttonType="tertiary" onClick={deletePlace}>Deletar</Button>}
       </S.AddPlaceForm>
     </Container>
   );

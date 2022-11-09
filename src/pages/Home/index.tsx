@@ -1,13 +1,13 @@
 import React from "react";
-import Map from "../../assets/img/Map.svg";
+import { useUserContext } from "../../contexts/UserContext";
+
 import YourTrip from "../../assets/img/YourTrip.svg";
 import SingInForm from "../../components/SingInForm";
-import * as Style from "./home.style";
 import { SingUpForm } from "../../components/SingUpForm";
-import { useUserContext } from "../../contexts/UserContext";
-import { url } from "inspector";
+import Loading from "../../components/Loading";
+import * as Style from "./home.style";
 const LandingPage: React.FC = () => {
-  const { showModal } = useUserContext();
+  const { showModal, loading } = useUserContext();
   return (
     <Style.Main>
       <Style.Logo src={YourTrip} alt="YourTrip" />
@@ -16,7 +16,8 @@ const LandingPage: React.FC = () => {
       </Style.H2>
       <Style.Diviser />
       <SingInForm />
-      { showModal === "singUp" && <SingUpForm/>}
+      {showModal === "singUp" && <SingUpForm />}
+      {loading && <Loading />}
     </Style.Main>
   );
 };

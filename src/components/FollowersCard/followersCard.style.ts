@@ -4,9 +4,8 @@ export const LiCard = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  margin-bottom: 1rem;
   @media (max-width: 768px) {
-    flex-direction: column;
   }
 `;
 

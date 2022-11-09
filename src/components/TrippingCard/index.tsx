@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { iPost, useTripContext } from "../../contexts/TrippingContext";
+import { useUserContext } from "../../contexts/UserContext";
 
 import * as S from "./trippingCard.style";
 import {
@@ -12,15 +15,13 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import { IoEllipsisHorizontalOutline } from "react-icons/io5";
 import { GrMap } from "react-icons/gr";
 import { Input } from "../Input/input.style";
-import { iPost, useTripContext } from "../../contexts/TrippingContext";
-import { useUserContext } from "../../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
-import NotImage from "../../assets/img/imageNotFound.svg";
+
+import ImageNotFound from "../../assets/img/noImage.png"
 
 const Trip = ({ post }: { post: iPost }) => {
   const [placeIndex, setPlaceIndex] = useState<number>(0);
   const [isLikes, setIsLikes] = useState<boolean>(true);
-  const [defaultImage, setDefaultImage] = useState<string | null>(null);
+  const [defaultImage, setDefaultImage] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -75,10 +76,10 @@ const Trip = ({ post }: { post: iPost }) => {
             onClick={next}
           />
           <img
-            src={defaultImage ? NotImage : post.places[placeIndex].image}
+            src={defaultImage ? ImageNotFound : post.places[placeIndex].image}
             alt={post.places[placeIndex].name}
             onError={() =>
-              setDefaultImage("../../assets/img/imageNotFound.svg")
+              setDefaultImage(true)
             }
           />
           <div>
