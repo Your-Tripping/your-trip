@@ -54,7 +54,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const { cachePosts } = useTripContext();
 
   const singIn = async (body: iUserLogin) => {
-    setLoading(true)
+    setLoading(true);
     try {
       const data = await login(body);
       toast.success("Login concluído!");
@@ -70,13 +70,13 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       navigate("/dashboard");
     } catch (error) {
       toast.error("Ops! Algo está errado!");
-      console.log(error);
+      console.error(error);
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   const singUp = async (body: iUserRegister) => {
-    setLoading(true)
+    setLoading(true);
     try {
       const data = await register(body);
       toast.success("Cadastro concluído, faça login para continuar!");
@@ -85,7 +85,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       toast.error("Ops! Algo deu errado!");
       console.error(error);
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   const updateUsersList = async () => {
@@ -114,7 +114,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
           });
           updateUsersList();
         } catch (error) {
-          console.log(error);
+          console.error(error);
           window.localStorage.clear();
         }
       }
@@ -133,7 +133,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       setShowModal(null);
       window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -144,7 +144,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         userId: id,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

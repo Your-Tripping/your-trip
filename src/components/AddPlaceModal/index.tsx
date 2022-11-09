@@ -4,8 +4,8 @@ import { iPlace } from "../../contexts/TrippingContext";
 import { placeSchema } from "../../validation/trip";
 
 import { GrClose } from "react-icons/gr";
-import { Error } from "../ErrorMessage/formError.style";
 
+import { Error } from "../ErrorMessage/formError.style";
 import { Button } from "../Button/button.style";
 import { Input } from "../Input/input.style";
 import { Container } from "../Loading/loading.style";
@@ -79,7 +79,7 @@ const AddPlace = ({
           <Input placeholder="titulo" {...register("name")} />
         </label>
         <label>
-          Url de imagm:
+          Url de imagem:
           <Error>{errors.image?.message}</Error>
           <Input placeholder="Url da imagem" {...register("image")} />
         </label>

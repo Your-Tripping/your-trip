@@ -1,12 +1,12 @@
-import { Button } from "../../components/Button/button.style";
-import Followers from "../../components/FollowersCard";
-import { Header } from "../../components/Header";
-import Trip from "../../components/TrippingCard";
 import { useTripContext } from "../../contexts/TrippingContext";
 import { useUserContext } from "../../contexts/UserContext";
+
+import Followers from "../../components/FollowersCard";
+import Header from "../../components/Header";
+import Trip from "../../components/TrippingCard";
 import * as S from "./Dashboard.style";
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const { showRandom, posts, randomPost, setShowRandom } = useTripContext();
   const { usersList, user } = useUserContext();
 
@@ -62,3 +62,5 @@ export const Dashboard = () => {
     </S.BodyDashboard>
   );
 };
+
+export default Dashboard;

@@ -7,7 +7,7 @@ export const LiCard = styled.li`
   flex-direction: column;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.grey.grey1};
-
+  margin-bottom: 20px;
   .Profile::before {
     content: "";
     width: 100%;

@@ -73,8 +73,6 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const [followUser, setFollowUser] = useState([] as iFollower[]);
   const [currentPost, setCurrentPost] = useState({} as iPost);
 
-  const { setShowModal } = useUserContext();
-
   const navigate = useNavigate();
 
   const cachePosts = async () => {
@@ -128,24 +126,22 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Rota: Seguir usuário:
   const follow = (body: iFollower) => {
     try {
       api.post("/followers", body);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
     cachePosts();
   };
 
-  // Rota: Seguir usuário:
   const unfollow = (id: string | number) => {
-    console.log(id);
+
     try {
       api.delete(`/followers/${id}`);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
     cachePosts();

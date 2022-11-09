@@ -1,9 +1,10 @@
 import EditProfile from "../../components/EditProfileModal";
+import { useTripContext } from "../../contexts/TrippingContext";
+import { useUserContext } from "../../contexts/UserContext";
+
 import Trip from "../../components/TrippingCard";
 import { ReactComponent as YourTrip } from "../../assets/img/YourTrip.svg";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import { useTripContext } from "../../contexts/TrippingContext";
-import { useUserContext } from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
 import * as S from "./userProfile.style";
 import perfil from "../../assets/img/perfil.png"
@@ -11,6 +12,15 @@ export const UserPage = () => {
   const { showModal, setShowModal, user, handleFormDashboard } =
     useUserContext();
   const { userPosts, followUser } = useTripContext();
+
+  const following = followUser.filter(
+    (element) => element.followername === user?.user.name
+  );
+
+  const followers = followUser.filter(
+    (element) => element.username === user?.user.name
+  );
+
   return (
     <>
       <S.HeaderPage>
@@ -24,10 +34,11 @@ export const UserPage = () => {
       </S.HeaderPage>
       {showModal === "editProfile" && <EditProfile />}
       <S.MainUserPage>
-        <S.informationUser>
+        <S.InformationUser>
           <img src={user?.user.imageUrl} alt="Imagem" onError={(event:any)=>{event.target.src = perfil}}/>
           <h2>{user?.user.name}</h2>
-          <p>{followUser.length} seguidores</p>
+          <p>{following.length} Seguindo</p>
+          <p>{followers.length} Seguidores</p>
           <p>{user?.user.bio}</p>
           <S.EditProfile
             onClick={() => {
@@ -38,7 +49,7 @@ export const UserPage = () => {
           >
             Editar perfil
           </S.EditProfile>
-        </S.informationUser>
+        </S.InformationUser>
         <section>
           <S.Posts>
             <h2>Posts: </h2>
