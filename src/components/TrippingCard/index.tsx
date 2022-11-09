@@ -34,7 +34,7 @@ const Trip = ({ post }: { post: iPost }) => {
           <h2>{post.username}</h2>
         </div>
         <div>
-          {idToken !== post.userId && <button>Seguir</button>}
+          {idToken == post.userId ? null : <button>Seguir</button>}
           <IoEllipsisHorizontalOutline />
         </div>
       </S.SectionProfile>

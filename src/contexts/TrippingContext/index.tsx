@@ -61,10 +61,12 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   const cachePosts = async () => {
     const { data: postsData } = await api.get("/posts");
     setPosts(postsData);
+
     const { data: userPostsData } = await api.get(
-      `/posts/?userId=${localStorage.getItem("userId")}`
+      `/posts/?userId=${window.localStorage.getItem("@user: id")}`
     );
     setUserPosts(userPostsData);
+    console.log(userPosts);
     const { data: follower } = await api.get(
       `/followers/?${window.localStorage.getItem("@user: id")}`
     );

@@ -74,6 +74,7 @@ export const SectionProfile = styled.section`
 
 export const SectionSlideshow = styled.section`
   width: 100%;
+  min-width: 250px;
 
   h2 {
     padding: 0 0 15px 20px;
@@ -85,10 +86,9 @@ export const SectionSlideshow = styled.section`
   div {
     width: 100%;
     position: relative;
-
     img {
+      height: 350px;
       width: 100%;
-      height: 600px;
       object-fit: cover;
     }
 
