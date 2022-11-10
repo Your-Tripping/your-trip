@@ -137,7 +137,6 @@ const TrippingProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const unfollow = (id: string | number) => {
-
     try {
       api.delete(`/followers/${id}`);
     } catch (error) {

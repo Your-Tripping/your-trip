@@ -11,19 +11,19 @@ const Header = () => {
 
   return (
     <S.HeaderDashboard>
-      <YourTrip className="icon" />
-      <SearchBar />
-      <S.UserInfo>
-        <div>
-          <section>
+      <S.Container>
+        <YourTrip className="icon" />
+        <SearchBar />
+        <S.UserInfo>
+          <div>
             <p>Olá, {user?.user.name}</p>
             <button onClick={() => setProfile(true)} type="button">
               <img src={user?.user.imageUrl} alt="Imagem" />
             </button>
-          </section>
+          </div>
           {profile && <OptionsProfile setProfile={setProfile} />}
-        </div>
-      </S.UserInfo>
+        </S.UserInfo>
+      </S.Container>
     </S.HeaderDashboard>
   );
 };

@@ -22,6 +22,7 @@ const Trip = ({ post }: { post: iPost }) => {
   const [placeIndex, setPlaceIndex] = useState<number>(0);
   const [isLikes, setIsLikes] = useState<boolean>(true);
   const [defaultImage, setDefaultImage] = useState<boolean>(false);
+  const [viewMore, setViewMore] = useState<boolean>(true);
 
   const navigate = useNavigate();
 
@@ -36,6 +37,8 @@ const Trip = ({ post }: { post: iPost }) => {
   };
 
   const prev = () => placeIndex > 0 && setPlaceIndex(placeIndex - 1);
+
+  const characters = post.places[placeIndex].description.length > 68;
 
   return (
     <S.LiCard>
@@ -84,8 +87,20 @@ const Trip = ({ post }: { post: iPost }) => {
             <p>{post.country}</p>
           </div>
         </div>
+
         <h3>{post.places[placeIndex].name}</h3>
-        <p>{post.places[placeIndex].description}</p>
+
+        {viewMore ? (
+          <p>{post.places[placeIndex].description}</p>
+        ) : (
+          <p className="paragraph">{post.places[placeIndex].description}</p>
+        )}
+
+        {characters && (
+          <span onClick={() => setViewMore(!viewMore)}>
+            {viewMore && "…ver mais"}
+          </span>
+        )}
       </S.SectionSlideshow>
       <S.SectionLinks>
         <div>
