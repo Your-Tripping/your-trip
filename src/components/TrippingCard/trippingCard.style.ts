@@ -113,6 +113,7 @@ export const SectionSlideshow = styled.div`
   }
   p {
     font-size: ${({ theme }) => theme.typography.sizes.size4};
+    word-break: break-word;
   }
 `;
 

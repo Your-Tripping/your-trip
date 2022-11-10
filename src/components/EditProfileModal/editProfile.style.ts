@@ -20,7 +20,6 @@ export const Container = styled.div`
 `;
 
 export const RegisterForm = styled(Form)`
-  width: 280px;
   border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.grey.grey1};
   padding: 1rem;
@@ -58,8 +57,9 @@ export const Label = styled.label`
 export const Exit = styled.button`
   background: none;
   font-size: 20px;
-  margin-left: 5px;
-  margin-top: 20px;
+  right: 0px;
+  top: 0px;
+  position: absolute;
 `;
 
 export const NewDiviser = styled(DiviserTwo)`
@@ -80,4 +80,12 @@ export const Diviser = styled.div`
   height: 1px;
   background: ${({ theme }) => theme.colors.grey.grey3};
   margin-bottom: 30px;
+`;
+
+export const EditHeader = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
