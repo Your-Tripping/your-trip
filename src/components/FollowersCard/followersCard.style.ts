@@ -1,11 +1,22 @@
 import styled from "styled-components";
 
 export const LiCard = styled.li`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
+
+  padding-right: 10px;
+
+  @media (max-width: 970px) {
+    flex-direction: column;
+    align-items: unset;
+  }
+
   @media (max-width: 768px) {
+    justify-content: unset;
+    height: 100%;
   }
 `;
 
@@ -24,6 +35,11 @@ export const DivUser = styled.div`
 
   h2 {
     font-size: ${({ theme }) => theme.typography.sizes.size2};
+    margin: 0;
+  }
+
+  @media (max-width: 970px) {
+    margin-bottom: 10px;
   }
 `;
 
