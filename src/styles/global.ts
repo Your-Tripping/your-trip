@@ -19,15 +19,29 @@ button{
 }
 
 body{
+  width: 100%;
+  height: 100vh;
+  
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-gutter: stable;
   background-image: url(${Map});
-  width: 100%;
-  height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: left bottom;
   background-attachment: fixed;
 }
+
+
+body::-webkit-scrollbar {
+  width: 15px;
+
+  border-radius: 20px;
+  border: 1px solid #C1C1C1;
+}
+
+  body::-webkit-scrollbar-thumb {
+    background-color: #079BAB;
+    border-radius: 20px;
+  }
 `;

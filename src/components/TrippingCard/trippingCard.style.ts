@@ -8,6 +8,7 @@ export const LiCard = styled.li`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.grey.grey1};
   margin-bottom: 20px;
+
   .Profile::before {
     content: "";
     width: 100%;
@@ -21,15 +22,19 @@ export const LiCard = styled.li`
 `;
 
 export const SectionProfile = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 60px;
   position: relative;
+
   div {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 8px;
+
     img {
       width: 46px;
       height: 46px;
@@ -37,6 +42,7 @@ export const SectionProfile = styled.div`
       border-radius: 50%;
     }
   }
+
   div + div {
     button {
       padding: 10px 20px;
@@ -54,6 +60,9 @@ export const SectionProfile = styled.div`
 `;
 
 export const SectionSlideshow = styled.div`
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
   h2 {
     font-size: ${({ theme }) => theme.typography.sizes.size3};
@@ -111,13 +120,37 @@ export const SectionSlideshow = styled.div`
     color: ${({ theme }) => theme.colors.brand.primary};
     font-size: ${({ theme }) => theme.typography.sizes.size3};
   }
+
   p {
+    max-width: 80ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: ${({ theme }) => theme.typography.sizes.size4};
     word-break: break-word;
+  }
+
+  .paragraph {
+    width: 100%;
+    overflow: unset;
+    text-overflow: unset;
+    white-space: unset;
+    word-break: break-word;
+    max-width: unset;
+
+    margin-bottom: 8px;
+  }
+
+  span {
+    align-self: flex-end;
+    font-size: ${({ theme }) => theme.typography.sizes.size3};
+
+    cursor: pointer;
   }
 `;
 
 export const SectionLinks = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 1rem 0;
@@ -135,6 +168,7 @@ export const SectionLinks = styled.div`
 `;
 
 export const SectionLomments = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   input {
