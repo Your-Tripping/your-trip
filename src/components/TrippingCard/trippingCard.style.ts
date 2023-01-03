@@ -127,6 +127,7 @@ export const SectionSlideshow = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: ${({ theme }) => theme.typography.sizes.size4};
+    word-break: break-word;
   }
 
   .paragraph {

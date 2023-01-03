@@ -22,7 +22,7 @@ const EditProfile: React.FC = () => {
   return (
     <S.Container>
       <S.RegisterForm background onSubmit={handleSubmit(editProfile)}>
-        <div>
+        <S.EditHeader>
           <S.Exit
             onClick={() => {
               setShowModal(null);
@@ -36,7 +36,7 @@ const EditProfile: React.FC = () => {
             Atualizar dados
           </S.Title>
           <S.NewDiviser />
-        </div>
+        </S.EditHeader>
         <S.Label htmlFor="name">Nome</S.Label>
         <Error>{errors?.name?.message}</Error>
         <Input
