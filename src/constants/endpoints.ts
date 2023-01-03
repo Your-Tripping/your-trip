@@ -1,1 +1,1 @@
-export const baseUrl = "https://your-tripping-api.herokuapp.com"
+export const baseUrl = "https://yourtrip.onrender.com"
